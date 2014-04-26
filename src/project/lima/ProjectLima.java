@@ -4,9 +4,13 @@
  */
 package project.lima;
 
+import project.card.*;
+import project.deck.*;
+
+
 /**
  *
- * @author Eric
+ * @author Team Lima
  */
 public class ProjectLima {
 
@@ -15,5 +19,9 @@ public class ProjectLima {
 	 */
 	public static void main(String[] args) {
 		// TODO code application logic here
+		
+		
+		
+		
 	}
 }
