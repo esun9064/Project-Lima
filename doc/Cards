@@ -14,10 +14,10 @@ Cards                         Cost                Attack      Health     Effect
 
 Lakefill Goose                1                   2           1
 Saferide Car                  1                   1           2 
-University Squirrel           1                   0           4         (doesn't obey sum rule, but its still balanced since attack is literally zero
+University Squirrel           1                   0           4         
 The Rock                      1                                         An enemy card's attack is changed to 1
 EECS Midterm                  1                                         Subtract 1/8 of opposing player's total GPA (HP)
-Lake Seagull                  1                   2           1
+Lake Seagull                  1                   1           1         Deal 1 damage to an opposing player's card
 
 Lakefill Pond Carp            2                   1           3
 Burger King                   2                   4           1
@@ -29,6 +29,7 @@ Lunt Hall                     3                   2           4
 Harris Hall                   3                   1           5
 Norris                        3                   4           2
 Evanston Raccoon              3                   3           3
+Campus Skunk                  3                   2           1         Deal 1 damage to all opposing cards
 Fire Drill                    3                                         Return all cards to their respective owners' hand
 
 Dearborn Observatory          4                   3           5
