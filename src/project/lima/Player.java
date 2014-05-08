@@ -18,6 +18,7 @@ public class Player {
 	private String name;
 	private DeckofCards deck;
 	private ArrayList<Card> hand = new ArrayList<Card>(10);
+	private ArrayList<Card> board = new ArrayList<Card>(7);
 	private int currentCredits;
 	private final int maxCredits = 50;
 	private int wcp;
@@ -70,32 +71,41 @@ public class Player {
 	public void draw()
 	{
 		if (hand.size() < 10)
-			hand.add(deck.deal());
+			hand.add(deck.dealCard());
 	}
 	
-	public Card playCard(String name) throws RuntimeException
+	public Card playCard(int index) throws RuntimeException
 	{
-		int length = hand.size();
-		for (int i = 0 ; i < length ; i++)
+		//int length = hand.size();
+		//for (int i = 0 ; i < length ; i++)
+		//{
+		//	if (hand.get(i).getName().equals(name))
+			
+		if (hand.get(index).getCost() <= wcp)
 		{
-			if (hand.get(i).getName().equals(name))
-			{
-				if (hand.get(i).getCost() <= wcp)
-				{
-					wcp -= hand.get(i).getCost();
-					Card temp = hand.get(i);
-					hand.remove(i);
-					return temp;
-				}
-				else
-					throw new MuchCostException("Card cost too much!");
-			}
+			wcp -= hand.get(index).getCost();
+			Card temp = hand.get(index);
+			hand.remove(index);
+			return temp;
 		}
-		throw new NotInHandException("Card is not in hand!");
+		else
+			throw new MuchCostException("Card cost too much!");
+			
+				
 	}
 	
-	public void setCredits(int credit)
+	public void addCardtoHand(int index)
 	{
-		this.currentCredits = credit;
-	}	
+		if (hand.size() <= 10)
+			hand.add(board.get(index));
+		board.remove(index);
+	}
+	
+	public void addCardtoBoard(Card card)
+	{
+		if (board.size() <= 7)
+			board.add(card);
+	}
+
+	
 }
