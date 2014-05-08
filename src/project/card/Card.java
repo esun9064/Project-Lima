@@ -9,13 +9,13 @@ import java.awt.image.BufferedImage;
  */
 public class Card {
 	
-    public enum ability{damage, rethand, friendbuff, heal;}
+    public enum ability{damage, rethand, friendbuff, heal, lowerattack};  // five types of card abilities
     
-	private String name;
+	private String name;   
 	private int cost;
 	private BufferedImage image;
-        private String description;
-	private ability ability;
+        private String description;   //description of ability
+	private ability ability;    // implementation of ability 
         
         
 	public Card(String name, int cost, BufferedImage image, String d, ability a)
@@ -37,7 +37,7 @@ public class Card {
         }
         
         
-            public int getCost(){
+        public int getCost(){
             return cost;
         }
         
@@ -45,7 +45,7 @@ public class Card {
             this.cost = c;
         }    
          
-            public BufferedImage getImage(){
+        public BufferedImage getImage(){
             return image;
         }
         
@@ -53,7 +53,7 @@ public class Card {
             this.image = i;
         }  
         
-            public String getDesc(){
+        public String getDesc(){
             return description;
         }
         
