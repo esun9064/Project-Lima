@@ -22,6 +22,15 @@ public class Player {
 	private int currentCredits;
 	private final int maxCredits = 50;
 	private int wcp;
+	private final int initwcp = 5;
+	
+	public Player(String name, DeckofCards deck)
+	{
+		this.name = name;
+		this.deck = deck;
+		currentCredits = maxcredits;
+		wcp = initwcp;
+	}
 	
 	public String getName() 
 	{
@@ -36,6 +45,12 @@ public class Player {
 	public ArrayList<Card> getHand()
 	{
 		return this.hand;		
+	}
+	
+		
+	public ArrayList<Board> getBoard()
+	{
+		return this.board();
 	}
 	
 	public int getCredits()
@@ -107,5 +122,8 @@ public class Player {
 			board.add(card);
 	}
 
-	
+	public void removeCardFromBoard(int index)
+	{
+		board.remove(index);
+	}
 }
