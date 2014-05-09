@@ -83,7 +83,7 @@ public class DeckofCards implements DeckofCardsInterface{
 	{
 		String deckstring = "";
    	 int index = 0;   
-   	 for ( int i = 0; i < (numCards - numDealt); i++ ) {
+   	 for ( int i = 0; i < (cardsLeft()); i++ ) {
                 
    		deckstring += (deck[index++] + "\n");
 	}
