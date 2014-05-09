@@ -13,36 +13,42 @@ an idea for a card without any values if you just want to jot an idea down.
 Cards                         Cost                Attack      Health     Effect
 
 Lakefill Goose                1                   2           1
-Saferide Car                  1                   1           2 
-University Squirrel           1                   0           4         
+Saferide Car                  1                   1           3 
+University Squirrel           1                   1           2         Lower an opposing card's attack by 1
 The Rock                      1                                         An enemy card's attack is changed to 1
-EECS Midterm                  1                                         Subtract 1/8 of opposing player's total GPA (HP)
+EECS Midterm                  1                                         Deal 5 credits to opposing player
 Lake Seagull                  1                   1           1         Deal 1 damage to an opposing player's card
+Dormitory Ant                 1                   0           1         Give all friendly cards +2 health
 
 Lakefill Pond Carp            2                   1           3
 Burger King                   2                   4           1
 Lisa's Cafe                   2                   2           3
 Winter Blizzard               2                                         Deal 1 Damage to All enemy cards
 NU Police                     2                   3           2
+Elusive Rabbit                2                   1           1         Return an opposing card to opponent's hand
 
 Lunt Hall                     3                   2           4
 Harris Hall                   3                   1           5
-Norris                        3                   4           2
+Norris Center                 3                   4           2
 Evanston Raccoon              3                   3           3
-Campus Skunk                  3                   2           1         Deal 1 damage to all opposing cards
+Campus Skunk                  3                   3           4         Deal 1 damage to all cards
 Fire Drill                    3                                         Return all cards to their respective owners' hand
+House Centipede               3                   4           1         Deal 2 damage to an opposing card
+Allison Hall                  3                   2           3         Heal a friendly card by 2 health
 
 Dearborn Observatory          4                   3           5
 Kellogg                       4                   5           3
+Bobb-McCulloch Hall           4                   3           3         Heal a friendly card by 3 health
 Kresge Centennial             4                   4           4
-Deering Meadow                4                   2           6
+Deering Meadow                4                   1           6         Return an opposing card to player's hand
 SPAC                          4                   6           2                  
-Polar Vortex                  4                                        Deal 3 damage to all enemy cards
+Polar Vortex                  4                                         Deal 3 damage to all enemy cards
+Beach Day!                    4                                         Heal all friendly cards by 3
 
 The Crane                     5                   8           1
 Technological Institute       5                   4           6
 Ryan Field                    5                   3           7
 Chicago's Orange Glow         5                                        Deal 4 damage to an enemy, and draw a card
-                  
+DilloDay                      5                                        Deals 12 damage to opposing player
 
 
