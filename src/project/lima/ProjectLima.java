@@ -30,20 +30,7 @@ public class ProjectLima {
 	public static void main(String[] args) {
 		// TODO code application logic here
 		
-            BufferedImage img = null;
-    {
-        try {
-            img = ImageIO.read(new File("/Users/benjaminstrick/Desktop/214 IMAGES/Allison Hall.jpeg"));
-        } catch (IOException ex) {
-            Logger.getLogger(ActualCards.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-            
-            
-            Card LakefillGoose = new Card("Lakefill Goose", 1, 
-            img, "none", Card.ability.none);
-            
-		System.out.println(LakefillGoose);
+           
 		
 		
 	}

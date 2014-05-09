@@ -9,9 +9,18 @@ import java.awt.image.BufferedImage;
  */
 public class Card {
 	
-    public enum ability{damage, rethand, friendbuff, heal, lowerattack, none}  // six types of card abilities
+    public enum ability{STdamage1, STdamage2, STdamage3, STdamage6, 
+    AOEdamage1, AOEedamage1, AOEedamage3, OPdamage5, OPdamage12, 
+    STreturnhand, STheal1, STheal2, STheal3, AOEfhealthbuff2, STattackbuff1, 
+    AOEfheal3, STlowerattackto1, STlowerattackby1, firedrill, none}  // many types of card abilities
+    //ST denotes single target
+    //OP denotes an effect on the opposing player
+    // aoe denotes area of effect attack
+    // AOEf affects friendly cards
+    //AOEe affects enemy cards
+    //firedrill has its own unique ability, returning all cards to owners' hand.  just named firedrill here
     
-	private String name;   
+	String name;   
 	private int cost;
 	private BufferedImage image;
         private String description;   //description of ability

@@ -23,20 +23,18 @@ import project.card.Card.ability;
  */
 public class ActualCards {
     
-    
-    BufferedImage img = null;
+
+
+    BufferedImage gooseimg = null;
     {
         try {
-            img = ImageIO.read(new File("/Users/benjaminstrick/Desktop/214 IMAGES/Allison Hall.jpeg"));
+            gooseimg = ImageIO.read(new File("/Users/benjaminstrick/Desktop/214 IMAGES/Lakefill Goose.jpeg"));
         } catch (IOException ex) {
             Logger.getLogger(ActualCards.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-
+    RegCard LakefillGoose = new RegCard("Lakefill Goose", 1, gooseimg, 2, 1, "", ability.none);
     
-    Card LakefillGoose = new Card("Lakefill Goose", 1, 
-            img, "none", ability.none);
-    
-    
+       
 }
