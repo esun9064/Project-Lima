@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
  */
 public class Card {
 	
-    public enum ability{damage, rethand, friendbuff, heal, lowerattack};  // five types of card abilities
+    public enum ability{damage, rethand, friendbuff, heal, lowerattack, none}  // six types of card abilities
     
 	private String name;   
 	private int cost;
@@ -67,6 +67,16 @@ public class Card {
         
         public void setAbility(ability a){
             this.ability = a;
+        }
+        
+    
+    @Override
+        public String toString(){
+            String x;
+        x = ("name: " + name + "\n cost: " + cost + "\n image: " + image + "\n description: " + description + "\n ability: " + ability);
+            
+            return x;
+            
         }
 }
         
