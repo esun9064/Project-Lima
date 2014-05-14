@@ -21,4 +21,32 @@ public class RegCard extends Card {
 		this.attack = attack;
 		this.health = health;
 	}
-}
+        
+        public int getAttack(){
+            return attack;
+        }
+        
+        public void setAttack(int at){
+            this.attack = at;
+        }
+        
+        public int getHealth(){
+            return health;
+        }
+        
+        public void setHealth(int h){
+            this.health = h;
+        }
+        
+        public String toString(){
+                String x;
+        x = ("name: " + getName() + "\n cost: " + getCost() + 
+                "\n image: " + getImage() + "\n attack: " + getAttack() + "\n health: " 
+                + getHealth() + "\n description: " + getDesc() + "\n ability: " + getAbility());
+            
+            return x;
+            
+        }
+            
+        }
+
