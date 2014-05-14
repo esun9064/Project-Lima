@@ -27,6 +27,7 @@ public class CardTest {
     /**
      * @param args the command line arguments
      */
+	/* Want to test some stuff out
     public static void main(String[] args) {
         // TODO code application logic here
         
@@ -35,6 +36,7 @@ public class CardTest {
         try {
             img = ImageIO.read(new File("/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/214IMAGES/Lakefill Goose.jpeg"));
             // not sure how to reference the files in respect to the folder in the project folder, have to use your full extension
+			// it will default to your project folder so just do this src/project/214IMAGES/
         } catch (IOException ex) {
             Logger.getLogger(ActualCards.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,5 +50,5 @@ public class CardTest {
         
         
     }
-    
+    */
 }
