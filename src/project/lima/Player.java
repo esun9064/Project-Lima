@@ -28,7 +28,7 @@ public class Player {
 	{
 		this.name = name;
 		this.deck = deck;
-		currentCredits = maxcredits;
+		currentCredits = maxCredits;
 		wcp = initwcp;
 	}
 	
@@ -48,9 +48,9 @@ public class Player {
 	}
 	
 		
-	public ArrayList<Board> getBoard()
+	public ArrayList<Card> getBoard()
 	{
-		return this.board();
+		return this.board;
 	}
 	
 	public int getCredits()
