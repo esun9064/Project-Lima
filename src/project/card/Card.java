@@ -12,9 +12,12 @@ public class Card {
     public static enum ability 
 	{
 		NONE(0), STdamage1(1), STdamage2(2), STdamage3(3), STdamage6(4),
-    AOEdamage1(5), AOEedamage1(6), AOEedamage3(7), OPdamage5(8), OPdamage12(9),
+    AOEdamage1(5), AOEedamage1(6), AOEedamage3(7), OPdamage5(8), OPdamage14(9),
     STreturnhand(10), STheal1(11), STheal2(12), STheal3(13), AOEfhealthbuff2(14), STattackbuff1(15),
-    AOEfheal3(16), STlowerattackto1(17), STlowerattackby1(18), firedrill(19);
+    AOEfheal3(16), STlowerattackto1(17), STlowerattackby1(18), firedrill(19), destroyallfriendlies(20),
+    selfdamage3(21), STincattack1(22), STincattack3(23), selfheal2(24), AOEfincdamage1(25), OPDamage9(26),
+    AOEfheal1(27), selfheal10(28), george(29), selfdamage7(30), AOEfinchealth3(31);
+    ;
 				
 		final int id;
 		ability (int id)
