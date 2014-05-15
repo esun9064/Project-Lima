@@ -9,7 +9,7 @@ import project.card.Card;
  */
 public class DeckofCards implements DeckofCardsInterface{
 	
-	public static int numCards = 52;
+	public static int numCards;
 	private Card[] deck;			//deck of cards, top of deck is at index 0
 	private int numDealt;			//number of cards dealt
 	
@@ -81,9 +81,13 @@ public class DeckofCards implements DeckofCardsInterface{
 	 */
 	public String toString()
 	{
-		String str = "";
-		//incomplete
-		return str;
-	}	
+		String deckstring = "";
+   	 int index = 0;   
+   	 for ( int i = 0; i < (cardsLeft()); i++ ) {
+                
+   		deckstring += (deck[index++] + "\n");
+	}
+         return ( deckstring );
+        }
 	
 }

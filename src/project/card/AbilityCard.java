@@ -14,9 +14,9 @@ public class AbilityCard extends Card {
 	
 	private int ability;
 
-	public AbilityCard(String name, int cost, BufferedImage image, int ability)
+	public AbilityCard(String name, int cost, BufferedImage image, int ability, String d, ability a)
 	{
-		super(name, cost, image);
-		this.ability = ability;
+		super(name, cost, image, d, a);
+		
 	}
 }
