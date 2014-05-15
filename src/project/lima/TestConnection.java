@@ -4,17 +4,29 @@
  */
 package project.lima;
 
+import project.lib.Server;
+
+import java.io.BufferedReader;   
+import java.io.IOException;   
+import java.io.InputStreamReader;   
+import java.io.PrintStream;   
+import java.net.Socket;   
+import java.net.UnknownHostException;   
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Eric
  */
-public class BoardGui extends javax.swing.JFrame {
-
+public class TestConnection extends javax.swing.JFrame {
+        public Socket clientLink; 
 	/**
 	 * Creates new form BoardGui
 	 */
-	public BoardGui() {
+	public TestConnection() throws IOException {
 		initComponents();
+//                 clientLink = new Socket("127.0.0.1",8888);
 	}
 
 	/**
@@ -26,21 +38,119 @@ public class BoardGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ChatWindow = new javax.swing.JTextPane();
+        InputTxt = new javax.swing.JTextField();
+        Send = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        OpenServer = new javax.swing.JButton();
+        ConnectServer = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        ChatWindow.setName("ChatWindow"); // NOI18N
+        jScrollPane1.setViewportView(ChatWindow);
+
+        Send.setText("Send");
+
+        jButton3.setText("Clear");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Send)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addComponent(InputTxt))
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Send)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(InputTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+
+        OpenServer.setText("Open Server");
+        OpenServer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OpenServerMouseClicked(evt);
+            }
+        });
+
+        ConnectServer.setText("Connect Server");
+        ConnectServer.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ConnectServerMouseClicked(evt);
+            }
+        });
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(OpenServer)
+                        .addGap(18, 18, 18)
+                        .addComponent(ConnectServer)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(OpenServer)
+                    .addComponent(ConnectServer))
+                .addGap(1, 1, 1)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void OpenServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OpenServerMouseClicked
+        // TODO add your handling code here:
+            Server server = new Server();   
+            server.runServer(); 
+            ChatWindow.setText("Server Opened port:"+8888);
+    }//GEN-LAST:event_OpenServerMouseClicked
+
+    private void ConnectServerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConnectServerMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConnectServerMouseClicked
 
 	/**
 	 * @param args the command line arguments
@@ -59,23 +169,38 @@ public class BoardGui extends javax.swing.JFrame {
 				}
 			}
 		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(BoardGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(TestConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(BoardGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(TestConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(BoardGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(TestConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(BoardGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+			java.util.logging.Logger.getLogger(TestConnection.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 		}
 		//</editor-fold>
 
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new BoardGui().setVisible(true);
+                            try {
+                                new TestConnection().setVisible(true);
+                            } catch (IOException ex) {
+                                Logger.getLogger(TestConnection.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 		});
 	}
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane ChatWindow;
+    private javax.swing.JButton ConnectServer;
+    private javax.swing.JTextField InputTxt;
+    private javax.swing.JButton OpenServer;
+    private javax.swing.JButton Send;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
