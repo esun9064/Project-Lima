@@ -14,27 +14,38 @@ Cards                         Cost                Attack      Health     Effect
 
 Lakefill Goose                1                   2           1
 Saferide Car                  1                   1           3 
+Anna Gunn                     1                   3           1          
 University Squirrel           1                   1           2         Lower an opposing card's attack by 1
 The Rock                      1                                         An enemy card's attack is changed to 1
 EECS Midterm                  1                                         Deal 5 credits to opposing player
 Lake Seagull                  1                   1           1         Deal 1 damage to an opposing player's card
 Dormitory Ant                 1                   0           1         Give all friendly cards +2 health
+William Jennings Bryant       1                   4           3         Destroys all friendly cards
+Rob Blagojevich               1                   2           3         Deal 3 credits to player who played this card
 
-Lakefill Pond Carp            2                   1           3
+Lakefill Pond Carp            2                   0           5         Give a friendly card +3 attack
+Pat Fitzgerald                2                   2           2         Give a friendly card +1 attack
 Burger King                   2                   4           1
 Lisa's Cafe                   2                   2           3
+Rahm Emanuel                  2                   1           4
 Winter Blizzard               2                                         Deal 1 Damage to All enemy cards
 NU Police                     2                   3           2
+Seth Meyers                   2                   1           1         Deal 3 Damage to an enemy card
 Elusive Rabbit                2                   1           1         Return an opposing card to opponent's hand
+Deering Library               2                   1           2         Heals player by 2 credits
 
 Lunt Hall                     3                   2           4
 Harris Hall                   3                   1           5
 Norris Center                 3                   4           2
-Evanston Raccoon              3                   3           3
+Evanston Raccoon              3                   3           2         Deal 1 damage to an enemy card
 Campus Skunk                  3                   3           4         Deal 1 damage to all cards
 Fire Drill                    3                                         Return all cards to their respective owners' hand
 House Centipede               3                   4           1         Deal 2 damage to an opposing card
 Allison Hall                  3                   2           3         Heal a friendly card by 2 health
+Pick Staiger                  3                   3           3
+Willie the WildCat            3                   1           4         All friendly cards have +1 attack
+University Library            3                   2           4
+Organic Chemistry             3                                         Deal 9 credits to enemy player
 
 Dearborn Observatory          4                   3           5
 Kellogg                       4                   5           3
@@ -44,11 +55,16 @@ Deering Meadow                4                   1           6         Return a
 SPAC                          4                   6           2                  
 Polar Vortex                  4                                         Deal 3 damage to all enemy cards
 Beach Day!                    4                                         Heal all friendly cards by 3
+Dolphin Show                  4                   4           2         Heals all friendly cards by 1
+Norbucks                                                                Heal player 10 credits
 
 The Crane                     5                   8           1
+George R.R. Martin            5                   0          10         After two turns, morphs into a 10 10 dragon
+Charlton Heston               5                   7           7         Deal 7 damage to player who played this card
+Stephen Colbert               5                   5           5
 Technological Institute       5                   4           6
 Ryan Field                    5                   3           7
 Chicago's Orange Glow         5                                        Deal 6 damage to an enemy
-DilloDay                      5                                        Deals 12 damage to opposing player
-
+DilloDay                      5                                        Deals 14 damage to opposing player
+Cindy Crawford                5                   4           4        Give all friendly cards +3 total health
 
