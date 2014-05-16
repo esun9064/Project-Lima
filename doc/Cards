@@ -12,9 +12,9 @@ an idea for a card without any values if you just want to jot an idea down.
 
 Cards                         Cost                Attack      Health     Effect
 
-Lakefill Goose                1                   2           1
+Lakefill Goose                1                   2           2
 Saferide Car                  1                   1           3 
-Anna Gunn                     1                   3           1          
+Anna Gunn                     1                   3           1                
 University Squirrel           1                   1           2         Lower an opposing card's attack by 1
 The Rock                      1                                         An enemy card's attack is changed to 1
 EECS Midterm                  1                                         Deal 5 credits to opposing player
@@ -50,7 +50,7 @@ Organic Chemistry             3                                         Deal 9 c
 Dearborn Observatory          4                   3           5
 Kellogg                       4                   5           3
 Bobb-McCulloch Hall           4                   3           3         Heal a friendly card by 3 health
-Kresge Centennial             4                   4           4
+Kresge Centennial             4                   4           4         Reduce an enemy card's attack by 1
 Deering Meadow                4                   1           6         Return an opposing card to player's hand
 SPAC                          4                   6           2                  
 Polar Vortex                  4                                         Deal 3 damage to all enemy cards
