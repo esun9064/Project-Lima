@@ -14,18 +14,25 @@ public class DeckofCards implements DeckofCardsInterface{
 	private int numDealt;			//number of cards dealt
 	
 	/**
-	 * Initializes DeckofCards to contain set number of cards in ascending order.
-	 * Order goes Ace of Clubs, Ace of Diamonds, Ace of Hearts, Ace of Spades,
-	 * then 2 of Clubs, 2 of Diamonds, 2 of Hearts, 2 of Spades, and so on.
-	 * Sets numDealt to 0.
+	 * Creates new DeckofCards from a standard base deck.
+	 * Builds new deck by randomly choosing cards from the base deck.
+	 * Based deck created in Board.java method initCards() method.
+	 * Precondition: size is smaller than baseDeck.length
 	 * @param size size of deck
+	 * @param baseDeck deck from which this deck is build from
 	 */
-	public DeckofCards(int size)		
+	public DeckofCards(int size, Card[] baseDeck)		
 	{
 		numCards = size;
 		//create ordered deck of cards
 		deck = new Card[numCards];
-		
+		int len = baseDeck.length;
+		int j;
+		for (int i = 0; i < numCards; i++)
+		{
+			j = (int) (len * Math.random());
+			deck[i] = baseDeck[j];
+		}
 	}
 	
 	/**
@@ -82,12 +89,16 @@ public class DeckofCards implements DeckofCardsInterface{
 	public String toString()
 	{
 		String deckstring = "";
-   	 int index = 0;   
-   	 for ( int i = 0; i < (cardsLeft()); i++ ) {
-                
-   		deckstring += (deck[index++] + "\n");
+		int index = 0;
+		for ( int i = 0; i < (cardsLeft()); i++ ) {
+			
+			deckstring += (deck[index++] + "\n");
+		}
+		return ( deckstring );
 	}
-         return ( deckstring );
-        }
 	
+	public Card[] getDeck()
+	{
+		return deck;
+	}
 }

@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-import project.card.Card.ability;
 
 /**
  *

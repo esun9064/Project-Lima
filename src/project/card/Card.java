@@ -8,11 +8,21 @@ import java.awt.image.BufferedImage;
  * @author Team Lima
  */
 public class Card {
-	
-    public enum ability{STdamage1, STdamage2, STdamage3, STdamage6, 
-    AOEdamage1, AOEedamage1, AOEedamage3, OPdamage5, OPdamage12, 
-    STreturnhand, STheal1, STheal2, STheal3, AOEfhealthbuff2, STattackbuff1, 
-    AOEfheal3, STlowerattackto1, STlowerattackby1, firedrill, none}  // many types of card abilities
+
+    public static enum ability 
+	{
+		NONE(0), STdamage1(1), STdamage2(2), STdamage3(3), STdamage6(4),
+    AOEdamage1(5), AOEedamage1(6), AOEedamage3(7), OPdamage5(8), OPdamage12(9),
+    STreturnhand(10), STheal1(11), STheal2(12), STheal3(13), AOEfhealthbuff2(14), STattackbuff1(15),
+    AOEfheal3(16), STlowerattackto1(17), STlowerattackby1(18), firedrill(19);
+				
+		final int id;
+		ability (int id)
+		{
+			this.id = id;
+		}
+		
+	}  // many types of card abilities
     //ST denotes single target
     //OP denotes an effect on the opposing player
     // aoe denotes area of effect attack
@@ -23,7 +33,7 @@ public class Card {
 	String name;   
 	private int cost;
 	private BufferedImage image;
-        private String description;   //description of ability
+    private String description;   //description of ability
 	private ability ability;    // implementation of ability 
         
         
@@ -32,8 +42,8 @@ public class Card {
 		this.name = name;
 		this.cost = cost;
 		this.image = image;
-                this.description = d;
-                this.ability = a;
+        this.description = d;
+        this.ability = a;
 	}
 	
         // Getters and Setters

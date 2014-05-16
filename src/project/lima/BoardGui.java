@@ -53,12 +53,12 @@ public class BoardGui {
 
 		
 		JPanel enemyHand = new JPanel();
-		enemyHand.setBackground(Color.red);
+		enemyHand.setBackground(Color.black);
 		JPanel enemyTable = new JPanel();
-		enemyTable.setBackground(Color.blue);
+		enemyTable.setBackground(Color.red);
 		JPanel userHand = new JPanel();
 		JPanel userTable = new JPanel();
-		userTable.setBackground(Color.green);
+		userTable.setBackground(Color.yellow);
 		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -216,6 +216,11 @@ public class BoardGui {
 			};
 			
 			spacLabel.addMouseListener(cardListener);
+			kelloggLabel.addMouseListener(cardListener);
+			burgerLabel.addMouseListener(cardListener);
+			lakefillLabel.addMouseListener(cardListener);
+			beachLabel.addMouseListener(cardListener);
+			allisonLabel.addMouseListener(cardListener);
 
 		
 		
