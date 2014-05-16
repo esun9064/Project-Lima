@@ -2,6 +2,8 @@
 package project.card;
 
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import static project.lima.BoardGui.resizeImage;
 
 /**
  * Represents a single playing card.
@@ -32,16 +34,16 @@ public class Card {
     
 	String name;   
 	private int cost;
-	private BufferedImage image;
+	private ImageIcon image;
     private String description;   //description of ability
 	private ability ability;    // implementation of ability 
         
         
-	public Card(String name, int cost, BufferedImage image, String d, ability a)
+	public Card(String name, int cost, String image, String d, ability a)
 	{
 		this.name = name;
 		this.cost = cost;
-		this.image = image;
+		this.image = resizeImage(image, 100, 100);
         this.description = d;
         this.ability = a;
 	}
@@ -64,11 +66,11 @@ public class Card {
             this.cost = c;
         }    
          
-        public BufferedImage getImage(){
+        public ImageIcon getImage(){
             return image;
         }
         
-        public void setImage(BufferedImage i){
+        public void setImage(ImageIcon i){
             this.image = i;
         }  
         

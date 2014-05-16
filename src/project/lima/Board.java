@@ -38,7 +38,7 @@ public class Board {
 				String[] data = next.split(",");
 				String name = data[0];
 				int cost = Integer.parseInt(data[1]);
-				BufferedImage image = ImageIO.read(new File(data[3]));
+				String image = data[3];
 				int attack = Integer.parseInt(data[4]);
 				int health = Integer.parseInt(data[5]);
 				String description = data[6];
@@ -52,7 +52,7 @@ public class Board {
 				String[] data = next.split(",");
 				String name = data[0];
 				int cost = Integer.parseInt(data[1]);
-				BufferedImage image = ImageIO.read(new File(data[3]));
+				String image = data[3];
 				String description = data[4];
 				ability a = ability.valueOf(data[5]);
 				gameCards[i] = new AbilityCard(name, cost, image, description, a);

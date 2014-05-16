@@ -15,7 +15,7 @@ public class RegCard extends Card {
 	private int attack;
 	private int health;	
 	
-	public RegCard(String name, int cost, BufferedImage image, int attack, int health, String d, ability a)
+	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a)
 	{
 		super(name, cost, image, d, a);
 		this.attack = attack;

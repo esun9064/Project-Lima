@@ -22,7 +22,7 @@ import project.card.Card.ability;
  * @author benjaminstrick
  */
 public class ActualCards {
-    
+    /*
 
 
     BufferedImage gooseimg = null;
@@ -35,6 +35,5 @@ public class ActualCards {
     }
     
     public RegCard LakefillGoose = new RegCard("Lakefill Goose", 1, gooseimg, 2, 1, "", ability.NONE);
-    
-       
+    */
 }

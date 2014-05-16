@@ -19,6 +19,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import project.card.Card;
+import project.card.Card.ability;
+import project.card.RegCard;
 
 /**
  *
@@ -105,11 +108,11 @@ public class BoardGui {
 			eH.weightx = .1;
 			eH.gridy = 0;
 			userHand.add(allisonLabel, eH);			
-			ImageIcon lakefill = resizeImage("src/project/214IMAGES/Lakefill Goose.jpeg", 100, 100);
-			JLabel lakefillLabel = new JLabel(lakefill);
+			RegCard test1 = new RegCard("Lakefill Goose", 1, "src/project/214IMAGES/Lakefill Goose.jpeg", 2, 1, "", ability.NONE);
+			CardPanel handCard1 = new CardPanel(test1);
 			eH.gridx = 2;
 			eH.gridy = 0;
-			userHand.add(lakefillLabel, eH);	
+			userHand.add(handCard1, eH);	
 			ImageIcon burger = resizeImage("src/project/214IMAGES/Burger King.JPG", 100, 100);
 			JLabel burgerLabel = new JLabel(burger);
 			eH.gridx = 3;
@@ -175,14 +178,7 @@ public class BoardGui {
 			attkCard.add(card5);			
 			JMenuItem card6 = new JMenuItem("6");
 			attkCard.add(card6);			
-			JMenuItem card7 = new JMenuItem("7");
-			attkCard.add(card7);			
-			JMenuItem card8 = new JMenuItem("8");
-			attkCard.add(card8);			
-			JMenuItem card9 = new JMenuItem("9");
-			attkCard.add(card9);
 			
-					
 			
 			
 			MouseListener cardListener = new MouseListener()
@@ -218,7 +214,7 @@ public class BoardGui {
 			spacLabel.addMouseListener(cardListener);
 			kelloggLabel.addMouseListener(cardListener);
 			burgerLabel.addMouseListener(cardListener);
-			lakefillLabel.addMouseListener(cardListener);
+			handCard1.addMouseListener(cardListener);
 			beachLabel.addMouseListener(cardListener);
 			allisonLabel.addMouseListener(cardListener);
 
