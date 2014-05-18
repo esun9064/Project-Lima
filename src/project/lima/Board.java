@@ -31,7 +31,7 @@ public class Board {
 	{
 		//get regular card data
 		try {
-			Scanner scanner = new Scanner(new File("regularCards.txt"));
+			Scanner scanner = new Scanner(new File("src/doc/regularCards.txt"));
 			for (int i = 0 ; i < 50; i ++)				//get regular cards
 			{
 				String next = scanner.nextLine();

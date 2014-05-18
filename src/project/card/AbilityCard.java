@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
  */
 public class AbilityCard extends Card {
 	
-	private int ability;
 
 	public AbilityCard(String name, int cost, String image, String d, ability a)
 	{

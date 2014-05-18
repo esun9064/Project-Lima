@@ -17,8 +17,14 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import project.card.AbilityCard;
 import project.card.Card;
 import project.card.Card.ability;
 import project.card.RegCard;
@@ -29,8 +35,54 @@ import project.card.RegCard;
  */
 public class BoardGui {
 	
-	static JPopupMenu attkMenu = new JPopupMenu();
+	public static JPopupMenu attkMenu = new JPopupMenu();
+	public static Card[] gameCards = new Card[50];
 	
+	/**
+	 * Retrieves information about cards from text file, creates actual cards used in the game.
+	 */
+	public static void initCards()
+	{
+		//get regular card data
+		try {
+			Scanner scanner = new Scanner(new File("doc/Master RegCard List.txt"));
+			int i = 0;
+			while(scanner.hasNextLine())			//get regular cards
+			{
+				String next = scanner.nextLine();			
+				String[] data = next.split(";");
+				String name = data[0];
+				int cost = Integer.parseInt(data[1]);
+				String image = data[2];
+				int attack = Integer.parseInt(data[3]);
+				int health = Integer.parseInt(data[4]);
+				String description = data[5];
+				ability a = ability.valueOf(data[6]);
+				gameCards[i] = new RegCard(name, cost, image, attack, health, description, a);
+				i++;
+			}
+			/*
+			scanner = new Scanner(new File("abilityCards.txt"));
+			i = 0;
+			while(scanner.hasNextLine())				//get ability cards
+			{
+				String next = scanner.nextLine();
+				String[] data = next.split(",");
+				String name = data[0];
+				int cost = Integer.parseInt(data[1]);
+				String image = data[3];
+				String description = data[4];
+				ability a = ability.valueOf(data[5]);
+				gameCards[i] = new AbilityCard(name, cost, image, description, a);
+				i++;
+			}
+			*/
+		} catch (FileNotFoundException ex) {
+			Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+		} catch (IOException ex) {
+			Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
 	public static void showPopup(MouseEvent e)
 	{
 		if (e.isPopupTrigger())
@@ -41,6 +93,7 @@ public class BoardGui {
 	
 	public static void main(String[] args)
 	{
+		initCards();
 		JFrame frame = new JFrame();
 		frame.setVisible(true);
 		frame.setPreferredSize(new Dimension(1200, 720));
@@ -102,58 +155,47 @@ public class BoardGui {
 			ImageIcon magic = resizeImage("magic.jpg", 100, 100);
 			JLabel magicLabel = new JLabel(magic);
 			userHand.add(magicLabel, eH);
-			ImageIcon allison = resizeImage("src/project/214IMAGES/Allison Hall.jpeg", 100, 100);
-			JLabel allisonLabel = new JLabel(allison);
+			CardPanel handCard0 = new CardPanel((RegCard)gameCards[0]);
 			eH.gridx = 1;
 			eH.weightx = .1;
 			eH.gridy = 0;
-			userHand.add(allisonLabel, eH);			
-			RegCard test1 = new RegCard("Lakefill Goose", 1, "src/project/214IMAGES/Lakefill Goose.jpeg", 2, 1, "", ability.NONE);
-			CardPanel handCard1 = new CardPanel(test1);
+			userHand.add(handCard0, eH);			
+			CardPanel handCard1 = new CardPanel((RegCard)gameCards[1]);
 			eH.gridx = 2;
 			eH.gridy = 0;
 			userHand.add(handCard1, eH);	
-			ImageIcon burger = resizeImage("src/project/214IMAGES/Burger King.JPG", 100, 100);
-			JLabel burgerLabel = new JLabel(burger);
+			CardPanel handCard2 = new CardPanel((RegCard)gameCards[2]);			
 			eH.gridx = 3;
 			eH.gridy = 0;
-			userHand.add(burgerLabel, eH);			
-			ImageIcon beach = resizeImage("src/project/214IMAGES/Beach Day.jpeg", 100, 100);
-			JLabel beachLabel = new JLabel(beach);
+			userHand.add(handCard2, eH);
+			CardPanel handCard3 = new CardPanel((RegCard)gameCards[3]);						
 			eH.gridx = 4;
 			eH.gridy = 0;
-			userHand.add(beachLabel, eH);				
-			ImageIcon tech = resizeImage("src/project/214IMAGES/Tech.jpeg", 100, 100);
-			JLabel techLabel = new JLabel(tech);
+			userHand.add(handCard3, eH);				
+			CardPanel handCard4 = new CardPanel((RegCard)gameCards[4]);						
 			eH.gridx = 5;
 			eH.gridy = 0;
-			userHand.add(techLabel, eH);				
-			ImageIcon fire = resizeImage("src/project/214IMAGES/Fire Drill.jpeg", 100, 100);
-			JLabel fireLabel = new JLabel(fire);
-			fireLabel.setIcon(fire);
+			userHand.add(handCard4, eH);	
+			CardPanel handCard5 = new CardPanel((RegCard)gameCards[5]);									
 			eH.gridx = 6;
 			eH.gridy = 0;
-			userHand.add(fireLabel, eH);				
-			ImageIcon midterm = resizeImage("src/project/214IMAGES/EECS Midterm.jpeg", 100, 100);
-			JLabel midtermLabel = new JLabel(midterm);
+			userHand.add(handCard5, eH);	
+			CardPanel handCard6 = new CardPanel((RegCard)gameCards[6]);												
 			eH.gridx = 7;
 			eH.gridy = 0;
-			userHand.add(midtermLabel, eH);	
-			ImageIcon spac = resizeImage("src/project/214IMAGES/SPAC.jpeg", 100, 100);
-			JLabel spacLabel = new JLabel(spac);
+			userHand.add(handCard6, eH);	
+			CardPanel handCard7 = new CardPanel((RegCard)gameCards[7]);										
 			eH.gridx = 8;
 			eH.gridy = 0;
-			userHand.add(spacLabel, eH);			
-			ImageIcon rock = resizeImage("src/project/214IMAGES/The Rock.jpg", 100, 100);
-			JLabel rockLabel = new JLabel(rock);
+			userHand.add(handCard7, eH);			
+			CardPanel handCard8 = new CardPanel((RegCard)gameCards[8]);										
 			eH.gridx = 9;
 			eH.gridy = 0;
-			userHand.add(rockLabel, eH);			
-			ImageIcon kellogg = resizeImage("src/project/214IMAGES/Kellogg.jpeg", 100, 100);
-			JLabel kelloggLabel = new JLabel(kellogg);
+			userHand.add(handCard8, eH);
+			CardPanel handCard9 = new CardPanel((RegCard)gameCards[9]);													
 			eH.gridx = 10;
 			eH.gridy = 0;
-			userHand.add(kelloggLabel, eH);				
+			userHand.add(handCard9, eH);				
 			userHand.revalidate();
 			userHand.repaint();
 			
@@ -211,12 +253,12 @@ public class BoardGui {
 				
 			};
 			
-			spacLabel.addMouseListener(cardListener);
-			kelloggLabel.addMouseListener(cardListener);
-			burgerLabel.addMouseListener(cardListener);
+			handCard0.addMouseListener(cardListener);
 			handCard1.addMouseListener(cardListener);
-			beachLabel.addMouseListener(cardListener);
-			allisonLabel.addMouseListener(cardListener);
+			handCard2.addMouseListener(cardListener);
+			handCard3.addMouseListener(cardListener);
+			handCard4.addMouseListener(cardListener);
+			handCard5.addMouseListener(cardListener);
 
 		
 		
@@ -255,7 +297,7 @@ public class BoardGui {
         }
         catch (Exception e)
         {
-            System.out.println("This image can not be resized. Please check the path and type of file.");
+            System.out.println("This image can not be resized. " + filePath + " Please check the path and type of file.");
             return null;
         }
 
