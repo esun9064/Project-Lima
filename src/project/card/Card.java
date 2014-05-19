@@ -2,17 +2,32 @@
 package project.card;
 
 import java.awt.image.BufferedImage;
+import javax.swing.ImageIcon;
+import static project.lima.BoardGui.resizeImage;
 
 /**
  * Represents a single playing card.
  * @author Team Lima
  */
 public class Card {
-	
-    public enum ability{STdamage1, STdamage2, STdamage3, STdamage6, 
-    AOEdamage1, AOEedamage1, AOEedamage3, OPdamage5, OPdamage12, 
-    STreturnhand, STheal1, STheal2, STheal3, AOEfhealthbuff2, STattackbuff1, 
-    AOEfheal3, STlowerattackto1, STlowerattackby1, firedrill, none}  // many types of card abilities
+
+    public static enum ability 
+	{
+		NONE(0), STdamage1(1), STdamage2(2), STdamage3(3), STdamage6(4),
+    AOEdamage1(5), AOEedamage1(6), AOEedamage3(7), OPdamage5(8), OPdamage14(9),
+    STreturnhand(10), STheal1(11), STheal2(12), STheal3(13), AOEfhealthbuff2(14), STattackbuff1(15),
+    AOEfheal3(16), STlowerattackto1(17), STlowerattackby1(18), firedrill(19), destroyallfriendlies(20),
+    selfdamage3(21), STincattack1(22), STincattack3(23), selfheal2(24), AOEfincdamage1(25), OPDamage9(26),
+    AOEfheal1(27), selfheal10(28), george(29), selfdamage7(30), AOEfinchealth3(31);
+    ;
+				
+		final int id;
+		ability (int id)
+		{
+			this.id = id;
+		}
+		
+	}  // many types of card abilities
     //ST denotes single target
     //OP denotes an effect on the opposing player
     // aoe denotes area of effect attack
@@ -22,18 +37,18 @@ public class Card {
     
 	String name;   
 	private int cost;
-	private BufferedImage image;
-        private String description;   //description of ability
+	private ImageIcon image;
+    private String description;   //description of ability
 	private ability ability;    // implementation of ability 
         
         
-	public Card(String name, int cost, BufferedImage image, String d, ability a)
+	public Card(String name, int cost, String image, String d, ability a)
 	{
 		this.name = name;
 		this.cost = cost;
-		this.image = image;
-                this.description = d;
-                this.ability = a;
+		this.image = resizeImage(image, 100, 100);
+        this.description = d;
+        this.ability = a;
 	}
 	
         // Getters and Setters
@@ -54,11 +69,11 @@ public class Card {
             this.cost = c;
         }    
          
-        public BufferedImage getImage(){
+        public ImageIcon getImage(){
             return image;
         }
         
-        public void setImage(BufferedImage i){
+        public void setImage(ImageIcon i){
             this.image = i;
         }  
         

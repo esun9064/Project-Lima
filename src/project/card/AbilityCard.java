@@ -12,9 +12,8 @@ import java.awt.image.BufferedImage;
  */
 public class AbilityCard extends Card {
 	
-	private int ability;
 
-	public AbilityCard(String name, int cost, BufferedImage image, int ability, String d, ability a)
+	public AbilityCard(String name, int cost, String image, String d, ability a)
 	{
 		super(name, cost, image, d, a);
 		
