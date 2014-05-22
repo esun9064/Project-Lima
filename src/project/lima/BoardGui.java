@@ -51,6 +51,10 @@ import project.card.RegCard;
 public class BoardGui {
 	
 	public static Card[] gameCards = new Card[50];
+	protected Player userPlayer;
+	protected Player enemyPlayer;
+	
+	
 	//gui components
 	public static JFrame frame = new JFrame("Lima");		//overall frame of the game
 	public static JPanel gameArea = new JPanel();			//main panel (left side holds chat, center holds board)

@@ -25,6 +25,8 @@ public class CardPanel extends JPanel{
 	protected JLabel abilityLbl;
 	protected JLabel costLbl;
 	
+	
+	
 	public CardPanel()
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));		
