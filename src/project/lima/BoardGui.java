@@ -68,7 +68,7 @@ public class BoardGui {
 	public static JLabel deckLabel;
 	public static ImageIcon deck;
 	
-	//panels of cards in player hand, change to array, later!!!!!!!!!!! - 
+	//panels of cards in player hand, change to array, later!!!!!!!!!!! -
 	public static CardPanel[] handCards = new CardPanel[10];
 	public static CardPanel[] userCards = new CardPanel[7];
 	public static CardPanel[] enemyCards = new CardPanel[7];
@@ -83,7 +83,7 @@ public class BoardGui {
 	public static JMenuItem getHandDescription = new JMenuItem("Get Description");
 	public static JMenuItem playCard = new JMenuItem("Play Card");
 	public static JMenuItem getUTableDescription = new JMenuItem("Get Description");
-	public static JMenuItem getETableDescription = new JMenuItem("Get Description");	
+	public static JMenuItem getETableDescription = new JMenuItem("Get Description");
 	public static JMenuItem attkPlayer = new JMenuItem("Attack Player");
 	public static JMenu attkCard = new JMenu("Attack Card");
 	//add ten items to submenu representing 10 possible cards
@@ -132,21 +132,21 @@ public class BoardGui {
 				gameCards[i] = new RegCard(name, cost, image, attack, health, description, a);
 				i++;
 			}
-			/*
-			 * scanner = new Scanner(new File("abilityCards.txt"));
-			 * while(scanner.hasNextLine())				//get ability cards
-			 * {
-			 * String next = scanner.nextLine();
-			 * String[] data = next.split(",");
-			 * String name = data[0];
-			 * int cost = Integer.parseInt(data[1]);
-			 * String image = data[3];
-			 * String description = data[4];
-			 * ability a = ability.valueOf(data[5]);
-			 * gameCards[i] = new AbilityCard(name, cost, image, description, a);
-			 * i++;
-			 * }
-			 */
+			
+			scanner = new Scanner(new File("doc/Master AbilityCard List"));
+			while(scanner.hasNextLine())				//get ability cards
+			{
+				String next = scanner.nextLine();
+				String[] data = next.split(",");
+				String name = data[0];
+				int cost = Integer.parseInt(data[1]);
+				String image = data[2];
+				String description = data[3];
+				ability a = ability.valueOf(data[4]);
+				gameCards[i] = new AbilityCard(name, cost, image, description, a);
+				i++;
+			}
+			
 		} catch (FileNotFoundException ex) {
 			Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
@@ -197,7 +197,7 @@ public class BoardGui {
 		for (int i = 0 ; i < 7; i++)
 		{
 			enemyCards[i] = new CardPanel();
-		}		
+		}
 		
 		
 		
@@ -246,7 +246,7 @@ public class BoardGui {
 			deckLabel = new JLabel(deck);
 			userHand.add(deckLabel);
 			handCards[0] = new CardPanel((RegCard)gameCards[0]);
-			userHand.add(handCards[0]);		
+			userHand.add(handCards[0]);
 			handCards[1] = new CardPanel((RegCard)gameCards[1]);
 			userHand.add(handCards[1]);
 			handCards[2] = new CardPanel((RegCard)gameCards[2]);
@@ -529,7 +529,7 @@ public class BoardGui {
 					{
 						i = 6;
 						showPopup(e, "enemy");
-					}							
+					}
 				}
 				
 				@Override
@@ -660,5 +660,27 @@ public class BoardGui {
 			return null;
 		}
 		
+		
+		
+		
+	}
+	
+	
+	public static void execute(AbilityCard card)
+	{
+		ability a = card.getAbility();
+		switch(a)
+		{
+			
+		}
+	}
+	
+	public static void execute(RegCard card)
+	{
+		ability a = card.getAbility();
+		switch(a)
+		{
+			
+		}
 	}
 }
