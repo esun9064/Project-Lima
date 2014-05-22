@@ -36,17 +36,17 @@ public class Card {
     //firedrill has its own unique ability, returning all cards to owners' hand.  just named firedrill here
     
 	String name;   
-	private int cost;
-	private ImageIcon image;
-    private String description;   //description of ability
-	private ability ability;    // implementation of ability 
+	protected int cost;
+	protected ImageIcon image;
+    protected String description;   //description of ability
+	protected ability ability;    // implementation of ability 
         
         
 	public Card(String name, int cost, String image, String d, ability a)
 	{
 		this.name = name;
 		this.cost = cost;
-		this.image = resizeImage(image, 100, 100);
+		this.image = resizeImage(image, 85, 100);
         this.description = d;
         this.ability = a;
 	}
