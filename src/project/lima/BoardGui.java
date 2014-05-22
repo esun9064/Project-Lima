@@ -383,9 +383,10 @@ public class BoardGui {
 				
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
-					
+                                    
 				}
+                                
+                                
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -398,6 +399,136 @@ public class BoardGui {
 						playCard(handCards[i]);
 						
 					}
+                                        if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+                                            if (e.getComponent() == handCards[0])
+					{
+						i = 0;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == handCards[1])
+					{
+						i = 1;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[2])
+					{
+						i = 2;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[3])
+					{
+						i = 3;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[4])
+					{
+						i = 4;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[5])
+					{
+						i = 5;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[6])
+					{
+						i = 6;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[7])
+					{
+						i = 7;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[8])
+					{
+						i = 8;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[9])
+					{
+						i = 9;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == userCards[0])
+					{
+						i = 0;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[1])
+					{
+						i = 1;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[2])
+					{
+						i = 2;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[3])
+					{
+						i = 3;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[4])
+					{
+						i = 4;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[5])
+					{
+						i = 5;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[6])
+					{
+						i = 6;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == enemyCards[0])
+					{
+						i = 0;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[1])
+					{
+						i = 1;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[2])
+					{
+						i = 2;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[3])
+					{
+						i = 3;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[4])
+					{
+						i = 4;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[5])
+					{
+						i = 5;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[6])
+					{
+						i = 6;
+						showPopup(e, "enemy");
+					}
+                                        }
 				}
 				
 				@Override
