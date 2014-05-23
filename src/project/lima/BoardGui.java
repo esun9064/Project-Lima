@@ -202,35 +202,7 @@ public class BoardGui {
                   case OPdamage8:
                       enemyPlayer.setCredits(enemyPlayer.getCredits() - 8);
                       break;    
-                  case AOEedamage1:
-                      for (int i = 0; i < enemyCards.length; i++)
-                          if (enemyCards[i].getCard() != null)
-                          {
-                          enemyCards[i].getCard().setHealth(enemyCards[i].getCard().getHealth() - 1);
-                          }
-                      break;
-                  case AOEedamage3: 
-                      for (int i = 0; i < enemyCards.length; i++)
-                          if (enemyCards[i].getCard() != null)
-                          {
-                          enemyCards[i].getCard().setHealth(enemyCards[i].getCard().getHealth() - 3);
-                          }
-                      break;
-                  case AOEfheal3:
-                      for (int i = 0; i < userCards.length; i++)
-                          if (userCards[i].getCard() != null)
-                          {
-                            int newHealth = userCards[i].getCard().getHealth() + 3;
-                            if (newHealth > userCards[i].getCard().getMaxHealth())
-                            {
-                                userCards[i].getCard().setHealth(userCards[i].getCard().getMaxHealth());
-                            }
-                            else
-                            {
-                                userCards[i].getCard().setHealth(userCards[i].getCard().getHealth() + 3);
-                            }
-                          }
-                      break;
+              
                   case firedrill:
                       for (int i = 0; i < userCards.length; i++)
                       {
@@ -310,7 +282,7 @@ public class BoardGui {
 		board.add(userHand, c);
 		
 		//set enemyHand layout
-		enemyHand.setLayout(new boxLayout(enemyHand, BoxLayout.Y_AXIS));
+		//enemyHand.setLayout(new boxLayout(enemyHand, BoxLayout.Y_AXIS));
 		
 		//set layout of panels that make up the board
 		FlowLayout cardsLayout = new FlowLayout();
