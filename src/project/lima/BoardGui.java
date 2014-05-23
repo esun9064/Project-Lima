@@ -305,6 +305,9 @@ public class BoardGui {
 		c.weighty = 0;
 		board.add(userHand, c);
 		
+		//set enemyHand layout
+		enemyHand.setLayout(new boxLayout(enemyHand, BoxLayout.Y_AXIS));
+		
 		//set layout of panels that make up the board
 		FlowLayout cardsLayout = new FlowLayout();
 		cardsLayout.setAlignment(FlowLayout.LEADING);
