@@ -41,42 +41,41 @@ public class CardPanel extends JPanel{
 		*/
 	}
 	
-	public CardPanel(AbilityCard card)
+	public CardPanel(Card card)
 	{
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.card = card;
-		AbilityCard ab = (AbilityCard) this.card;
-		imgLbl = new JLabel(card.getImage());
-		add(imgLbl);
-		abilityLbl = new JLabel("Ability: Yes");
-		add(abilityLbl);
-		costLbl = new JLabel("Cost: " + this.card.getCost());
-		add(costLbl);
-
-	}
-	
-	//overload RegCard
-	public CardPanel(RegCard card)
-	{
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.card = card;
-		RegCard reg = (RegCard) this.card;
-		imgLbl = new JLabel(card.getImage());
-		add(imgLbl);
-		attackLbl = new JLabel("Attack: " + reg.getAttack());
-		add(attackLbl);
-		healthLbl = new JLabel("Health: " + reg.getHealth());	
-		add(healthLbl);
-		if (this.card.getDesc().equals(""))
+		if (card instanceof AbilityCard)
 		{
-			abilityLbl = new JLabel("Ability: No");
-		}
-		else
+			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.card = card;
+			AbilityCard ab = (AbilityCard) this.card;
+			imgLbl = new JLabel(card.getImage());
+			add(imgLbl);
 			abilityLbl = new JLabel("Ability: Yes");
-		add(abilityLbl);
-		costLbl = new JLabel("Cost: " + this.card.getCost());
-		add(costLbl);
-
+			add(abilityLbl);
+			costLbl = new JLabel("Cost: " + this.card.getCost());
+			add(costLbl);
+		}
+		else 
+		{
+			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.card = card;
+			RegCard reg = (RegCard) this.card;
+			imgLbl = new JLabel(card.getImage());
+			add(imgLbl);
+			attackLbl = new JLabel("Attack: " + reg.getAttack());
+			add(attackLbl);
+			healthLbl = new JLabel("Health: " + reg.getHealth());
+			add(healthLbl);
+			if (this.card.getDesc().equals(""))
+			{
+				abilityLbl = new JLabel("Ability: No");
+			}
+			else
+				abilityLbl = new JLabel("Ability: Yes");
+			add(abilityLbl);
+			costLbl = new JLabel("Cost: " + this.card.getCost());
+			add(costLbl);
+		}
 	}
 	
 	public String getDescription()
@@ -89,48 +88,52 @@ public class CardPanel extends JPanel{
 		return this.card.getName();
 	}
 	
-	public void getNewCard(AbilityCard card)
+	public void getNewCard(Card card)
 	{
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.card = card;
-		AbilityCard ab = (AbilityCard) this.card;
-		imgLbl = new JLabel(card.getImage());
-		add(imgLbl);
-		abilityLbl = new JLabel("Ability: Yes");
-		add(abilityLbl);
-		costLbl = new JLabel("Cost: " + this.card.getCost());
-		add(costLbl);
-
-	}
-	
-	public void getNewCard(RegCard card)
-	{
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		
-		this.card = card;
-		RegCard reg = (RegCard) this.card;
-		imgLbl = new JLabel(card.getImage());
-		add(imgLbl);		
-		attackLbl.setText("Attack: " + reg.getAttack());
-		add(attackLbl);
-		healthLbl.setText("Health: " + reg.getHealth());
-		add(healthLbl);
-		if (!this.card.getDesc().equals(""))
+		if (card instanceof AbilityCard)
 		{
-			abilityLbl.setText("Ability: Yes");
+			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.card = card;
+			AbilityCard ab = (AbilityCard) this.card;
+			imgLbl = new JLabel(card.getImage());
+			add(imgLbl);
+			abilityLbl = new JLabel("Ability: Yes");
+			add(abilityLbl);
+			costLbl = new JLabel("Cost: " + this.card.getCost());
+			add(costLbl);
 		}
-		else
-			abilityLbl.setText("Ability: No");
-		add(abilityLbl);
-		costLbl.setText("Cost: " + reg.getCost());
-		revalidate();
-		repaint();
+		else 
+		{
+			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+			this.card = card;
+			RegCard reg = (RegCard) this.card;
+			imgLbl = new JLabel(card.getImage());
+			add(imgLbl);
+			attackLbl = new JLabel("Attack: " + reg.getAttack());
+			add(attackLbl);
+			healthLbl = new JLabel("Health: " + reg.getHealth());
+			add(healthLbl);
+			if (this.card.getDesc().equals(""))
+			{
+				abilityLbl = new JLabel("Ability: No");
+			}
+			else
+				abilityLbl = new JLabel("Ability: Yes");
+			add(abilityLbl);
+			costLbl = new JLabel("Cost: " + this.card.getCost());
+			add(costLbl);
+		}
 	}
 	
-	public Card getCard() {
-		return card;
+	public RegCard getRegCard() 
+	{
+		return (RegCard) card;
 	}
 	
+	public AbilityCard getAbilityCard()
+	{
+		return (AbilityCard) card;
+	}
 	public void setAttack()
 	{
 		RegCard reg = (RegCard) this.card;

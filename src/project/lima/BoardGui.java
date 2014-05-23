@@ -43,6 +43,7 @@ import project.card.AbilityCard;
 import project.card.Card;
 import project.card.Card.ability;
 import project.card.RegCard;
+import project.deck.DeckofCards;
 
 /**
  *
@@ -51,8 +52,8 @@ import project.card.RegCard;
 public class BoardGui {
 	
 	public static Card[] gameCards = new Card[50];
-	protected Player userPlayer;
-	protected Player enemyPlayer;
+	protected static Player userPlayer = new Player("Eric", new DeckofCards(30, gameCards));			//test not working
+	protected static Player enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards));
 	
 	
 	//gui components
@@ -64,9 +65,14 @@ public class BoardGui {
 	public static JPanel enemyTable = new JPanel();
 	public static JPanel userHand = new JPanel();
 	public static JPanel userTable = new JPanel();
-	//holds deck image
-	public static JLabel deckLabel;
+	//holds deck and user info
+	public static JPanel deckPanel = new JPanel();
+	public static JLabel deckLabel = new JLabel();
 	public static ImageIcon deck;
+	public static JLabel userHealth = new JLabel();
+	public static JLabel userRemainingCards = new JLabel();
+	public static JLabel userWcp = new JLabel();				//wildcat points (cost)
+	
 	
 	//panels of cards in player hand, change to array, later!!!!!!!!!!! -
 	public static CardPanel[] handCards = new CardPanel[10];
@@ -189,8 +195,6 @@ public class BoardGui {
 		board.setLayout(new GridBagLayout());
 		
 		
-		//test card array
-		
 		
 		for (int i = 0 ; i < 9; i++)
 		{
@@ -248,28 +252,36 @@ public class BoardGui {
 		enemyHand.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		//and other panels
 		try {
-			deck = resizeImage("magic.jpg", 100, 100);
+			deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
+			deck = resizeImage("src/project/214IMAGES/Card Back.jpg", 100, 100);
 			deckLabel = new JLabel(deck);
-			userHand.add(deckLabel);
-			handCards[0] = new CardPanel((RegCard)gameCards[0]);
+			deckPanel.add(deckLabel);
+			userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
+			deckPanel.add(userHealth);
+			userWcp.setText("Wildcat Points: " + String.valueOf(userPlayer.getWcp()));
+			deckPanel.add(userWcp);
+			userRemainingCards.setText("Cards Left: " + userPlayer.getDeck().cardsLeft());
+			deckPanel.add(userRemainingCards);
+			userHand.add(deckPanel);
+			handCards[0] = new CardPanel(gameCards[0]);
 			userHand.add(handCards[0]);
-			handCards[1] = new CardPanel((RegCard)gameCards[1]);
+			handCards[1] = new CardPanel(gameCards[1]);
 			userHand.add(handCards[1]);
-			handCards[2] = new CardPanel((RegCard)gameCards[2]);
+			handCards[2] = new CardPanel(gameCards[2]);
 			userHand.add(handCards[2]);
-			handCards[3] = new CardPanel((RegCard)gameCards[3]);
+			handCards[3] = new CardPanel(gameCards[3]);
 			userHand.add(handCards[3]);
-			handCards[4] = new CardPanel((RegCard)gameCards[4]);
+			handCards[4] = new CardPanel(gameCards[4]);
 			userHand.add(handCards[4]);
-			handCards[5] = new CardPanel((RegCard)gameCards[10]);
+			handCards[5] = new CardPanel(gameCards[10]);
 			userHand.add(handCards[5]);
-			handCards[6] = new CardPanel((RegCard)gameCards[6]);
+			handCards[6] = new CardPanel(gameCards[6]);
 			userHand.add(handCards[6]);
-			handCards[7] = new CardPanel((RegCard)gameCards[7]);
+			handCards[7] = new CardPanel(gameCards[7]);
 			userHand.add(handCards[7]);
-			handCards[8] = new CardPanel((RegCard)gameCards[8]);
+			handCards[8] = new CardPanel(gameCards[8]);
 			userHand.add(handCards[8]);
-			handCards[9] = new CardPanel((RegCard)gameCards[9]);
+			handCards[9] = new CardPanel(gameCards[9]);
 			userHand.add(handCards[9]);
 			userHand.revalidate();
 			userHand.repaint();
