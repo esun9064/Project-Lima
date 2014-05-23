@@ -8,6 +8,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import project.card.AbilityCard;
 import project.card.Card;
 import project.card.RegCard;
 import static project.lima.BoardGui.resizeImage;
@@ -18,40 +19,53 @@ import static project.lima.BoardGui.resizeImage;
  */
 public class CardPanel extends JPanel{
 	
-	protected RegCard card;
-	protected JLabel imgLbl;
-	protected JLabel attackLbl;
-	protected JLabel healthLbl;
-	protected JLabel abilityLbl;
-	protected JLabel costLbl;
+	protected Card card = null;
+	protected JLabel imgLbl = new JLabel();
+	protected JLabel attackLbl = new JLabel();
+	protected JLabel healthLbl = new JLabel();
+	protected JLabel abilityLbl = new JLabel();
+	protected JLabel costLbl = new JLabel();
 	
 	
 	
 	public CardPanel()
 	{
+		/*
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));		
 		this.card = null;
-		imgLbl = new JLabel();
-		attackLbl = new JLabel();
-		healthLbl = new JLabel();
-		abilityLbl = new JLabel();
-		costLbl = new JLabel();
 		add(imgLbl);
 		add(attackLbl);
 		add(healthLbl);
 		add(abilityLbl);
 		add(costLbl);
+		*/
 	}
 	
+	public CardPanel(AbilityCard card)
+	{
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.card = card;
+		AbilityCard ab = (AbilityCard) this.card;
+		imgLbl = new JLabel(card.getImage());
+		add(imgLbl);
+		abilityLbl = new JLabel("Ability: Yes");
+		add(abilityLbl);
+		costLbl = new JLabel("Cost: " + this.card.getCost());
+		add(costLbl);
+
+	}
+	
+	//overload RegCard
 	public CardPanel(RegCard card)
 	{
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.card = card;
+		RegCard reg = (RegCard) this.card;
 		imgLbl = new JLabel(card.getImage());
 		add(imgLbl);
-		attackLbl = new JLabel("Attack: " + this.card.getAttack());
+		attackLbl = new JLabel("Attack: " + reg.getAttack());
 		add(attackLbl);
-		healthLbl = new JLabel("Health: " + this.card.getHealth());	
+		healthLbl = new JLabel("Health: " + reg.getHealth());	
 		add(healthLbl);
 		if (this.card.getDesc().equals(""))
 		{
@@ -75,19 +89,40 @@ public class CardPanel extends JPanel{
 		return this.card.getName();
 	}
 	
+	public void getNewCard(AbilityCard card)
+	{
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.card = card;
+		AbilityCard ab = (AbilityCard) this.card;
+		imgLbl = new JLabel(card.getImage());
+		add(imgLbl);
+		abilityLbl = new JLabel("Ability: Yes");
+		add(abilityLbl);
+		costLbl = new JLabel("Cost: " + this.card.getCost());
+		add(costLbl);
+
+	}
+	
 	public void getNewCard(RegCard card)
 	{
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
 		this.card = card;
+		RegCard reg = (RegCard) this.card;
 		imgLbl = new JLabel(card.getImage());
-		attackLbl.setText("Attack: " + this.card.getAttack());
-		healthLbl.setText("Health: " + this.card.getHealth());
+		add(imgLbl);		
+		attackLbl.setText("Attack: " + reg.getAttack());
+		add(attackLbl);
+		healthLbl.setText("Health: " + reg.getHealth());
+		add(healthLbl);
 		if (!this.card.getDesc().equals(""))
 		{
 			abilityLbl.setText("Ability: Yes");
 		}
 		else
 			abilityLbl.setText("Ability: No");
-
+		add(abilityLbl);
+		costLbl.setText("Cost: " + reg.getCost());
 		revalidate();
 		repaint();
 	}
@@ -98,14 +133,16 @@ public class CardPanel extends JPanel{
 	
 	public void setAttack()
 	{
-		attackLbl.setText(String.valueOf(this.card.getAttack()));
+		RegCard reg = (RegCard) this.card;
+		attackLbl.setText(String.valueOf(reg.getAttack()));
 		revalidate();
 		repaint();
 	}
 	
 	public void setHealth()
 	{
-		healthLbl.setText(String.valueOf(this.card.getHealth()));
+		RegCard reg = (RegCard) this.card;
+		healthLbl.setText(String.valueOf(reg.getHealth()));
 		revalidate();
 		repaint();
 	}
