@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
  */
 public class RegCard extends Card {
 	
-	private int attack;
-	private int health;	
+	protected int attack;
+	protected int health;	
 	
 	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a)
 	{

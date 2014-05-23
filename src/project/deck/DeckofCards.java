@@ -10,8 +10,8 @@ import project.card.Card;
 public class DeckofCards implements DeckofCardsInterface{
 	
 	public static int numCards;
-	private Card[] deck;			//deck of cards, top of deck is at index 0
-	private int numDealt;			//number of cards dealt
+	protected Card[] deck;			//deck of cards, top of deck is at index 0
+	protected int numDealt;			//number of cards dealt
 	
 	/**
 	 * Creates new DeckofCards from a standard base deck.
