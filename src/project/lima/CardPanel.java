@@ -129,6 +129,8 @@ public class CardPanel extends JPanel{
 	{
 		return (RegCard) card;
 	}
+        
+        
 	
 	public AbilityCard getAbilityCard()
 	{

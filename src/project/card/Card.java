@@ -18,7 +18,7 @@ public class Card {
     STreturnhand(10), STheal1(11), STheal2(12), STheal3(13), AOEfhealthbuff2(14), STattackbuff1(15),
     AOEfheal3(16), STlowerattackto1(17), STlowerattackby1(18), firedrill(19), destroyallfriendlies(20),
     selfdamage3(21), STincattack1(22), STincattack3(23), selfheal2(24), AOEfincdamage1(25), OPDamage9(26),
-    AOEfheal1(27), selfheal10(28), george(29), selfdamage7(30), AOEfinchealth3(31);
+    AOEfheal1(27), selfheal10(28), george(29), selfdamage7(30), AOEfinchealth3(31), OPdamage8(32);
     ;
 				
 		final int id;

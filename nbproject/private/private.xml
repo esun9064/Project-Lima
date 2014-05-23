@@ -3,12 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/lima/ProjectLima.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/card/Card.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/lima/Player.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/card/ActualCards.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/lima/Board.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/lima/BoardGui.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/lima/CardPanel.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/deck/DeckofCards.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/card/CardTest.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/card/AbilityCard.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/card/RegCard.java</file>
+            <file>file:/Users/benjaminstrick/NetBeansProjects/Project-Lima/src/project/deck/DeckofCardsInterface.java</file>
+=======
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/lima/CardPanel.java</file>
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/card/AbilityCard.java</file>
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/lima/BoardGui.java</file>
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/card/Card.java</file>
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/lima/Player.java</file>
             <file>file:/C:/Users/Jack/Documents/GitHub/Project-Lima/src/project/lima/ProjectLima.java</file>
+>>>>>>> 7531fde6971c4706d087d9aead683408bca80bb2
         </group>
     </open-files>
 </project-private>
