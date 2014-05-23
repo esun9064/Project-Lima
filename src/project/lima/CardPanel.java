@@ -92,9 +92,11 @@ public class CardPanel extends JPanel{
 		repaint();
 	}
 	
-	public Card getCard() {
+	public RegCard getCard() {
 		return card;
 	}
+        
+        
 	
 	public void setAttack()
 	{

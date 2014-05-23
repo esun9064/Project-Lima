@@ -14,12 +14,15 @@ public class RegCard extends Card {
 	
 	protected int attack;
 	protected int health;	
-	
+	protected final int maxattack = attack;
+        protected final int maxhealth = health;
+        
 	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a)
 	{
 		super(name, cost, image, d, a);
 		this.attack = attack;
 		this.health = health;
+                
 	}
         
         public int getAttack(){
@@ -36,6 +39,14 @@ public class RegCard extends Card {
         
         public void setHealth(int h){
             this.health = h;
+        }
+        
+        public int getMaxHealth(){
+            return maxhealth;
+        }
+        
+        public int getMaxAttack(){
+            return maxattack;
         }
         
         public String toString(){

@@ -172,6 +172,76 @@ public class BoardGui {
 		}
 	}
 	
+        public void executeEvent(AbilityCard a)
+        {
+            ability abil = a.getAbility();
+            
+            
+            if ((abil == ability.STlowerattackto1) || (abil == ability.STdamage6))  // for the cards that need to select a card to operate on
+            {
+                
+            }
+            else
+            {
+              switch (abil)   // cards whose effect does not require a choice
+              {
+                  case OPdamage5:
+                      enemyPlayer.setCredits(enemyPlayer.getCredits() - 5);
+                      break;
+                  case OPdamage14:
+                      enemyPlayer.setCredits(enemyPlayer.getCredits() - 14);
+                      break;
+                  case OPdamage8:
+                      enemyPlayer.setCredits(enemyPlayer.getCredits() - 8);
+                      break;    
+                  case AOEedamage1:
+                      for (int i = 0; i < enemyCards.length; i++)
+                          if (enemyCards[i].getCard() != null)
+                          {
+                          enemyCards[i].getCard().setHealth(enemyCards[i].getCard().getHealth() - 1);
+                          }
+                      break;
+                  case AOEedamage3: 
+                      for (int i = 0; i < enemyCards.length; i++)
+                          if (enemyCards[i].getCard() != null)
+                          {
+                          enemyCards[i].getCard().setHealth(enemyCards[i].getCard().getHealth() - 3);
+                          }
+                      break;
+                  case AOEfheal3:
+                      for (int i = 0; i < userCards.length; i++)
+                          if (userCards[i].getCard() != null)
+                          {
+                            int newHealth = userCards[i].getCard().getHealth() + 3;
+                            if (newHealth > userCards[i].getCard().getMaxHealth())
+                            {
+                                userCards[i].getCard().setHealth(userCards[i].getCard().getMaxHealth());
+                            }
+                            else
+                            {
+                                userCards[i].getCard().setHealth(userCards[i].getCard().getHealth() + 3);
+                            }
+                          }
+                      break;
+                  case firedrill:
+                      for (int i = 0; i < userCards.length; i++)
+                      {
+                         userPlayer.addCardtoHand(i);
+                         userCards[i].removeCardFromPanel();
+                       
+                      }
+                      for (int i = 0; i < enemyCards.length; i++)
+                      {
+                      enemyPlayer.addCardtoHand(i);
+                      enemyCards[i].removeCardFromPanel();
+                      }
+                      break;
+                }
+              
+        }
+        }
+        
+        
 	public static void main(String[] args)
 	{
 		initCards();
