@@ -109,6 +109,8 @@ public class BoardGui {
 	public static JTextField chatMsgWin = new JTextField(19);				//component for typing messages
 	public static JButton chatBtn = new JButton("Send");					//send message button
 	
+	public static int cIden;											//identifies the panel clicked
+	
 	/**
 	 * Retrieves information about cards from text file, creates actual cards used in the game.
 	 */
@@ -255,6 +257,10 @@ public class BoardGui {
 		//board holds the cards
 		GridBagConstraints c = new GridBagConstraints();
 		board.setLayout(new GridBagLayout());
+		
+		
+		//test card array
+		
 		
 		for (int i = 0 ; i < 9; i++)
 		{
@@ -448,236 +454,111 @@ public class BoardGui {
 			
 			//listener for card actions - attack, get description etc
 			MouseListener cardListener = new MouseListener()
-			{
-				int i;			//represents what panel
-				
+			{				
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
 					
 				}
-				
+					
+					
 				@Override
 				public void mousePressed(MouseEvent e) {
 					if (e.getSource() == getHandDescription)		//show card description
 					{
-						getCardDescription(handCards[i]);
+						getCardDescription(handCards[cIden]);
 					}
 					if (e.getSource() == playCard)
 					{
-						playCard(handCards[i]);
+						playCard(handCards[cIden]);
 						
 					}
+					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+						findMouseAction(e);
+					}
 				}
-				
+					
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					if (e.getComponent() == handCards[0])
-					{
-						i = 0;
-						showPopup(e, "hand");
-					}
-					if (e.getComponent() == handCards[1])
-					{
-						i = 1;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[2])
-					{
-						i = 2;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[3])
-					{
-						i = 3;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[4])
-					{
-						i = 4;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[5])
-					{
-						i = 5;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[6])
-					{
-						i = 6;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[7])
-					{
-						i = 7;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[8])
-					{
-						i = 8;
-						showPopup(e, "hand");
-						
-					}
-					if (e.getComponent() == handCards[9])
-					{
-						i = 9;
-						showPopup(e, "hand");
-					}
-					if (e.getComponent() == userCards[0])
-					{
-						i = 0;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[1])
-					{
-						i = 1;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[2])
-					{
-						i = 2;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[3])
-					{
-						i = 3;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[4])
-					{
-						i = 4;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[5])
-					{
-						i = 5;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == userCards[6])
-					{
-						i = 6;
-						showPopup(e, "user");
-					}
-					if (e.getComponent() == enemyCards[0])
-					{
-						i = 0;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[1])
-					{
-						i = 1;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[2])
-					{
-						i = 2;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[3])
-					{
-						i = 3;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[4])
-					{
-						i = 4;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[5])
-					{
-						i = 5;
-						showPopup(e, "enemy");
-					}
-					if (e.getComponent() == enemyCards[6])
-					{
-						i = 6;
-						showPopup(e, "enemy");
-					}
+					findMouseAction(e);
 				}
-				
-				@Override
-				public void mouseEntered(MouseEvent e) {
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
 				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
 				}
+					
+				};
 				
-			};
-			
-			for (int i = 0; i < 10; i ++)
+				for (int i = 0; i < 10; i ++)
 				handCards[i].addMouseListener(cardListener);
-			for (int i = 0; i < 7; i ++)
+				for (int i = 0; i < 7; i ++)
 				userCards[i].addMouseListener(cardListener);
-			for (int i = 0; i < 7; i ++)
+				for (int i = 0; i < 7; i ++)
 				enemyCards[i].addMouseListener(cardListener);
-			
-			getHandDescription.addMouseListener(cardListener);
-			
-			chatBtn.addActionListener(gameActListener);
-			chatMsgWin.addKeyListener(enterKey);
-			
-			//leftSide panel holds game chat window and current online user list
-			leftSide.setLayout(new GridBagLayout());
-			GridBagConstraints gl = new GridBagConstraints();
-			gl.anchor = GridBagConstraints.LAST_LINE_START;
-			gl.gridx = 0;
-			gl.gridy = 0;
-			gl.ipady = 6;
-			leftSide.add(userLbl, gl);
-			
-			userList.setVisible(true);
-			gl.anchor = GridBagConstraints.NORTHWEST;
-			gl.gridx = 0;
-			gl.weighty = 5;
-			gl.gridwidth = 2;
-			gl.gridy = 1;
-			leftSide.add(new JScrollPane(userList), gl);
-			
-			gl.gridx = 0;
-			gl.gridy = 2;
-			leftSide.add(chatLbl, gl);
-			
-			gl.gridx = 0;
-			gl.gridy = 3;
-			gl.ipady = 180;
-			leftSide.add(new JScrollPane(chatWindow), gl);
-			
-			gl.gridy = 0;
-			gl.gridy = 4;
-			gl.gridwidth = 1;
-			gl.weighty = 1;
-			gl.ipady = 7;
-			gl.weightx = .5;
-			leftSide.add(chatMsgWin, gl);
-			
-			gl.gridx = 1;
-			gl.gridy = 4;
-			gl.ipady = 0;
-			gl.weightx = .5;
-			leftSide.add(chatBtn, gl);
-			
-			//add main menu items
-			file.add(quit);
-			gameMenu.add(file);
-			
-			
-			
-			
-			
-			
-		}
-		catch (Exception ex)
-		{
-			System.out.println("No file");
-		}
+				
+				getHandDescription.addMouseListener(cardListener);
+				
+				chatBtn.addActionListener(gameActListener);
+				chatMsgWin.addKeyListener(enterKey);
+				
+				//leftSide panel holds game chat window and current online user list
+				leftSide.setLayout(new GridBagLayout());
+				GridBagConstraints gl = new GridBagConstraints();
+				gl.anchor = GridBagConstraints.LAST_LINE_START;
+				gl.gridx = 0;
+				gl.gridy = 0;
+				gl.ipady = 6;
+				leftSide.add(userLbl, gl);
+				
+				userList.setVisible(true);
+				gl.anchor = GridBagConstraints.NORTHWEST;
+				gl.gridx = 0;
+				gl.weighty = 5;
+				gl.gridwidth = 2;
+				gl.gridy = 1;
+				leftSide.add(new JScrollPane(userList), gl);
+				
+				gl.gridx = 0;
+				gl.gridy = 2;
+				leftSide.add(chatLbl, gl);
+				
+				gl.gridx = 0;
+				gl.gridy = 3;
+				gl.ipady = 180;
+				leftSide.add(new JScrollPane(chatWindow), gl);
+				
+				gl.gridy = 0;
+				gl.gridy = 4;
+				gl.gridwidth = 1;
+				gl.weighty = 1;
+				gl.ipady = 7;
+				gl.weightx = .5;
+				leftSide.add(chatMsgWin, gl);
+				
+				gl.gridx = 1;
+				gl.gridy = 4;
+				gl.ipady = 0;
+				gl.weightx = .5;
+				leftSide.add(chatBtn, gl);
+				
+				//add main menu items
+				file.add(quit);
+				gameMenu.add(file);
+				
+				
+				
+				
+				
+				
+			}
+					catch (Exception ex)
+					{
+						System.out.println("No file");
+					}
 		
 		gameArea.add(gameMenu, BorderLayout.NORTH);
 		gameArea.add(leftSide, BorderLayout.WEST);
@@ -735,22 +616,138 @@ public class BoardGui {
 		
 	}
 	
-	
-	public static void execute(AbilityCard card)
+	public static void findMouseAction(MouseEvent e)
 	{
-		ability a = card.getAbility();
-		switch(a)
-		{
-			
-		}
+			if (e.getComponent() == handCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == handCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[7])
+					{
+						cIden = 7;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[8])
+					{
+						cIden = 8;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[9])
+					{
+						cIden = 9;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == userCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == enemyCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "enemy");
+					}
 	}
 	
-	public static void execute(RegCard card)
-	{
-		ability a = card.getAbility();
-		switch(a)
-		{
-			
-		}
-	}
+	
+	
 }
