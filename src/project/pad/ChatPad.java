@@ -10,7 +10,7 @@ import java.awt.*;
 import javax.swing.JPanel;
 
 
-public class ChatPad extends JPanel
+public class ChatPad extends Panel
 {
  public TextArea chatLineArea=new TextArea("",18,30,TextArea.SCROLLBARS_VERTICAL_ONLY);
 
