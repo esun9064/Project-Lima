@@ -7,9 +7,9 @@
 package project.pad;
 
 import java.awt.*;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-public class ControlPad extends JPanel
+public class ControlPad extends Panel
 {
  public Label IPlabel=new Label("IP",Label.LEFT);
  public TextField inputIP=new TextField("localhost",10);
@@ -19,18 +19,21 @@ public class ControlPad extends JPanel
  public Button cancelGameButton=new Button("Abandon Game");
  public Button exitGameButton=new Button("Quit");
 
+ public JLabel statusText=new JLabel("Please connect to server first.");
+ 
  public ControlPad()
  {
   setLayout(new FlowLayout(FlowLayout.LEFT));
-        setBackground(Color.pink);
+        //setBackground(Color.pink);
 
-  add(IPlabel);
+  add(IPlabel,BorderLayout.EAST);
   add(inputIP);
   add(connectButton);
   add(creatGameButton);
   add(joinGameButton);
   add(cancelGameButton);
   add(exitGameButton);
+  add(statusText, BorderLayout.WEST);
  }
 
 }

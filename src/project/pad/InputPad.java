@@ -9,9 +9,9 @@ package project.pad;
 import java.awt.*;
 import javax.swing.JPanel;
 
-public class InputPad extends JPanel
+public class InputPad extends Panel
 {
- public TextField inputWords=new TextField("",40);
+ public TextField inputWords=new TextField("",20);
  public Choice userChoice=new Choice();
 
  public InputPad()

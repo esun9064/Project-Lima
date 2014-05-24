@@ -8,7 +8,7 @@ package project.pad;
 import java.awt.*;
 import javax.swing.JPanel;
 
-public class UserPad extends JPanel
+public class UserPad extends Panel
 {
  public List userList=new List(10);
 

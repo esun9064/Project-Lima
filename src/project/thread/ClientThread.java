@@ -56,7 +56,7 @@ public class ClientThread extends Thread
   {
    try
    {
-    gameclient.cardpad.statusText.setText("Can not join the game.");
+    gameclient.controlpad.statusText.setText("Can not join the game.");
     gameclient.controlpad.cancelGameButton.setEnabled(false);
     gameclient.controlpad.joinGameButton.setEnabled(true);
     gameclient.controlpad.creatGameButton.setEnabled(true);
@@ -69,30 +69,30 @@ public class ClientThread extends Thread
   }
   else if(recMessage.startsWith("/peer "))
   {
-   gameclient.cardpad.peerName=recMessage.substring(6);
+   gameclient.gamepad.peerName=recMessage.substring(6);
    if(gameclient.isServer)
    {
-    //gameclient.cardpad.chessColor=1;
-    gameclient.cardpad.isMouseEnabled=true;
-    gameclient.cardpad.statusText.setText("Please play a card.");
+    
+    //gameclient.gamepad.isMouseEnabled=true;
+    gameclient.controlpad.statusText.setText("Please play a card.");
    }
    else if(gameclient.isClient)
    {
-    //gameclient.cardpad.chessColor=-1;
-    gameclient.cardpad.statusText.setText("Joined, wait the opponent...");
+    //gameclient.gamepad.chessColor=-1;
+    gameclient.controlpad.statusText.setText("Joined, wait the opponent...");
    }
 
   }
   else if(recMessage.equals("/youwin"))
   {
    gameclient.isOnGame=false;
-   //gameclient.cardpad.chessVictory(gameclient.cardpad.chessColor);
-   gameclient.cardpad.statusText.setText("The opponent quited");
-   gameclient.cardpad.isMouseEnabled=false;
+   //gameclient.gamepad.chessVictory(gameclient.gamepad.chessColor);
+   gameclient.controlpad.statusText.setText("The opponent quited");
+   //gameclient.gamepad.isMouseEnabled=false;
   }
   else if(recMessage.equals("/OK"))
   {
-   gameclient.cardpad.statusText.setText("Game created, wait others join in...");
+   gameclient.controlpad.statusText.setText("Game created, wait others join in...");
   }
   else if(recMessage.equals("/error"))
   {

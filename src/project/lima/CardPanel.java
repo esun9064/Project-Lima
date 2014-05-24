@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import project.card.AbilityCard;
 import project.card.Card;
 import project.card.RegCard;
-import static project.lima.BoardGui.resizeImage;
 
 /**
  *

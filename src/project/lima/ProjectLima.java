@@ -38,7 +38,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
  public UserPad userpad=new UserPad();
  public ChatPad chatpad=new ChatPad();
  public ControlPad controlpad=new ControlPad();
- public CardPad cardpad=new CardPad();
+ public GamePad gamepad=new GamePad(controlpad);
  public InputPad inputpad=new InputPad();
 
 
@@ -57,7 +57,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 
  Panel southPanel=new Panel();
  Panel northPanel=new Panel();
- Panel centerPanel=new Panel();
+ //Panel centerPanel=new Panel();
  Panel westPanel=new Panel();
  Panel eastPanel=new Panel();
 
@@ -75,14 +75,15 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
   westPanel.setLayout(new BorderLayout());
   westPanel.add(userpad,BorderLayout.NORTH);
   westPanel.add(chatpad,BorderLayout.CENTER);
+  westPanel.add(inputpad,BorderLayout.SOUTH);
   westPanel.setBackground(Color.pink);
 
   inputpad.inputWords.addKeyListener(this);
-  cardpad.host=controlpad.inputIP.getText();
+  gamepad.host=controlpad.inputIP.getText();
 
-  centerPanel.add(cardpad,BorderLayout.CENTER);
-  centerPanel.add(inputpad,BorderLayout.SOUTH);
-  centerPanel.setBackground(Color.pink);
+  //centerPanel.add(gamepad,BorderLayout.CENTER);
+  //centerPanel.add(inputpad,BorderLayout.SOUTH);
+  //centerPanel.setBackground(Color.pink);
 
   controlpad.connectButton.addActionListener(this);
   controlpad.creatGameButton.addActionListener(this);
@@ -95,7 +96,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
   controlpad.cancelGameButton.setEnabled(false);
 
   southPanel.add(controlpad,BorderLayout.CENTER);
-  southPanel.setBackground(Color.pink);
+  //southPanel.setBackground(Color.pink);
 
 
   addWindowListener(new WindowAdapter()
@@ -116,7 +117,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
      {
       try
       {
-       cardpad.gameSocket.close();
+       gamepad.gameSocket.close();
       }
       catch(Exception ee)
       {
@@ -131,7 +132,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
   });
 
        add(westPanel,BorderLayout.WEST);
-      add(centerPanel,BorderLayout.CENTER);
+      add(gamepad,BorderLayout.CENTER);
       add(southPanel,BorderLayout.SOUTH);
 
   pack();
@@ -172,160 +173,154 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
   {
    if(e.getSource()==controlpad.connectButton)
    {
-    host=cardpad.host=controlpad.inputIP.getText();
-    try
-    {
-     if(connectServer(host,port))
-     {
-      chatpad.chatLineArea.setText("");
-      controlpad.connectButton.setEnabled(false);
-      controlpad.creatGameButton.setEnabled(true);
-      controlpad.joinGameButton.setEnabled(true);
-      cardpad.statusText.setText("Connected, please create or join a game");
-     }
-
-
-    }
-    catch(Exception ei)
-    {
-     chatpad.chatLineArea.setText("controlpad.connectButton:Connect failed, please restart the client \n");
-    }
-    }
-    if(e.getSource()==controlpad.exitGameButton)
-    {
-     if(isOnChat)
-     {
-      try
-      {
-       chatSocket.close();
-      }
-      catch(Exception ed)
-      {
-      }
-     }
-     if(isOnGame || isGameConnected)
-     {
-      try
-      {
-       cardpad.gameSocket.close();
-      }
-      catch(Exception ee)
-      {
-      }
-     }
-     System.exit(0);
-
-    }
-    if(e.getSource()==controlpad.joinGameButton)
-    {
-     String selectedUser=userpad.userList.getSelectedItem();
-     if(selectedUser==null || selectedUser.startsWith("[inchess]") ||
-       selectedUser.equals(gameClientName))
-     {
-      cardpad.statusText.setText("Please select a user...");
-     }
-     else
-     {
-      try
-      {
-       if(!isGameConnected)
-       {
-        if(cardpad.connectServer(cardpad.host,cardpad.port))
+        host=gamepad.host=controlpad.inputIP.getText();
+        try
         {
-         isGameConnected=true;
-         isOnGame=true;
-         isClient=true;
-         controlpad.creatGameButton.setEnabled(false);
-         controlpad.joinGameButton.setEnabled(false);
-         controlpad.cancelGameButton.setEnabled(true);
-         cardpad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+         if(connectServer(host,port))
+         {
+          chatpad.chatLineArea.setText("");
+          controlpad.connectButton.setEnabled(false);
+          controlpad.creatGameButton.setEnabled(true);
+          controlpad.joinGameButton.setEnabled(true);
+          controlpad.statusText.setText("Connected, please create or join a game");
+         }
+
+
         }
-       }
-       else
-       {
-        isOnGame=true;
-        isClient=true;
-        controlpad.creatGameButton.setEnabled(false);
-        controlpad.joinGameButton.setEnabled(false);
-        controlpad.cancelGameButton.setEnabled(true);
-        cardpad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
-       }
-
-
-      }
-      catch(Exception ee)
-      {
-       isGameConnected=false;
-       isOnGame=false;
-       isClient=false;
-       controlpad.creatGameButton.setEnabled(true);
-       controlpad.joinGameButton.setEnabled(true);
-       controlpad.cancelGameButton.setEnabled(false);
-       chatpad.chatLineArea.setText("chesspad.connectServer Connect failed \n"+ee);
-      }
-
-     }
-    }
-    if(e.getSource()==controlpad.creatGameButton)
-    {
-     try
-     {
-      if(!isGameConnected)
-      {
-       if(cardpad.connectServer(cardpad.host,cardpad.port))
-       {
-        isGameConnected=true;
-        isOnGame=true;
-        isServer=true;
-        controlpad.creatGameButton.setEnabled(false);
-        controlpad.joinGameButton.setEnabled(false);
-        controlpad.cancelGameButton.setEnabled(true);
-        cardpad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
-       }
-      }
-      else
-      {
-       isOnGame=true;
-       isServer=true;
-       controlpad.creatGameButton.setEnabled(false);
-       controlpad.joinGameButton.setEnabled(false);
-       controlpad.cancelGameButton.setEnabled(true);
-       cardpad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
-      }
-     }
-     catch(Exception ec)
-     {
-      isGameConnected=false;
-      isOnGame=false;
-      isServer=false;
-      controlpad.creatGameButton.setEnabled(true);
-      controlpad.joinGameButton.setEnabled(true);
-      controlpad.cancelGameButton.setEnabled(false);
-      ec.printStackTrace();
-      chatpad.chatLineArea.setText("chesspad.connectServer Connect failed \n"+ec);
-     }
-
-    }
-    if(e.getSource()==controlpad.cancelGameButton)
-    {
-        if(isOnGame)
+        catch(Exception ei)
         {
-      cardpad.gamethread.sendMessage("/giveup "+gameClientName);
-      //cardpad.chessVictory(-1*cardpad.chessColor);
-      controlpad.creatGameButton.setEnabled(true);
-      controlpad.joinGameButton.setEnabled(true);
-      controlpad.cancelGameButton.setEnabled(false);
-      cardpad.statusText.setText("Please create or join a game");
-     }
-     if(!isOnGame)
-     {
-      controlpad.creatGameButton.setEnabled(true);
-      controlpad.joinGameButton.setEnabled(true);
-      controlpad.cancelGameButton.setEnabled(false);
-      cardpad.statusText.setText("Please create or join a game");
-     }
-     isClient=isServer=false;
-     }
+         chatpad.chatLineArea.setText("controlpad.connectButton:Connect failed, please restart the client \n");
+        }
+    }
+   else if(e.getSource()==controlpad.exitGameButton)
+    {
+        if(isOnChat)
+        {
+         try
+         {
+          chatSocket.close();
+         }
+         catch(Exception ed)
+         {
+         }
+        }
+        if(isOnGame || isGameConnected)
+        {
+         try
+         {
+          gamepad.gameSocket.close();
+         }
+         catch(Exception ee)
+         {
+         }
+        }
+        System.exit(0);
+
+    }else if(e.getSource()==controlpad.joinGameButton)  {
+        String selectedUser=userpad.userList.getSelectedItem();
+        if(selectedUser==null || selectedUser.startsWith("[inchess]") ||
+          selectedUser.equals(gameClientName))
+        {
+         controlpad.statusText.setText("Please select a user...");
+        }
+        else
+        {
+         try
+         {
+          if(!isGameConnected)
+          {
+           if(gamepad.connectServer(gamepad.host,gamepad.port))
+           {
+            isGameConnected=true;
+            isOnGame=true;
+            isClient=true;
+            controlpad.creatGameButton.setEnabled(false);
+            controlpad.joinGameButton.setEnabled(false);
+            controlpad.cancelGameButton.setEnabled(true);
+            gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+           }
+          }
+          else
+          {
+           isOnGame=true;
+           isClient=true;
+           controlpad.creatGameButton.setEnabled(false);
+           controlpad.joinGameButton.setEnabled(false);
+           controlpad.cancelGameButton.setEnabled(true);
+           gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+          }
+
+
+         }
+         catch(Exception ee)
+         {
+          isGameConnected=false;
+          isOnGame=false;
+          isClient=false;
+          controlpad.creatGameButton.setEnabled(true);
+          controlpad.joinGameButton.setEnabled(true);
+          controlpad.cancelGameButton.setEnabled(false);
+          chatpad.chatLineArea.setText("gamepad.connectServer Connect failed \n"+ee);
+         }
+
+        }
+    }else if(e.getSource()==controlpad.creatGameButton) {
+        try
+        {
+         if(!isGameConnected)
+         {
+          if(gamepad.connectServer(gamepad.host,gamepad.port))
+          {
+           isGameConnected=true;
+           isOnGame=true;
+           isServer=true;
+           controlpad.creatGameButton.setEnabled(false);
+           controlpad.joinGameButton.setEnabled(false);
+           controlpad.cancelGameButton.setEnabled(true);
+           gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
+          }
+         }
+         else
+         {
+          isOnGame=true;
+          isServer=true;
+          controlpad.creatGameButton.setEnabled(false);
+          controlpad.joinGameButton.setEnabled(false);
+          controlpad.cancelGameButton.setEnabled(true);
+          gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
+         }
+        }
+        catch(Exception ec)
+        {
+         isGameConnected=false;
+         isOnGame=false;
+         isServer=false;
+         controlpad.creatGameButton.setEnabled(true);
+         controlpad.joinGameButton.setEnabled(true);
+         controlpad.cancelGameButton.setEnabled(false);
+         ec.printStackTrace();
+         chatpad.chatLineArea.setText("gamepad.connectServer Connect failed \n"+ec);
+        }
+
+    }else if(e.getSource()==controlpad.cancelGameButton){
+            if(isOnGame)
+            {
+          gamepad.gamethread.sendMessage("/giveup "+gameClientName);
+          //cardpad.chessVictory(-1*gamepad.chessColor);
+          controlpad.creatGameButton.setEnabled(true);
+          controlpad.joinGameButton.setEnabled(true);
+          controlpad.cancelGameButton.setEnabled(false);
+          controlpad.statusText.setText("Please create or join a game");
+         }
+         if(!isOnGame)
+         {
+          controlpad.creatGameButton.setEnabled(true);
+          controlpad.joinGameButton.setEnabled(true);
+          controlpad.cancelGameButton.setEnabled(false);
+          controlpad.statusText.setText("Please create or join a game");
+         }
+         isClient=isServer=false;
+    }
 
    }
 

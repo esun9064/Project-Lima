@@ -5,64 +5,50 @@
  */
 
 package project.thread;
-import java.awt.*;
-import java.awt.event.*;
 import java.io.*;
-import java.net.*;
 import java.util.*;
 import project.pad.*;
 
-public class CardThread extends Thread
+public class GameThread extends Thread
 {
- CardPad cardpad;
+ GamePad gamepad;
+ ControlPad controlpad;
 
- public CardThread(CardPad cardpad)
+ public GameThread(GamePad cardpad, ControlPad controlpad)
  {
-  this.cardpad=cardpad;
+  this.controlpad=controlpad;
+  this.gamepad = cardpad;
  }
 
  public void sendMessage(String sndMessage)
  {
   try
   {
-   cardpad.outData.writeUTF(sndMessage);
+   gamepad.outData.writeUTF(sndMessage);
   }
   catch(Exception ea)
   {
-   System.out.println("chessThread.sendMessage:"+ea);
+   System.out.println("GameThread.sendMessage:"+ea);
   }
  }
 
 
  public void acceptMessage(String recMessage)
  {
+     //TODO you received message from the peer, so you should update the his/her cards on the board
   if(recMessage.startsWith("/chess "))
   {
-   StringTokenizer userToken=new StringTokenizer(recMessage," ");
-   String chessToken;
-   String[] chessOpt={"-1","-1","0"};
-   int chessOptNum=0;
-
-   while(userToken.hasMoreTokens())
-   {
-    chessToken=(String)userToken.nextToken(" ");
-    if(chessOptNum>=1 && chessOptNum<=3)
-    {
-     chessOpt[chessOptNum-1]=chessToken;
-
-    }
-    chessOptNum++;
-   }
-   cardpad.netChessPaint(Integer.parseInt(chessOpt[0]),Integer.parseInt(chessOpt[1]),Integer.parseInt(chessOpt[2]));
-
+      //For exampl, gamepad.repaint()
+      System.out.println("you receive:"+recMessage);
+      controlpad.statusText.setText("recMessage");
   }
   else if(recMessage.startsWith("/yourname "))
   {
-   cardpad.selfName=recMessage.substring(10);
+   gamepad.selfName=recMessage.substring(10);
   }
   else if(recMessage.equals("/error"))
   {
-   cardpad.statusText.setText("Error: User not exist! Please restart the client.");
+   controlpad.statusText.setText("Error: User not exist! Please restart the client.");
   }
   else
   {
@@ -78,7 +64,7 @@ public class CardThread extends Thread
      {
    while(true)
    {
-    message=cardpad.inData.readUTF();
+    message=gamepad.inData.readUTF();
     acceptMessage(message);
    }
   }
