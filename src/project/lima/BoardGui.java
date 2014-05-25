@@ -5,12 +5,12 @@
 package project.lima;
 /*
  * To do:
- * Get description for userboard cards, enemy board cards, - change to array, fix mouse listener to reflect this
- * Change to flow layout for cards - done
- * ??
- * ??
- * ??
- * ??
+ * add attack card code
+ * finish enum code
+ * create listener/actions for abilities
+ * merge with p2p
+ * borderfactory for panels
+ * make pretty
  */
 
 import java.awt.BorderLayout;
@@ -359,8 +359,7 @@ public class BoardGui {
 		enemyHand.setBackground(new Color(106,49,163));
 		
 		//and other panels
-		try {
-			deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
+		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
 			deckPanel.setBackground(new Color(106,49,163));
 			deck = resizeImage("src/project/214IMAGES/Card Back.jpg", 100, 100);
 			deckLabel = new JLabel(deck);
@@ -383,32 +382,28 @@ public class BoardGui {
 				enemyTable.add(enemyCards[i]);
 			}
 			
+			//test enemy card interaction
+			for (int i = 0 ; i < 7 ; i ++)
+			{
+				try {
+				Card temp = enemyPlayer.playCard(i);
+				enemyPlayer.addCardtoBoard(temp);
+				updateBoardCards();				
+				}
+				catch (Exception ex)
+				{
+					
+				}
+			}
+			
 			updateHandCards();
 			updateBoardCards();
-			/*
-			handCards[0] = new CardPanel(gameCards[0]);
-			userHand.add(handCards[0]);
-			handCards[1] = new CardPanel(gameCards[1]);
-			userHand.add(handCards[1]);
-			handCards[2] = new CardPanel(gameCards[2]);
-			userHand.add(handCards[2]);
-			handCards[3] = new CardPanel(gameCards[3]);
-			userHand.add(handCards[3]);
-			handCards[4] = new CardPanel(gameCards[4]);
-			userHand.add(handCards[4]);
-			handCards[5] = new CardPanel(gameCards[10]);
-			userHand.add(handCards[5]);
-			handCards[6] = new CardPanel(gameCards[6]);
-			userHand.add(handCards[6]);
-			handCards[7] = new CardPanel(gameCards[7]);
-			userHand.add(handCards[7]);
-			handCards[8] = new CardPanel(gameCards[8]);
-			userHand.add(handCards[8]);
-			handCards[9] = new CardPanel(gameCards[9]);
-			userHand.add(handCards[9]);
-			* */
+			
 			userHand.revalidate();
 			userHand.repaint();
+		
+		try {
+			
 			
 			handMenu.add(getHandDescription);
 			handMenu.add(playCard);
@@ -590,6 +585,9 @@ public class BoardGui {
 				chatBtn.addActionListener(gameActListener);
 				chatMsgWin.addKeyListener(enterKey);
 				
+				//menu uptop
+				quit.addActionListener(gameActListener);
+				
 				//leftSide panel holds game chat window and current online user list
 				leftSide.setLayout(new GridBagLayout());
 				GridBagConstraints gl = new GridBagConstraints();
@@ -605,7 +603,7 @@ public class BoardGui {
 				gl.weighty = 5;
 				gl.gridwidth = 2;
 				gl.gridy = 1;
-				leftSide.add(new JScrollPane(userList), gl);
+				leftSide.add(new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
 				
 				gl.gridx = 0;
 				gl.gridy = 2;
@@ -614,7 +612,7 @@ public class BoardGui {
 				gl.gridx = 0;
 				gl.gridy = 3;
 				gl.ipady = 180;
-				leftSide.add(new JScrollPane(chatWindow), gl);
+				leftSide.add(new JScrollPane(chatWindow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
 				
 				gl.gridy = 0;
 				gl.gridy = 4;
@@ -654,7 +652,7 @@ public class BoardGui {
 	
 	public static void sendButtonAction()
 	{
-		System.out.println("Send button action");
+		chatWindow.append(chatMsgWin.getText().toString() + "\n");
 	}
 	
 	//show card's ability description
@@ -672,6 +670,8 @@ public class BoardGui {
 		updateBoardCards();
 		updateHandCards();
 		updatePlayerStats();		
+		chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color, 
+		//but this requires using JTextPane instead of editor, if someone would like to learn that...
 		}
 		catch (MuchCostException e)
 		{
@@ -919,5 +919,10 @@ public class BoardGui {
 		enemyPlayer.setCredits(-attack);
 		updatePlayerStats();
 		card.setHasAttacked(true);
+	}
+	
+	public static void attkCard(CardPanel attkPanel, CardPanel defPanel)
+	{
+		
 	}
 }
