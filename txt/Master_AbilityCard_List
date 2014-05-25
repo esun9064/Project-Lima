@@ -6,4 +6,4 @@ Beach Day!,4,img/Beach Day.jpeg,Restore 3 health to all friendly cards,AOEfheal3
 Polar Vortex,4,img/Polar Vortex.jpeg,Deal 3 damage to all opposing cards,AOEedamage3
 Chicago Light Pollution,5,img/Orange Glow.jpeg,Deal 6 damage to an opposing card,STdamage6
 DilloDay,5,img/DilloDay.jpeg,Subtract 14 credits from opposing player,OPdamage14
-Organic Chemistry,3,img/Organic Chemistry.jpg,Deal 9 credits to enemy player,OPDamage8
+Organic Chemistry,3,img/Organic Chemistry.jpg,Deal 8 credits to enemy player,OPDamage8
