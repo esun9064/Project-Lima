@@ -22,7 +22,7 @@ public class Player {
 	private int currentCredits;
 	private final int maxCredits = 50;
 	private int wcp;
-	private final int initwcp = 5;
+	private final int initwcp = 500;
 	protected boolean isFirst;
 	
 	public Player(String name, DeckofCards deck)
@@ -116,14 +116,14 @@ public class Player {
 	
 	public void addCardtoHand(int index)
 	{
-		if (hand.size() <= 10)
+		if (hand.size() < 10)
 			hand.add(board.get(index));
 		board.remove(index);
 	}
 	
 	public void addCardtoBoard(Card card)
 	{
-		if (board.size() <= 7)
+		if (board.size() < 7)
 			board.add(card);
 	}
 
@@ -137,11 +137,26 @@ public class Player {
 		int length = board.size();
 		for (int i = 0; i < length; i++)
 		{
-			if (hand.get(i).getName().equals(card.getName())
+			if (board.get(i).getName() == card.getName())
 			{
 				board.remove(i);
 				return;
 			}
+		}
+	}
+	
+	public void addCardToHand(Card card)
+	{
+		if (hand.size() < 10)
+			hand.add(card);
+	}
+	
+	public void clearHand()
+	{
+		int h = hand.size() -1;
+		for (int i = h ; i >= 0; i--)
+		{
+			this.hand.remove(i);
 		}
 	}
 }

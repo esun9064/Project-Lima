@@ -46,7 +46,7 @@ public class Card {
 	{
 		this.name = name;
 		this.cost = cost;
-		this.image = resizeImage(image, 85, 100);
+		this.image = resizeImage(image, 75, 90);
         this.description = d;
         this.ability = a;
 		this.abilityUsed = false;

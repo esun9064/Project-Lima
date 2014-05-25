@@ -57,6 +57,10 @@ public class BoardGui {
 	protected static Player userPlayer;			//test not working
 	protected static Player enemyPlayer;
 	
+	public static boolean secondClick;
+	public static Card savedCard; 
+	
+	public static Color white = new Color(255,255,255);
 	
 	//gui components
 	public static JFrame frame = new JFrame("Lima");		//overall frame of the game
@@ -76,7 +80,8 @@ public class BoardGui {
 	public static JLabel userWcp = new JLabel();				//wildcat points (cost)
 	public static JLabel enemyHealth = new JLabel();
 	public static JLabel enemyRemainingCards = new JLabel();
-	public static JLabel enemyWcp = new JLabel();				//wildcat points (cost)	
+	public static JLabel enemyWcp = new JLabel();				//wildcat points (cost)
+	public static JLabel enemyHandLen = new JLabel();
 	
 	//panels of cards in player hand, change to array, later!!!!!!!!!!! -
 	public static CardPanel[] handCards = new CardPanel[10];
@@ -168,6 +173,11 @@ public class BoardGui {
 		userPlayer = new Player("Eric", new DeckofCards(30, gameCards));			//test not working
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards));
 		
+		
+		userPlayer.clearHand();
+		for (int i = 41 ; i < 50 ; i ++)
+			userPlayer.addCardToHand(gameCards[i]);
+		userPlayer.addCardToHand(gameCards[20]);
 	}
 	public static void showPopup(MouseEvent e, String menu)
 	{
@@ -202,76 +212,6 @@ public class BoardGui {
 		}
 	}
 	
-	public void executeEvent(AbilityCard a)
-	{
-		ability abil = a.getAbility();
-		
-		
-		if ((abil == ability.STlowerattackto1) || (abil == ability.STdamage6))  // for the cards that need to select a card to operate on
-		{
-			
-		}
-		else
-		{
-			switch (abil)   // cards whose effect does not require a choice
-			{
-				case OPdamage5:
-					enemyPlayer.setCredits(enemyPlayer.getCredits() - 5);
-					break;
-				case OPdamage14:
-					enemyPlayer.setCredits(enemyPlayer.getCredits() - 14);
-					break;
-				case OPdamage8:
-					enemyPlayer.setCredits(enemyPlayer.getCredits() - 8);
-					break;
-				case AOEedamage1:
-					for (int i = 0; i < enemyCards.length; i++)
-						if (enemyCards[i].getRegCard() != null)
-						{
-							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 1);
-						}
-					break;
-				case AOEedamage3:
-					for (int i = 0; i < enemyCards.length; i++)
-						if (enemyCards[i].getRegCard() != null)
-						{
-							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 3);
-						}
-					break;
-				case AOEfheal3:
-					for (int i = 0; i < userCards.length; i++)
-						if (userCards[i].getRegCard() != null)
-						{
-							int newHealth = userCards[i].getRegCard().getHealth() + 3;
-							if (newHealth > userCards[i].getRegCard().getMaxHealth())
-							{
-								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getMaxHealth());
-							}
-							else
-							{
-								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
-							}
-						}
-					break;
-				case firedrill:
-					for (int i = 0; i < userCards.length; i++)
-					{
-						userPlayer.addCardtoHand(i);
-						userCards[i].removeCardFromPanel();
-						
-					}
-					for (int i = 0; i < enemyCards.length; i++)
-					{
-						enemyPlayer.addCardtoHand(i);
-						enemyCards[i].removeCardFromPanel();
-					}
-					break;
-			}
-			
-		}
-	}
-        
-        
 	public static void main(String[] args)
 	{
 		initCards();
@@ -332,11 +272,15 @@ public class BoardGui {
 		enemyHand.setLayout(new BoxLayout(enemyHand, BoxLayout.Y_AXIS));
 		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
 		enemyHealth.setText("Enemy Health: " + String.valueOf(enemyPlayer.getCredits()));
+		enemyHealth.setForeground(white);
 		enemyHand.add(enemyHealth);
 		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
+		enemyWcp.setForeground(white);
 		enemyHand.add(enemyWcp);
 		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
+		enemyRemainingCards.setForeground(white);
 		enemyHand.add(enemyRemainingCards);
+		enemyHand.add(enemyHandLen);
 		
 		//set layout of panels that make up the board
 		FlowLayout cardsLayout = new FlowLayout();
@@ -360,47 +304,54 @@ public class BoardGui {
 		
 		//and other panels
 		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
-			deckPanel.setBackground(new Color(106,49,163));
-			deck = resizeImage("src/project/214IMAGES/Card Back.jpg", 100, 100);
-			deckLabel = new JLabel(deck);
-			deckPanel.add(deckLabel);
-			userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
-			deckPanel.add(userHealth);
-			userWcp.setText("Wildcat Points: " + String.valueOf(userPlayer.getWcp()));
-			deckPanel.add(userWcp);
-			userRemainingCards.setText("Cards Left: " + userPlayer.getDeck().cardsLeft());
-			deckPanel.add(userRemainingCards);
-			userHand.add(deckPanel);
-			
-			for (int i = 0; i < 10; i ++)
-			{
-				userHand.add(handCards[i]);
-			}
-			for (int i = 0 ; i < 7; i ++ )
-			{
-				userTable.add(userCards[i]);
-				enemyTable.add(enemyCards[i]);
-			}
-			
-			//test enemy card interaction
-			for (int i = 0 ; i < 7 ; i ++)
-			{
-				try {
+		deckPanel.setBackground(new Color(106,49,163));
+		deck = resizeImage("src/project/214IMAGES/Card Back.jpg", 75, 90);
+		deckLabel = new JLabel(deck);
+		deckPanel.add(deckLabel);
+		userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
+		deckPanel.add(userHealth);
+		userWcp.setText("Wildcat Points: " + String.valueOf(userPlayer.getWcp()));
+		deckPanel.add(userWcp);
+		userRemainingCards.setText("Cards Left: " + userPlayer.getDeck().cardsLeft());
+		deckPanel.add(userRemainingCards);
+		userHand.add(deckPanel);
+		updatePlayerStats();
+		
+		for (int i = 0; i < 10; i ++)
+		{
+			userHand.add(handCards[i]);
+		}
+		for (int i = 0 ; i < 7; i ++ )
+		{
+			userTable.add(userCards[i]);
+			enemyTable.add(enemyCards[i]);
+		}
+		
+		//test enemy card interaction
+		for (int i = 0 ; i < 7 ; i ++)
+		{
+			try {
 				Card temp = enemyPlayer.playCard(i);
-				enemyPlayer.addCardtoBoard(temp);
-				updateBoardCards();				
-				}
-				catch (Exception ex)
+				if (temp instanceof RegCard)
 				{
-					
+					enemyPlayer.addCardtoBoard(temp);
+					updateBoardCards();
+					updatePlayerStats();
 				}
+				else
+					i -= 1;
 			}
-			
-			updateHandCards();
-			updateBoardCards();
-			
-			userHand.revalidate();
-			userHand.repaint();
+			catch (Exception ex)
+			{
+				
+			}
+		}
+		
+		updateHandCards();
+		updateBoardCards();
+		
+		userHand.revalidate();
+		userHand.repaint();
 		
 		try {
 			
@@ -516,14 +467,14 @@ public class BoardGui {
 			
 			//listener for card actions - attack, get description etc
 			MouseListener cardListener = new MouseListener()
-			{				
+			{
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					
 					
 				}
-					
-					
+				
+				
 				@Override
 				public void mousePressed(MouseEvent e) {
 					if (e.getSource() == getHandDescription)		//show card description
@@ -547,101 +498,143 @@ public class BoardGui {
 					{
 						attkPlayer(userCards[cIden]);
 					}
+					if (e.getSource() == card0)
+					{
+						attkCard(userCards[cIden], enemyCards[0]);
+					}
+					if (e.getSource() == card1)
+					{
+						attkCard(userCards[cIden], enemyCards[1]);
+					}
+					if (e.getSource() == card2)
+					{
+						attkCard(userCards[cIden], enemyCards[2]);
+						
+					}
+					if (e.getSource() == card3)
+					{
+						attkCard(userCards[cIden], enemyCards[3]);
+						
+					}
+					if (e.getSource() == card4)
+					{
+						attkCard(userCards[cIden], enemyCards[4]);
+						
+					}
+					if (e.getSource() == card5)
+					{
+						attkCard(userCards[cIden], enemyCards[5]);
+						
+					}
+					if (e.getSource() == card6)
+					{
+						attkCard(userCards[cIden], enemyCards[6]);
+						
+					}
 					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
 						findMouseAction(e);
 					}
 				}
-					
+				
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					findMouseAction(e);
 				}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-				}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-				}
-					
-				};
 				
-				for (int i = 0; i < 10; i ++)
+				@Override
+				public void mouseEntered(MouseEvent e) {
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+				}
+				
+			};
+			
+			for (int i = 0; i < 10; i ++)
 				handCards[i].addMouseListener(cardListener);
-				for (int i = 0; i < 7; i ++)
+			for (int i = 0; i < 7; i ++)
 				userCards[i].addMouseListener(cardListener);
-				for (int i = 0; i < 7; i ++)
+			for (int i = 0; i < 7; i ++)
 				enemyCards[i].addMouseListener(cardListener);
-				
-				getHandDescription.addMouseListener(cardListener);
-				getUTableDescription.addMouseListener(cardListener);
-				getETableDescription.addMouseListener(cardListener);				
-				playCard.addMouseListener(cardListener);
-				
-				attkPlayer.addMouseListener(cardListener);
-				useAbility.addMouseListener(cardListener);
-				
-				chatBtn.addActionListener(gameActListener);
-				chatMsgWin.addKeyListener(enterKey);
-				
-				//menu uptop
-				quit.addActionListener(gameActListener);
-				
-				//leftSide panel holds game chat window and current online user list
-				leftSide.setLayout(new GridBagLayout());
-				GridBagConstraints gl = new GridBagConstraints();
-				gl.anchor = GridBagConstraints.LAST_LINE_START;
-				gl.gridx = 0;
-				gl.gridy = 0;
-				gl.ipady = 6;
-				leftSide.add(userLbl, gl);
-				
-				userList.setVisible(true);
-				gl.anchor = GridBagConstraints.NORTHWEST;
-				gl.gridx = 0;
-				gl.weighty = 5;
-				gl.gridwidth = 2;
-				gl.gridy = 1;
-				leftSide.add(new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
-				
-				gl.gridx = 0;
-				gl.gridy = 2;
-				leftSide.add(chatLbl, gl);
-				
-				gl.gridx = 0;
-				gl.gridy = 3;
-				gl.ipady = 180;
-				leftSide.add(new JScrollPane(chatWindow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
-				
-				gl.gridy = 0;
-				gl.gridy = 4;
-				gl.gridwidth = 1;
-				gl.weighty = 1;
-				gl.ipady = 7;
-				gl.weightx = .5;
-				leftSide.add(chatMsgWin, gl);
-				
-				gl.gridx = 1;
-				gl.gridy = 4;
-				gl.ipady = 0;
-				gl.weightx = .5;
-				leftSide.add(chatBtn, gl);
-				
-				//add main menu items
-				file.add(quit);
-				gameMenu.add(file);
-				
-				
-				
-				
-				
-				
-			}
-					catch (Exception ex)
-					{
-						System.out.println("No file");
-					}
+			
+			getHandDescription.addMouseListener(cardListener);
+			getUTableDescription.addMouseListener(cardListener);
+			getETableDescription.addMouseListener(cardListener);
+			playCard.addMouseListener(cardListener);
+			
+			attkPlayer.addMouseListener(cardListener);
+			useAbility.addMouseListener(cardListener);
+			
+			card0.addMouseListener(cardListener);
+			card1.addMouseListener(cardListener);
+			card2.addMouseListener(cardListener);
+			card3.addMouseListener(cardListener);
+			card4.addMouseListener(cardListener);
+			card5.addMouseListener(cardListener);
+			card6.addMouseListener(cardListener);
+			
+			
+			chatBtn.addActionListener(gameActListener);
+			chatMsgWin.addKeyListener(enterKey);
+			
+			//menu uptop
+			quit.addActionListener(gameActListener);
+			
+			//leftSide panel holds game chat window and current online user list
+			leftSide.setLayout(new GridBagLayout());
+			GridBagConstraints gl = new GridBagConstraints();
+			gl.anchor = GridBagConstraints.LAST_LINE_START;
+			gl.gridx = 0;
+			gl.gridy = 0;
+			gl.ipady = 6;
+			leftSide.add(userLbl, gl);
+			
+			userList.setVisible(true);
+			gl.anchor = GridBagConstraints.NORTHWEST;
+			gl.gridx = 0;
+			gl.weighty = 5;
+			gl.gridwidth = 2;
+			gl.gridy = 1;
+			leftSide.add(new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
+			
+			gl.gridx = 0;
+			gl.gridy = 2;
+			leftSide.add(chatLbl, gl);
+			
+			gl.gridx = 0;
+			gl.gridy = 3;
+			gl.ipady = 180;
+			leftSide.add(new JScrollPane(chatWindow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
+			
+			gl.gridy = 0;
+			gl.gridy = 4;
+			gl.gridwidth = 1;
+			gl.weighty = 1;
+			gl.ipady = 7;
+			gl.weightx = .5;
+			leftSide.add(chatMsgWin, gl);
+			
+			gl.gridx = 1;
+			gl.gridy = 4;
+			gl.ipady = 0;
+			gl.weightx = .5;
+			leftSide.add(chatBtn, gl);
+			
+			//add main menu items
+			file.add(quit);
+			gameMenu.add(file);
+			
+			
+			
+			
+			
+			
+		}
+		catch (Exception ex)
+		{
+			System.out.println("No file");
+		}
 		
 		gameArea.add(gameMenu, BorderLayout.NORTH);
 		gameArea.add(leftSide, BorderLayout.WEST);
@@ -665,13 +658,21 @@ public class BoardGui {
 	public static void playCard(CardPanel card)
 	{
 		try {
-		Card temp = userPlayer.playCard(cIden);
-		userPlayer.addCardtoBoard(temp);
-		updateBoardCards();
-		updateHandCards();
-		updatePlayerStats();		
-		chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color, 
-		//but this requires using JTextPane instead of editor, if someone would like to learn that...
+			Card temp = userPlayer.playCard(cIden);
+			if (temp instanceof AbilityCard)
+			{
+				executeEvent((AbilityCard) temp);
+				updatePlayerStats();
+				updateBoardCards();
+				updateHandCards();
+			}
+			else
+				userPlayer.addCardtoBoard(temp);
+			updateBoardCards();
+			updateHandCards();
+			updatePlayerStats();
+			chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color,
+			//but this requires using JTextPane instead of editor, if someone would like to learn that...
 		}
 		catch (MuchCostException e)
 		{
@@ -850,10 +851,10 @@ public class BoardGui {
 		int len = userPlayer.getHand().size();
 		for (int i = 0 ; i < len; i ++ )
 		{
-				handCards[i].removeCardFromPanel();
+			handCards[i].removeCardFromPanel();
 			
 			handCards[i].getNewCard(userPlayer.getHand().get(i));
-
+			
 			handCards[i].revalidate();
 			handCards[i].repaint();
 		}
@@ -868,9 +869,32 @@ public class BoardGui {
 	}
 	
 	public static void updateBoardCards()
-	{
+	{	
 		int uLen = userPlayer.getBoard().size();
 		int eLen = enemyPlayer.getBoard().size();
+		
+		
+		for (int i = uLen - 1; i >= 0 ; i--)
+		{
+			if (userPlayer.getBoard().get(i) instanceof RegCard)
+			{
+				RegCard reg = (RegCard) userPlayer.getBoard().get(i);
+				if(reg.getHealth() <= 0)
+					userPlayer.removeCardFromBoard(i);
+			}
+		}
+		for (int i = eLen - 1; i >= 0 ; i --)
+		{
+			if (enemyPlayer.getBoard().get(i) instanceof RegCard)
+			{
+				RegCard reg = (RegCard) enemyPlayer.getBoard().get(i);
+				if(reg.getHealth() <= 0)
+					enemyPlayer.removeCardFromBoard(i);
+			}
+		}
+		
+		uLen = userPlayer.getBoard().size();
+		eLen = enemyPlayer.getBoard().size();
 		for (int i = 0 ; i < uLen; i ++ )
 		{
 			userCards[i].removeCardFromPanel();
@@ -883,7 +907,7 @@ public class BoardGui {
 			enemyCards[i].removeCardFromPanel();
 			enemyCards[i].getNewCard(enemyPlayer.getBoard().get(i));
 			enemyCards[i].revalidate();
-			enemyCards[i].repaint();	
+			enemyCards[i].repaint();
 		}
 		
 		while (uLen < 7)
@@ -899,7 +923,7 @@ public class BoardGui {
 		enemyTable.revalidate();
 		enemyTable.repaint();
 		userTable.revalidate();
-		userTable.repaint();		
+		userTable.repaint();
 	}
 	
 	public static void updatePlayerStats()
@@ -910,6 +934,15 @@ public class BoardGui {
 		enemyHealth.setText("Enemy Health: " + String.valueOf(enemyPlayer.getCredits()));
 		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
 		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
+		enemyHandLen.setText("Cards in hand: " + enemyPlayer.getHand().size());
+		
+		userHealth.setForeground(white);
+		userWcp.setForeground(white);
+		userRemainingCards.setForeground(white);
+		enemyHealth.setForeground(white);
+		enemyWcp.setForeground(white);
+		enemyRemainingCards.setForeground(white);
+		enemyHandLen.setForeground(white);
 	}
 	
 	public static void attkPlayer(CardPanel cardPanel)
@@ -923,6 +956,241 @@ public class BoardGui {
 	
 	public static void attkCard(CardPanel attkPanel, CardPanel defPanel)
 	{
+		RegCard attacker = attkPanel.getRegCard();
+		RegCard defender = defPanel.getRegCard();
+		attacker.setHealth(attacker.getHealth()-defender.getAttack());
+		defender.setHealth(defender.getHealth()-attacker.getAttack());
+		updateBoardCards();
+	}
+	
+	public static void executeReg(RegCard r)
+	{
+		ability abil = r.getAbility();
+		if ((abil == ability.STlowerattackby1) || (abil == ability.STdamage1) || (abil == ability.STdamage2)
+				|| (abil == ability.STdamage3) || (abil == ability.STheal1) || (abil == ability.STheal2)
+				|| (abil == ability.STheal3) || (abil == ability.STincattack1) || (abil == ability.STincattack3)
+				|| (abil == ability.STreturnhand) || (abil == ability.STattackbuff1)) // Single Target abilities
+		{
+			savedCard = r;
+			secondClick = true;
+		}
+		else
+		{
+			switch (abil)
+			{
+				case destroyallfriendlies:   // William Jennings Bryant
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
+						{
+							userCards[i].removeCardFromPanel();
+							userPlayer.removeCardFromBoard(i);
+						}
+					}
+					break;
+				case selfdamage3:    // Rob
+					userPlayer.setCredits(-3);
+					break;
+				case selfheal2: // Deering Library
+					userPlayer.setCredits(2);
+					break;
+				case AOEdamage1:  // Campus Skunk
+					userPlayer.setCredits(-1);
+					enemyPlayer.setCredits(-1);
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard() != null){
+							if (userCards[i].getRegCard().getAbility() != ability.AOEdamage1)
+								
+							{
+								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() - 1);
+							}
+						}
+					}
+					for (int j = 0; j < enemyCards.length; j++)
+					{
+						if (enemyCards[j].getRegCard() != null){
+							enemyCards[j].getRegCard().setHealth(enemyCards[j].getRegCard().getHealth() - 1);
+						}
+					}
+					break;
+				case AOEfincdamage1:  // Willie the Wildcat
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard() != null){
+							if (userCards[i].getRegCard().getAbility() != ability.AOEfincdamage1)
+							{
+								userCards[i].getRegCard().setAttack(userCards[i].getRegCard().getAttack() + 1);
+							}
+						}
+					}
+					
+					break;
+				case AOEfheal1: // Dolphin Show
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard() != null){
+							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 1);
+						}
+					}
+					break;
+				case selfdamage7: // Charles Heston
+					userPlayer.setCredits(-7);
+					break;
+				case AOEfinchealth3:  // Cindy Crawford
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard() != null){
+							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
+						}
+					}
+					break;
+				case AOEfhealthbuff2: // Dormitory Ant
+					for (int i = 0; i < userCards.length; i++)
+					{
+						if (userCards[i].getRegCard() != null){
+							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
+						}
+					}
+					
+			}
+			
+		}
+	}
+	
+	
+	public static void executeEvent(AbilityCard a)
+	{
+		ability abil = a.getAbility();
+		
+		
+		if ((abil == ability.STlowerattackto1) || (abil == ability.STdamage6))  // for the cards that need to select a card to operate on
+		{
+			savedCard = a;
+			secondClick = true;
+			
+		}
+		else
+		{
+			switch (abil)   // cards whose effect does not require a choice
+			{
+				case OPdamage5: // EEcs midterm
+					enemyPlayer.setCredits(-5);
+					break;
+				case OPdamage14: // DilloDay
+					enemyPlayer.setCredits(-14);
+					break;
+				case OPdamage8:  // Organic Chemistry
+					enemyPlayer.setCredits(-8);
+					break;
+				case AOEedamage1:  // Winter Blizzard
+					for (int i = 0; i < enemyCards.length; i++)
+						if (enemyCards[i].getRegCard() != null)
+						{
+							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 1);
+						}
+					break;
+				case AOEedamage3:
+					for (int i = 0; i < enemyCards.length; i++)
+						if (enemyCards[i].getRegCard() != null)
+						{
+							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 3);
+						}
+					break;
+				case AOEfheal3:
+					for (int i = 0; i < userCards.length; i++)
+						if (userCards[i].getRegCard() != null)
+						{
+							int newHealth = userCards[i].getRegCard().getHealth() + 3;
+							if (newHealth > userCards[i].getRegCard().getMaxHealth())
+							{
+								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getMaxHealth());
+							}
+							else
+							{
+								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
+							}
+						}
+					break;
+				case firedrill:
+					int uLen = userPlayer.getBoard().size() - 1;
+					int eLen = enemyPlayer.getBoard().size() - 1;
+					for (int i = uLen ; i >= 0; i--)
+					{
+						userPlayer.addCardtoHand(i);
+						userCards[i].removeCardFromPanel();
+						
+					}
+					for (int i = eLen ; i >= 0; i--)
+					{
+						enemyPlayer.addCardtoHand(i);
+						enemyCards[i].removeCardFromPanel();
+					}
+					break;
+			}
+			
+		}
+		
+		updatePlayerStats();
+		updateHandCards();
+		updateBoardCards();
+	}
+	
+	//needs additional input
+	public static void executeOnTarget(Card s, RegCard t){
+		ability abil = s.getAbility();
+		
+		
+		switch (abil)
+		{
+			case STlowerattackby1:  // University Squirrel and Kresge
+				t.setAttack(t.getAttack() - 1);
+				break;
+			case STdamage1:  // Lake Seagull and Evanston Raccoon
+				t.setHealth(t.getHealth() - 1);
+				break;
+			case STdamage2:  // House Centipede
+				t.setHealth(t.getHealth() - 2);
+			case STincattack3: // Lakefill Pond Carp
+				t.setAttack(t.getAttack() + 3);
+				break;
+			case STincattack1: // Pat Fitzgerald
+				t.setAttack(t.getAttack() + 1);
+				break;
+			case STdamage3: // Seth Meyers
+				t.setHealth(t.getHealth() - 3);
+				break;
+			case STreturnhand:  // Elusive Rabbit and Deering Meadow
+				for (int j = 0; j < enemyCards.length; j++)
+				{
+					if (enemyCards[j].getRegCard() == t)
+						enemyPlayer.addCardtoHand(j);
+					enemyPlayer.removeCardFromBoard(j);
+				}
+				break;
+			case STdamage6: //Chicago Light Pollution
+				t.setHealth(t.getHealth() - 6);
+				break;
+			case STlowerattackto1:  // the rock
+				t.setAttack(1);
+				break;
+			case STheal1:
+				t.setHealth(t.getHealth() + 1);
+				break;
+			case STheal2:  // Allison Hall
+				t.setHealth(t.getHealth() + 2);
+				break;
+			case STheal3:  // Bobb McCulloch Hall
+				t.setHealth(t.getHealth() + 3);
+				break;
+			case STattackbuff1:
+				t.setAttack(t.getAttack() + 1);
+				break;
+		}
+		
 		
 	}
+	
+	
+	
 }
