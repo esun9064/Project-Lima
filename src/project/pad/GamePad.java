@@ -35,7 +35,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
     public JLabel userRemainingCards = new JLabel();
     public JLabel userWcp = new JLabel();				//wildcat points (cost)
 
-
+    //  execute variables
+    public static Card savedCard = null;
+    public static boolean secondClick = false;
+    
     //panels of cards in player hand, change to array, later!!!!!!!!!!! -
     public static CardPanel[] handCards = new CardPanel[10];
     public static CardPanel[] userCards = new CardPanel[7];
@@ -366,6 +369,235 @@ public class GamePad extends Panel implements MouseListener,ActionListener
                //             Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                     }
             }
+            
+           public void executeReg(RegCard r)
+        {
+            ability abil = r.getAbility();
+            if ((abil == ability.STlowerattackby1) || (abil == ability.STdamage1) || (abil == ability.STdamage2)
+                || (abil == ability.STdamage3) || (abil == ability.STheal1) || (abil == ability.STheal2) 
+                    || (abil == ability.STheal3) || (abil == ability.STincattack1) || (abil == ability.STincattack3)
+                    || (abil == ability.STreturnhand) || (abil == ability.STattackbuff1)) // Single Target abilities
+            {
+                savedCard = r;
+                secondClick = true;
+            }
+            else
+            {
+                switch (abil)
+                {
+                    case destroyallfriendlies:   // William Jennings Bryant
+                        for (int i = 0; i < userCards.length; i++)
+                        {
+                            if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
+                            {
+                         userCards[i].removeCardFromPanel();
+                         userPlayer.removeCardFromBoard(i);
+                            }
+                        }
+                    break;
+                    case selfdamage3:    // Rob  
+                     userPlayer.setCredits(-3);
+                      break;   
+                    case selfheal2: // Deering Library
+                        userPlayer.setCredits(2);
+                      break;
+                    case AOEdamage1:  // Campus Skunk
+                        userPlayer.setCredits(-1);
+                        enemyPlayer.setCredits(-1);
+                        for (int i = 0; i < userCards.length; i++)
+                        {
+                            if (userCards[i].getRegCard() != null){
+                            if (userCards[i].getRegCard().getAbility() != ability.AOEdamage1)
+                                
+                            {
+                         userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() - 1);
+                            }
+                            }
+                        }
+                        for (int j = 0; j < enemyCards.length; j++)
+                        {
+                            if (enemyCards[j].getRegCard() != null){
+                         enemyCards[j].getRegCard().setHealth(enemyCards[j].getRegCard().getHealth() - 1);
+                            }
+                        }
+                    break;
+                    case AOEfincdamage1:  // Willie the Wildcat
+                        for (int i = 0; i < userCards.length; i++)
+                        {
+                            if (userCards[i].getRegCard() != null){
+                            if (userCards[i].getRegCard().getAbility() != ability.AOEfincdamage1)
+                            {
+                         userCards[i].getRegCard().setAttack(userCards[i].getRegCard().getAttack() + 1);
+                            }
+                            }
+                        }
+                        
+                        break;
+                   case AOEfheal1: // Dolphin Show
+                       for (int i = 0; i < userCards.length; i++)
+                        {
+                            if (userCards[i].getRegCard() != null){
+                         userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 1);
+                            }   
+                        }
+                       break;
+                   case selfdamage7: // Charles Heston
+                       userPlayer.setCredits(-7);
+                       break;
+                   case AOEfinchealth3:  // Cindy Crawford
+                       for (int i = 0; i < userCards.length; i++)
+                        {
+                            if (userCards[i].getRegCard() != null){
+                         userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
+                            }
+                        }
+                       break;
+                   case AOEfhealthbuff2: // Dormitory Ant
+                       for (int i = 0; i < userCards.length; i++)
+                       {
+                            if (userCards[i].getRegCard() != null){
+                         userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
+                            }
+                        }
+                       
+                }
+                            
+            }
+            }
+            
+          
+            
+            
+        
+        
+        public void executeEvent(AbilityCard a)
+        {
+            ability abil = a.getAbility();
+            
+            
+            if ((abil == ability.STlowerattackto1) || (abil == ability.STdamage6))  // for the cards that need to select a card to operate on
+            {
+                savedCard = a;
+                secondClick = true;
+                
+            }
+            else
+            {
+              switch (abil)   // cards whose effect does not require a choice
+              {
+                  case OPdamage5: // EEcs midterm
+                      enemyPlayer.setCredits(-5);
+                      break;
+                  case OPdamage14: // DilloDay
+                      enemyPlayer.setCredits(-14);
+                      break;
+                  case OPdamage8:  // Organic Chemistry
+                      enemyPlayer.setCredits(-8);
+                      break;    
+                  case AOEedamage1:  // Winter Blizzard
+                      for (int i = 0; i < enemyCards.length; i++)
+                          if (enemyCards[i].getRegCard() != null)
+                          {
+                          enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 1);
+                          }
+                      break;
+                  case AOEedamage3: 
+                      for (int i = 0; i < enemyCards.length; i++)
+                          if (enemyCards[i].getRegCard() != null)
+                          {
+                          enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 3);
+                          }
+                      break;
+                  case AOEfheal3:
+                      for (int i = 0; i < userCards.length; i++)
+                          if (userCards[i].getRegCard() != null)
+                          {
+                            int newHealth = userCards[i].getRegCard().getHealth() + 3;
+                            if (newHealth > userCards[i].getRegCard().getMaxHealth())
+                            {
+                                userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getMaxHealth());
+                            }
+                            else
+                            {
+                                userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
+                            }
+                          }
+                      break;
+                  case firedrill:
+                      for (int i = 0; i < userCards.length; i++)
+                      {
+                         userPlayer.addCardtoHand(i);
+                         userCards[i].removeCardFromPanel();
+                       
+                      }
+                      for (int i = 0; i < enemyCards.length; i++)
+                      {
+                      enemyPlayer.addCardtoHand(i);
+                      enemyCards[i].removeCardFromPanel();
+                      }
+                      break;
+                }
+              
+        }
+        }
+        
+        public void executeOnTarget(Card s, RegCard t){
+            ability abil = s.getAbility();
+            
+            
+            switch (abil)
+            {
+                case STlowerattackby1:  // University Squirrel and Kresge
+                    t.setAttack(t.getAttack() - 1);
+                    break;
+                case STdamage1:  // Lake Seagull and Evanston Raccoon
+                    t.setHealth(t.getHealth() - 1);
+                    break;
+                case STdamage2:  // House Centipede
+                    t.setHealth(t.getHealth() - 2);    
+                case STincattack3: // Lakefill Pond Carp
+                    t.setAttack(t.getAttack() + 3);
+                    break;
+                case STincattack1: // Pat Fitzgerald 
+                    t.setAttack(t.getAttack() + 1);
+                    break;
+                case STdamage3: // Seth Meyers 
+                    t.setHealth(t.getHealth() - 3);
+                    break;
+                case STreturnhand:  // Elusive Rabbit and Deering Meadow
+                    for (int j = 0; j < enemyCards.length; j++)
+                    {
+                        if (enemyCards[j].getRegCard() == t)
+                        enemyPlayer.addCardtoHand(j);
+                        enemyPlayer.removeCardFromBoard(j);
+                    }
+                    break;
+                case STdamage6: //Chicago Light Pollution
+                    t.setHealth(t.getHealth() - 6);
+                    break;
+                case STlowerattackto1:  // the rock
+                    t.setAttack(1);
+                    break;
+                case STheal1:   
+                    t.setHealth(t.getHealth() + 1);
+                    break;
+                case STheal2:  // Allison Hall
+                    t.setHealth(t.getHealth() + 2);
+                    break;
+                case STheal3:  // Bobb McCulloch Hall
+                    t.setHealth(t.getHealth() + 3);
+                    break;
+                case STattackbuff1:
+                    t.setAttack(t.getAttack() + 1);
+                    break;
+                        }
+            
+            
+        } 
+            
+            
+            
+            
 	public static void showPopup(MouseEvent e, String menu)
 	{
 		if (e.isPopupTrigger())
