@@ -133,7 +133,7 @@ public class Player {
 		int length = board.size();
 		for (int i = 0; i < length; i++)
 		{
-			if (hand.get(i).getName().equals(card.getName())
+			if (hand.get(i).getName().equals(card.getName()))
 			{
 				board.remove(i);
 				return;
