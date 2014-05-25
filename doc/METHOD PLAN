@@ -1,0 +1,133 @@
+Meeting 3
+
+• Talking about classes
+
+• Cards – define deck
+
+1. Users
+
+• Player 1
+
+• Player 2
+
+2. Use Cases
+
+• Player 1
+
+• Player 2 
+
+o Start game
+
+o Invite a player
+
+o Play a card from hand
+
+o Play card from board ‡ opponent or opponent’s card
+
+o View card more closely 
+
+o End turn 
+
+o Quit game 
+
+o Enable chat-mode
+
+o Send message to opponent 
+
+o Connect to game 
+
+o Accept invitation
+
+o Rest is the same as player 1
+
+3. Classes
+
+• Menu
+
+• Game (main)
+
+• Player
+
+o Player 1
+
+o Player 2
+
+o Board
+
+o Deck ALL
+
+o bool Turn
+
+o 
+
+o array - hand
+
+o Deck
+
+o int – current GPA
+
+o int – max GPA
+
+o int – current Wildcat Points
+
+o int final – max Wildcat Points
+
+o String name;
+
+o Methods
+
+ß View()
+
+ß PlayCard(Card x)
+
+ß MoveCard()
+
+ß EndTurn()
+
+ß Draw()
+
+ß Getters/Setters
+
+• Deck
+
+o Array Card[]
+
+o int top
+
+o isEmpty()
+
+o Shuffle()
+
+o deal()
+
+• Card
+
+o Name
+
+o Cost
+
+o Image
+
+o Ability (Enum)
+
+o Description
+
+o Get & Set methods
+
+ß Board
+
+• Board
+
+o LL Card [] P1
+
+o LL Card [] P2
+
+o Exchange()
+
+o addCard()
+
+o Discard()
+
+• Chat Window
+
+• Message
