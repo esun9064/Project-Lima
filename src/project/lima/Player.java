@@ -131,4 +131,17 @@ public class Player {
 	{
 		board.remove(index);
 	}
+	
+	public void removeCardFromBoard(Card card)
+	{
+		int length = board.size();
+		for (int i = 0; i < length; i++)
+		{
+			if (hand.get(i).getName().equals(card.getName())
+			{
+				board.remove(i);
+				return;
+			}
+		}
+	}
 }
