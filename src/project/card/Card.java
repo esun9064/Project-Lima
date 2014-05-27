@@ -40,26 +40,17 @@ public class Card {
 	protected ImageIcon image;
     protected String description;   //description of ability
 	protected ability ability;    // implementation of ability 
-<<<<<<< HEAD
-        
-=======
+
     protected boolean abilityUsed;
->>>>>>> testnop2p
         
 	public Card(String name, int cost, String image, String d, ability a)
 	{
 		this.name = name;
 		this.cost = cost;
-<<<<<<< HEAD
-		this.image = resizeImage(image, 85, 100);
-        this.description = d;
-        this.ability = a;
-=======
 		this.image = resizeImage(image, 75, 90);
         this.description = d;
         this.ability = a;
 		this.abilityUsed = false;
->>>>>>> testnop2p
 	}
 	
         // Getters and Setters
@@ -104,8 +95,6 @@ public class Card {
             this.ability = a;
         }
         
-<<<<<<< HEAD
-=======
 		public boolean isAbilityUsed()
 		{
 			return abilityUsed;
@@ -115,7 +104,6 @@ public class Card {
 		{
 			abilityUsed = t;
 		}
->>>>>>> testnop2p
     
     @Override
         public String toString(){

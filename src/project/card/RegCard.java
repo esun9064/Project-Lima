@@ -14,27 +14,18 @@ public class RegCard extends Card {
 	
 	protected int attack;
 	protected int health;	
-<<<<<<< HEAD
-	protected final int maxattack = attack;
-        protected final int maxhealth = health;
-=======
 	protected int maxattack = attack;
 	protected int maxhealth = health;
 	protected boolean hasAttacked;
->>>>>>> testnop2p
         
 	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a)
 	{
 		super(name, cost, image, d, a);
 		this.attack = attack;
 		this.health = health;
-<<<<<<< HEAD
-                
-=======
         hasAttacked = false;
 		maxhealth = this.health;
 		maxattack = this.attack;
->>>>>>> testnop2p
 	}
         
         public int getAttack(){
@@ -61,8 +52,6 @@ public class RegCard extends Card {
             return maxattack;
         }
         
-<<<<<<< HEAD
-=======
 		public boolean hasAttacked()
 		{
 			return hasAttacked;
@@ -73,7 +62,6 @@ public class RegCard extends Card {
 			hasAttacked = t;
 		}
 		
->>>>>>> testnop2p
         public String toString(){
                 String x;
         x = ("name: " + getName() + "\n cost: " + getCost() + 
@@ -84,5 +72,5 @@ public class RegCard extends Card {
             
         }
             
-        }
+}
 
