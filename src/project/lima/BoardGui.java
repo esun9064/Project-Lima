@@ -44,6 +44,7 @@ import project.card.Card;
 import project.card.Card.ability;
 import project.card.RegCard;
 import project.deck.DeckofCards;
+import project.support.MuchCardsException;
 import project.support.MuchCostException;
 
 /**
@@ -53,7 +54,7 @@ import project.support.MuchCostException;
 public class BoardGui {
 	
 	public static Card[] gameCards = new Card[50];
-	
+	public static Card[] gameCards2 = new Card[50];
 	protected static Player userPlayer;			//test not working
 	protected static Player enemyPlayer;
 	
@@ -101,7 +102,8 @@ public class BoardGui {
 	public static JMenuItem getETableDescription = new JMenuItem("Get Description");
 	public static JMenuItem attkPlayer = new JMenuItem("Attack Player");
 	public static JMenu attkCard = new JMenu("Attack Card");
-	public static JMenuItem useAbility = new JMenuItem("Use Ability");
+	public static JMenuItem useAbilityOnYou = new JMenuItem("Use Ability On");
+	public static JMenuItem useAbilityOnEnemy = new JMenuItem("Use Ability On");
 	//add ten items to submenu representing 10 possible cards
 	public static JMenuItem card0 = new JMenuItem("0");
 	public static JMenuItem card1 = new JMenuItem("1");
@@ -124,7 +126,8 @@ public class BoardGui {
 	public static JTextArea chatWindow = new JTextArea(12,25);			//displays incoming/outgoing messages
 	public static JTextField chatMsgWin = new JTextField(19);				//component for typing messages
 	public static JButton chatBtn = new JButton("Send");					//send message button
-	
+	public static JScrollPane chatWindowScroll;
+
 	public static int cIden;											//identifies the panel clicked
 	
 	/**
@@ -148,6 +151,7 @@ public class BoardGui {
 				String description = data[5];
 				ability a = ability.valueOf(data[6]);
 				gameCards[i] = new RegCard(name, cost, image, attack, health, description, a);
+				gameCards2[i] = new RegCard(name, cost, image, attack, health, description, a);
 				i++;
 			}
 			
@@ -162,6 +166,8 @@ public class BoardGui {
 				String description = data[3];
 				ability a = ability.valueOf(data[4]);
 				gameCards[i] = new AbilityCard(name, cost, image, description, a);
+				gameCards2[i] = new AbilityCard(name, cost, image, description, a);
+				
 				i++;
 			}
 		} catch (FileNotFoundException ex) {
@@ -171,13 +177,23 @@ public class BoardGui {
 		}
 		
 		userPlayer = new Player("Eric", new DeckofCards(30, gameCards));			//test not working
-		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards));
+		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
 		
 		
 		userPlayer.clearHand();
-		for (int i = 41 ; i < 50 ; i ++)
-			userPlayer.addCardToHand(gameCards[i]);
 		userPlayer.addCardToHand(gameCards[20]);
+		userPlayer.addCardToHand(gameCards[21]);
+		userPlayer.addCardToHand(gameCards[19]);
+		userPlayer.addCardToHand(gameCards[9]);
+		userPlayer.addCardToHand(gameCards[40]);
+		userPlayer.addCardToHand(gameCards[29]);
+		userPlayer.addCardToHand(gameCards[30]);
+		userPlayer.addCardToHand(gameCards[31]);
+		userPlayer.addCardToHand(gameCards[33]);
+		userPlayer.addCardToHand(gameCards[36]);
+		
+		
+		
 	}
 	public static void showPopup(MouseEvent e, String menu)
 	{
@@ -190,10 +206,8 @@ public class BoardGui {
 					break;
 				case "user":
 					userTableMenu.show(e.getComponent(), e.getX(), e.getY());
-					if (userCards[cIden].getCard().getAbility().compareTo(ability.NONE) == 0)
-						useAbility.setEnabled(false);
-					else
-						useAbility.setEnabled(true);
+					if (secondClick == false)
+						useAbilityOnYou.setEnabled(false);				
 					if (userCards[cIden].getRegCard().hasAttacked() == true)
 					{
 						attkPlayer.setEnabled(false);
@@ -207,6 +221,8 @@ public class BoardGui {
 					break;
 				case "enemy":
 					enemyTableMenu.show(e.getComponent(), e.getX(), e.getY());
+					if (secondClick == false)
+						useAbilityOnEnemy.setEnabled(false);				
 					break;
 			}
 		}
@@ -285,16 +301,18 @@ public class BoardGui {
 		//set layout of panels that make up the board
 		FlowLayout cardsLayout = new FlowLayout();
 		cardsLayout.setAlignment(FlowLayout.LEADING);
+		FlowLayout cardsLayout2 = new FlowLayout();
+		cardsLayout2.setAlignment(FlowLayout.CENTER);		
 		userHand.setLayout(cardsLayout);
 		userHand.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		userHand.setAlignmentY(Component.TOP_ALIGNMENT);
 		userHand.setAlignmentX(Component.TOP_ALIGNMENT);
 		
-		userTable.setLayout(cardsLayout);
+		userTable.setLayout(cardsLayout2);
 		userTable.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		enemyTable.setLayout(cardsLayout);
+		enemyTable.setLayout(cardsLayout2);
 		enemyTable.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-		enemyHand.setLayout(cardsLayout);
+		enemyHand.setLayout(cardsLayout2);
 		enemyHand.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
 		
 		userHand.setBackground(new Color(106,49,163));
@@ -362,9 +380,11 @@ public class BoardGui {
 			userTableMenu.add(getUTableDescription);
 			userTableMenu.add(attkPlayer);
 			userTableMenu.add(attkCard);
-			userTableMenu.add(useAbility);
-			
+			userTableMenu.add(useAbilityOnYou);
+			useAbilityOnYou.setEnabled(false);
+			useAbilityOnEnemy.setEnabled(false);
 			enemyTableMenu.add(getETableDescription);
+			enemyTableMenu.add(useAbilityOnEnemy);
 			
 			//add ten items to submenu representing 10 possible cards
 			attkCard.add(card0);
@@ -531,6 +551,14 @@ public class BoardGui {
 						attkCard(userCards[cIden], enemyCards[6]);
 						
 					}
+					if (e.getSource() == useAbilityOnEnemy)
+					{
+						executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
+					}
+					if (e.getSource() == useAbilityOnYou)
+					{
+						executeOnTarget(savedCard, userCards[cIden].getRegCard());
+					}
 					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
 						findMouseAction(e);
 					}
@@ -564,8 +592,9 @@ public class BoardGui {
 			playCard.addMouseListener(cardListener);
 			
 			attkPlayer.addMouseListener(cardListener);
-			useAbility.addMouseListener(cardListener);
-			
+			useAbilityOnEnemy.addMouseListener(cardListener);
+			useAbilityOnYou.addMouseListener(cardListener);
+
 			card0.addMouseListener(cardListener);
 			card1.addMouseListener(cardListener);
 			card2.addMouseListener(cardListener);
@@ -597,7 +626,7 @@ public class BoardGui {
 			gl.gridwidth = 2;
 			gl.gridy = 1;
 			leftSide.add(new JScrollPane(userList, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
-			
+
 			gl.gridx = 0;
 			gl.gridy = 2;
 			leftSide.add(chatLbl, gl);
@@ -605,7 +634,9 @@ public class BoardGui {
 			gl.gridx = 0;
 			gl.gridy = 3;
 			gl.ipady = 180;
-			leftSide.add(new JScrollPane(chatWindow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), gl);
+			chatWindowScroll = new JScrollPane(chatWindow, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			chatWindowScroll.setPreferredSize(new Dimension(280, 180));
+			leftSide.add(chatWindowScroll, gl);
 			
 			gl.gridy = 0;
 			gl.gridy = 4;
@@ -646,6 +677,16 @@ public class BoardGui {
 	public static void sendButtonAction()
 	{
 		chatWindow.append(chatMsgWin.getText().toString() + "\n");
+		chatWindow.revalidate();
+		chatWindow.repaint();
+		chatMsgWin.revalidate();
+		chatMsgWin.repaint();
+		chatBtn.revalidate();
+		chatBtn.repaint();
+		userList.revalidate();
+		userList.repaint();
+		
+		
 	}
 	
 	//show card's ability description
@@ -657,6 +698,8 @@ public class BoardGui {
 	//put card in hand onto board
 	public static void playCard(CardPanel card)
 	{
+		useAbilityOnEnemy.setEnabled(false);
+		useAbilityOnYou.setEnabled(false);
 		try {
 			Card temp = userPlayer.playCard(cIden);
 			if (temp instanceof AbilityCard)
@@ -667,16 +710,40 @@ public class BoardGui {
 				updateHandCards();
 			}
 			else
+			{
+				if (temp.getAbility() != ability.NONE)
+					executeReg((RegCard) temp);
 				userPlayer.addCardtoBoard(temp);
+			}
 			updateBoardCards();
 			updateHandCards();
 			updatePlayerStats();
 			chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color,
 			//but this requires using JTextPane instead of editor, if someone would like to learn that...
+			
+			//revalidate
+			for (Component c : leftSide.getComponents())
+			{
+				c.revalidate();
+				c.repaint();
+					
+			}
+			chatWindow.revalidate();
+			chatWindow.repaint();
+			userList.revalidate();
+			userList.repaint();
+			chatWindowScroll.revalidate();
+			chatWindowScroll.repaint();
+			userList.revalidate();
+			userList.repaint();
 		}
 		catch (MuchCostException e)
 		{
 			JOptionPane.showMessageDialog(frame, "Not enough Wildcat points!", "Error!", 1, null);
+		}
+		catch (MuchCardsException e)
+		{
+			JOptionPane.showMessageDialog(frame, "No space left on board, only 7 cards allowed at a time.", "Invalid Action", 1, null);
 		}
 	}
 	//helper method for resizing images
@@ -960,6 +1027,7 @@ public class BoardGui {
 		RegCard defender = defPanel.getRegCard();
 		attacker.setHealth(attacker.getHealth()-defender.getAttack());
 		defender.setHealth(defender.getHealth()-attacker.getAttack());
+		attacker.setHasAttacked(true);
 		updateBoardCards();
 	}
 	
@@ -971,6 +1039,22 @@ public class BoardGui {
 				|| (abil == ability.STheal3) || (abil == ability.STincattack1) || (abil == ability.STincattack3)
 				|| (abil == ability.STreturnhand) || (abil == ability.STattackbuff1)) // Single Target abilities
 		{
+			switch(abil)
+			{
+				case STlowerattackby1:
+				case STdamage1:
+				case STdamage3:
+				case STreturnhand:
+				case STdamage2:
+						useAbilityOnEnemy.setEnabled(true);
+						break;
+				case STincattack3:
+				case STincattack1:
+				case STheal2:
+				case STheal3:
+					useAbilityOnYou.setEnabled(true);
+					break;
+			}
 			savedCard = r;
 			secondClick = true;
 		}
@@ -979,13 +1063,15 @@ public class BoardGui {
 			switch (abil)
 			{
 				case destroyallfriendlies:   // William Jennings Bryant
-					for (int i = 0; i < userCards.length; i++)
+					int uLen = userPlayer.getBoard().size() - 1;
+					for (int i = uLen; i >= 0 ; i--)
 					{
-						if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
-						{
-							userCards[i].removeCardFromPanel();
-							userPlayer.removeCardFromBoard(i);
-						}
+						if (userCards[i].getRegCard() != null )
+							if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
+							{
+								userCards[i].removeCardFromPanel();
+								userPlayer.removeCardFromBoard(i);
+							}
 					}
 					break;
 				case selfdamage3:    // Rob
@@ -1068,7 +1154,8 @@ public class BoardGui {
 		{
 			savedCard = a;
 			secondClick = true;
-			
+			useAbilityOnEnemy.setEnabled(true);
+			//remember to tell use to choose target if ability works on target
 		}
 		else
 		{
@@ -1151,6 +1238,7 @@ public class BoardGui {
 				break;
 			case STdamage2:  // House Centipede
 				t.setHealth(t.getHealth() - 2);
+				break;
 			case STincattack3: // Lakefill Pond Carp
 				t.setAttack(t.getAttack() + 3);
 				break;
@@ -1161,11 +1249,14 @@ public class BoardGui {
 				t.setHealth(t.getHealth() - 3);
 				break;
 			case STreturnhand:  // Elusive Rabbit and Deering Meadow
-				for (int j = 0; j < enemyCards.length; j++)
+				int eLen = enemyCards.length - 1; 
+				for (int j = eLen; j >= 0; j--)
 				{
 					if (enemyCards[j].getRegCard() == t)
+					{
 						enemyPlayer.addCardtoHand(j);
-					enemyPlayer.removeCardFromBoard(j);
+						break;
+					}
 				}
 				break;
 			case STdamage6: //Chicago Light Pollution
@@ -1186,9 +1277,14 @@ public class BoardGui {
 			case STattackbuff1:
 				t.setAttack(t.getAttack() + 1);
 				break;
+				
 		}
-		
-		
+		useAbilityOnEnemy.setEnabled(false);
+		useAbilityOnYou.setEnabled(false);
+		secondClick = false;
+		updateBoardCards();
+		updateHandCards();
+		updatePlayerStats();
 	}
 	
 	

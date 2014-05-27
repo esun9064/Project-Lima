@@ -101,16 +101,18 @@ public class Player {
 		//{
 		//	if (hand.get(i).getName().equals(name))
 			
-		if (hand.get(index).getCost() <= wcp)
-		{
-			wcp -= hand.get(index).getCost();
-			Card temp = hand.get(index);
-			hand.remove(index);
-			return temp;
-		}
-		else
-			throw new MuchCostException("Card cost too much!");
-			
+		if (board.size() < 7)
+			if (hand.get(index).getCost() <= wcp)
+			{
+				wcp -= hand.get(index).getCost();
+				Card temp = hand.get(index);
+				hand.remove(index);
+				return temp;
+			}
+			else
+				throw new MuchCostException("Card cost too much!");
+		else 
+			throw new MuchCardsException("You can only play 7 cards on the board!");
 				
 	}
 	

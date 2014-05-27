@@ -14,8 +14,8 @@ public class RegCard extends Card {
 	
 	protected int attack;
 	protected int health;	
-	protected final int maxattack = attack;
-	protected final int maxhealth = health;
+	protected int maxattack = attack;
+	protected int maxhealth = health;
 	protected boolean hasAttacked;
         
 	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a)
@@ -24,6 +24,8 @@ public class RegCard extends Card {
 		this.attack = attack;
 		this.health = health;
         hasAttacked = false;
+		maxhealth = this.health;
+		maxattack = this.attack;
 	}
         
         public int getAttack(){
