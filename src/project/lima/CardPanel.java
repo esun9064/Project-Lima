@@ -4,6 +4,9 @@
  */
 package project.lima;
 
+
+import java.awt.Color;
+import java.awt.Component;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -11,6 +14,7 @@ import javax.swing.JPanel;
 import project.card.AbilityCard;
 import project.card.Card;
 import project.card.RegCard;
+import project.lima.BoardGui.*;
 
 /**
  *
@@ -29,19 +33,26 @@ public class CardPanel extends JPanel{
 	
 	public CardPanel()
 	{
+		this.setBackground(new Color(106,49,163));
+	
 		/*
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));		
-		this.card = null;
-		add(imgLbl);
-		add(attackLbl);
-		add(healthLbl);
-		add(abilityLbl);
-		add(costLbl);
-		*/
+		 * setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		 * this.card = null;
+		 * add(imgLbl);
+		 * add(attackLbl);
+		 * add(healthLbl);
+		 * add(abilityLbl);
+		 * add(costLbl);
+		 */
 	}
 	
 	public CardPanel(Card card)
 	{
+		this.setBackground(new Color(106,49,163));
+		attackLbl.setForeground(BoardGui.white);
+		healthLbl.setForeground(BoardGui.white);
+		abilityLbl.setForeground(BoardGui.white);
+		costLbl.setForeground(BoardGui.white);
 		if (card instanceof AbilityCard)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -53,8 +64,10 @@ public class CardPanel extends JPanel{
 			add(abilityLbl);
 			costLbl = new JLabel("Cost: " + this.card.getCost());
 			add(costLbl);
+			revalidate();
+			repaint();
 		}
-		else 
+		else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.card = card;
@@ -74,6 +87,8 @@ public class CardPanel extends JPanel{
 			add(abilityLbl);
 			costLbl = new JLabel("Cost: " + this.card.getCost());
 			add(costLbl);
+			revalidate();
+			repaint();
 		}
 	}
 	
@@ -89,6 +104,7 @@ public class CardPanel extends JPanel{
 	
 	public void getNewCard(Card card)
 	{
+		this.setBackground(new Color(106,49,163));
 		if (card instanceof AbilityCard)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -100,8 +116,14 @@ public class CardPanel extends JPanel{
 			add(abilityLbl);
 			costLbl = new JLabel("Cost: " + this.card.getCost());
 			add(costLbl);
+			attackLbl.setText("\n");
+			healthLbl.setText("\n");
+			add(attackLbl);
+			add(healthLbl);
+			revalidate();
+			repaint();
 		}
-		else 
+		else
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 			this.card = card;
@@ -121,20 +143,26 @@ public class CardPanel extends JPanel{
 			add(abilityLbl);
 			costLbl = new JLabel("Cost: " + this.card.getCost());
 			add(costLbl);
+			revalidate();
+			repaint();
 		}
+		attackLbl.setForeground(BoardGui.white);
+		healthLbl.setForeground(BoardGui.white);
+		abilityLbl.setForeground(BoardGui.white);
+		costLbl.setForeground(BoardGui.white);
 	}
 	
-	public RegCard getRegCard() 
+	public Card getCard()
+	{
+		return card;
+	}
+	
+	public RegCard getRegCard()
 	{
 		return (RegCard) card;
 	}
-        
-        
 	
-	public AbilityCard getAbilityCard()
-	{
-		return (AbilityCard) card;
-	}
+
 	public void setAttack()
 	{
 		RegCard reg = (RegCard) this.card;
@@ -153,11 +181,19 @@ public class CardPanel extends JPanel{
 	
 	public void removeCardFromPanel()
 	{
+		this.setBackground(new Color(106,49,163));
+		attackLbl.setForeground(BoardGui.white);
+		healthLbl.setForeground(BoardGui.white);
+		abilityLbl.setForeground(BoardGui.white);
+		costLbl.setForeground(BoardGui.white);		
 		attackLbl.setText("");
 		healthLbl.setText("");
 		imgLbl.setIcon(null);
 		abilityLbl.setText("");
+		costLbl.setText("");
 		card = null;			//possible error
+		revalidate();
+		repaint();
 		
 	}
 	

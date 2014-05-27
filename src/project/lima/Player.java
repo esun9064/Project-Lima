@@ -22,7 +22,7 @@ public class Player {
 	private int currentCredits;
 	private final int maxCredits = 50;
 	private int wcp;
-	private final int initwcp = 5;
+	private final int initwcp = 500;
 	protected boolean isFirst;
 	
 	public Player(String name, DeckofCards deck)
@@ -31,6 +31,10 @@ public class Player {
 		this.deck = deck;
 		currentCredits = maxCredits;
 		wcp = initwcp;
+		for (int i = 0; i < 10 ; i++)
+		{
+			hand.add(this.deck.dealCard());
+		}
 	}
 	
 	public String getName() 
@@ -97,29 +101,31 @@ public class Player {
 		//{
 		//	if (hand.get(i).getName().equals(name))
 			
-		if (hand.get(index).getCost() <= wcp)
-		{
-			wcp -= hand.get(index).getCost();
-			Card temp = hand.get(index);
-			hand.remove(index);
-			return temp;
-		}
-		else
-			throw new MuchCostException("Card cost too much!");
-			
+		if (board.size() < 7)
+			if (hand.get(index).getCost() <= wcp)
+			{
+				wcp -= hand.get(index).getCost();
+				Card temp = hand.get(index);
+				hand.remove(index);
+				return temp;
+			}
+			else
+				throw new MuchCostException("Card cost too much!");
+		else 
+			throw new MuchCardsException("You can only play 7 cards on the board!");
 				
 	}
 	
 	public void addCardtoHand(int index)
 	{
-		if (hand.size() <= 10)
+		if (hand.size() < 10)
 			hand.add(board.get(index));
 		board.remove(index);
 	}
 	
 	public void addCardtoBoard(Card card)
 	{
-		if (board.size() <= 7)
+		if (board.size() < 7)
 			board.add(card);
 	}
 
@@ -138,6 +144,20 @@ public class Player {
 				board.remove(i);
 				return;
 			}
+		}
+	}	
+	public void addCardToHand(Card card)
+	{
+		if (hand.size() < 10)
+			hand.add(card);
+	}
+	
+	public void clearHand()
+	{
+		int h = hand.size() -1;
+		for (int i = h ; i >= 0; i--)
+		{
+			this.hand.remove(i);
 		}
 	}
 }

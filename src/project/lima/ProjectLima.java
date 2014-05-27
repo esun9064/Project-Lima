@@ -383,4 +383,3 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
     ProjectLima chessClient=new ProjectLima();
    }
 }
-

@@ -74,12 +74,16 @@ public class DeckofCards implements DeckofCardsInterface{
 	 */
 	public Card dealCard()
 	{
+<<<<<<< HEAD
 		if (numDealt == 52)
 		{
 			this.shuffle();
 		}
 		
 		return (deck[numDealt++]);
+=======
+			return (deck[numDealt++]);
+>>>>>>> testnop2p
 	}
 	
 	/**
@@ -101,4 +105,17 @@ public class DeckofCards implements DeckofCardsInterface{
 	{
 		return deck;
 	}
+<<<<<<< HEAD
+=======
+	
+	public boolean isEmpty()
+	{
+		if (this.cardsLeft() <= 0)
+		{
+			return true;
+		}
+		return false;
+	}
+			
+>>>>>>> testnop2p
 }

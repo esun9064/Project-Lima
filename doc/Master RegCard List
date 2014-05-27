@@ -1,0 +1,41 @@
+Lakefill Goose,1,src/project/214IMAGES/Lakefill Goose.jpeg,2,2,,NONE
+Saferide Car,1,src/project/214IMAGES/Saferide.jpg,1,3,,NONE
+Anna Gunn,1,src/project/214IMAGES/Anna Gunn.jpg,3,1,,NONE
+University Squirrel,1,src/project/214IMAGES/University Squirrel.jpeg,1,2,Lower an opposing card's attack by 1,STlowerattackby1
+Lake Seagull,1,src/project/214IMAGES/Lake Seagull.jpeg,1,1,Deal 1 damage to an opposing player's card,STDamage1
+Dormitory Ant,1,src/project/214IMAGES/Dormitory Ant.jpeg,0,1,Give all friendly cards +2 health,AOEfhealthbuff2
+William Jennings Bryant,1,src/project/214IMAGES/William Jennings Bryant.jpg,4,3,Destroy all friendly cards,destroyallfriendlies
+Rob Blagojevich,1,src/project/214IMAGES/Rob Blagojevich.jpg,2,3,Deal 3 Credits to whoever plays this card,selfdamage3
+Lakefill Pond Carp,2,src/project/214IMAGES/Lakefill Pond Carp.jpg,0,5,Give a friendly card +3 attack,STincattack3
+Pat Fitzgerald,2,src/project/214IMAGES/Pat Fitzgerald.jpg,2,2,Give a friendly card +1 attack,STincattack1
+Burger King,2,src/project/214IMAGES/Burger King.JPG,4,1,,NONE
+Lisa's Cafe,2,src/project/214IMAGES/Lisas Cafe.jpeg,2,3,,NONE
+Rahm Emanuel,2,src/project/214IMAGES/Rahm Emanuel.jpg,1,4,,NONE
+NU Police,2,src/project/214IMAGES/NU Police.jpeg,3,2,,NONE
+Seth Meyers,2,src/project/214IMAGES/Seth Meyers.jpg,1,1,Deal 3 damage to an opposing card,STdamage3
+Elusive Rabbit,2,src/project/214IMAGES/Elusive Rabbit.jpeg,1,1,Return an opposing card to opponents hand,STreturnhand
+Deering Library,2,src/project/214IMAGES/Deering Library.jpeg,1,2,Heal yourself for 2 credits,selfheal2
+Lunt Hall,3,src/project/214IMAGES/Lunt Hall.jpeg,2,4,,NONE
+Harris Hall,3,src/project/214IMAGES/Harris Hall.jpeg,1,5,,NONE
+Norris Center,3,src/project/214IMAGES/Norris Center.jpeg,4,2,,NONE
+Evanston Raccoon,3,src/project/214IMAGES/Evanston Raccoon.jpeg,3,2,Deal 1 damage to an enemy card,STdamage1
+Campus Skunk,3,src/project/214IMAGES/Campus Skunk.jpeg,3,4,Deal 1 damage to all cards,AOEdamage1
+House Centipede,3,src/project/214IMAGES/House Centipede.jpeg,4,1,Deal 2 damage to an opposing card,STdamage2
+Allison Hall,3,src/project/214IMAGES/Allison Hall.jpeg,2,3,Heal a friendly card by 2 health,STheal2
+Pick-Staiger,3,src/project/214IMAGES/Pick Staiger.jpg,3,3,,NONE
+Willie the Wildcat,3,src/project/214IMAGES/Willie the WildCat.jpg,1,4,All friendly cards have +1 attack,AOEfincdamage1
+University Library,3,src/project/214IMAGES/University Library.jpg,2,4,,NONE
+Dearborn Observatory,4,src/project/214IMAGES/Dearborn Observatory.jpeg,3,5,,NONE
+Kellogg,4,src/project/214IMAGES/Kellog.jpeg,5,3,,NONE
+Bobb-McCulloch Hall,4,src/project/214IMAGES/Bobb McCulloch Hall.jpeg,3,3,Heal a friendly card by 3 health,STheal3
+Kresge Centennial,4,src/project/214IMAGES/Kresge Centennial.jpeg,4,4,Reduce an enemy card's attack by1,STlowerattackby1
+Deering Meadow,4,src/project/214IMAGES/Deering Meadow.jpeg,1,6,Return an opposing card to player's hand,STreturnhand
+SPAC,4,src/project/214IMAGES/SPAC.jpeg,6,2,,NONE
+Dolphin Show,4,src/project/214IMAGES/Dolphin Show.jpeg,4,2,Heals all friendly cards by 1,AOEfheal1
+The Crane,5,src/project/214IMAGES/The Crane.jpeg,8,1,,NONE
+George R.R. Martin,5,src/project/214IMAGES/George R.R. Martin.jpg,0,10,After two turns, morphs into a 10 10 dragon,george
+Charlton Heston,5,src/project/214IMAGES/Charlton Heston.jpg,7,7,Deal 7 credits to player who played this card,slefdamage7
+Stephen Colbert,5,src/project/214IMAGES/Stephen Colbert.jpg,5,5,,NONE
+Technological Institute,5,src/project/214IMAGES/Tech.jpeg,4,6,,NONE
+Ryan Field,5,src/project/214IMAGES/Ryan Field.jpeg,3,7,,NONE
+Cindy Crawford,5,src/project/214IMAGES/Cindy Crawford.jpeg,4,4,Give all friendly cards +3 total health,AOEfinchealth3

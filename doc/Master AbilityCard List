@@ -1,0 +1,9 @@
+The Rock,1,src/project/214IMAGES/The Rock.jpg,Change an opposing card's attack to 1,STlowerattackto1
+EECS Midterm,1,src/project/214IMAGES/EECS Midterm.jpeg,Subtract 5 credits from opposing player,OPdamage5
+Winter Blizzard,2,src/project/214IMAGES/Winter Blizzard.jpeg,Deal 1 damage to all opposing cards,AOEedamage1
+Fire Drill,3,src/project/214IMAGES/Fire Drill.jpeg,Return all cards to their respective owner's hand,firedrill
+Beach Day!,4,src/project/214IMAGES/Beach Day.jpeg,Restore 3 health to all friendly cards,AOEfheal3
+Polar Vortex,4,src/project/214IMAGES/Polar Vortex.jpeg,Deal 3 damage to all opposing cards,AOEedamage3
+Chicago Light Pollution,5,src/project/214IMAGES/Orange Glow.jpeg,Deal 6 damage to an opposing card,STdamage6
+DilloDay,5,src/project/214IMAGES/DilloDay.jpeg,Subtract 14 credits from opposing player,OPdamage14
+Organic Chemistry,3,src/project/214IMAGES/Organic Chemistry.jpg,Deal 8 credits to enemy player,OPdamage8
