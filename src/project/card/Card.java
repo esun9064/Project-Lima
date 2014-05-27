@@ -1,10 +1,8 @@
 
 package project.card;
 
-import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
-import static project.lima.BoardGui.resizeImage;
-
+import project.pad.GamePad;;
 /**
  * Represents a single playing card.
  * @author Team Lima
@@ -47,7 +45,7 @@ public class Card {
 	{
 		this.name = name;
 		this.cost = cost;
-		this.image = resizeImage(image, 75, 90);
+		this.image = GamePad.resizeImage(image, 75, 90);
         this.description = d;
         this.ability = a;
 		this.abilityUsed = false;

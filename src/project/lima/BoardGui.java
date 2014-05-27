@@ -52,7 +52,7 @@ import project.support.MuchCostException;
  * @author Eric
  */
 public class BoardGui {
-	
+	/*
 	public static Card[] gameCards = new Card[50];
 	public static Card[] gameCards2 = new Card[50];
 	protected static Player userPlayer;			//test not working
@@ -129,10 +129,11 @@ public class BoardGui {
 	public static JScrollPane chatWindowScroll;
 
 	public static int cIden;											//identifies the panel clicked
-	
+	*/
 	/**
 	 * Retrieves information about cards from text file, creates actual cards used in the game.
 	 */
+	/*
 	public static void initCards()
 	{
 		//get regular card data
@@ -1285,6 +1286,6 @@ public class BoardGui {
 		updatePlayerStats();
 	}
 	
-	
+	*/
 	
 }

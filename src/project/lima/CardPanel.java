@@ -15,6 +15,7 @@ import project.card.AbilityCard;
 import project.card.Card;
 import project.card.RegCard;
 import project.lima.BoardGui.*;
+import project.pad.GamePad;
 
 /**
  *
@@ -49,10 +50,10 @@ public class CardPanel extends JPanel{
 	public CardPanel(Card card)
 	{
 		this.setBackground(new Color(106,49,163));
-		attackLbl.setForeground(BoardGui.white);
-		healthLbl.setForeground(BoardGui.white);
-		abilityLbl.setForeground(BoardGui.white);
-		costLbl.setForeground(BoardGui.white);
+		attackLbl.setForeground(GamePad.white);
+		healthLbl.setForeground(GamePad.white);
+		abilityLbl.setForeground(GamePad.white);
+		costLbl.setForeground(GamePad.white);
 		if (card instanceof AbilityCard)
 		{
 			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -146,10 +147,10 @@ public class CardPanel extends JPanel{
 			revalidate();
 			repaint();
 		}
-		attackLbl.setForeground(BoardGui.white);
-		healthLbl.setForeground(BoardGui.white);
-		abilityLbl.setForeground(BoardGui.white);
-		costLbl.setForeground(BoardGui.white);
+		attackLbl.setForeground(GamePad.white);
+		healthLbl.setForeground(GamePad.white);
+		abilityLbl.setForeground(GamePad.white);
+		costLbl.setForeground(GamePad.white);
 	}
 	
 	public Card getCard()
@@ -182,10 +183,10 @@ public class CardPanel extends JPanel{
 	public void removeCardFromPanel()
 	{
 		this.setBackground(new Color(106,49,163));
-		attackLbl.setForeground(BoardGui.white);
-		healthLbl.setForeground(BoardGui.white);
-		abilityLbl.setForeground(BoardGui.white);
-		costLbl.setForeground(BoardGui.white);		
+		attackLbl.setForeground(GamePad.white);
+		healthLbl.setForeground(GamePad.white);
+		abilityLbl.setForeground(GamePad.white);
+		costLbl.setForeground(GamePad.white);		
 		attackLbl.setText("");
 		healthLbl.setText("");
 		imgLbl.setIcon(null);
