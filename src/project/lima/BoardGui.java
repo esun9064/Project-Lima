@@ -184,7 +184,7 @@ public class BoardGui {
 		userPlayer.addCardToHand(gameCards[20]);
 		userPlayer.addCardToHand(gameCards[21]);
 		userPlayer.addCardToHand(gameCards[19]);
-		userPlayer.addCardToHand(gameCards[9]);
+		userPlayer.addCardToHand(gameCards[6]);
 		userPlayer.addCardToHand(gameCards[40]);
 		userPlayer.addCardToHand(gameCards[29]);
 		userPlayer.addCardToHand(gameCards[30]);
