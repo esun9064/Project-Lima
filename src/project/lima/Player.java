@@ -46,6 +46,11 @@ public class Player {
 		return this.name;
 	}
 	
+	public void setName(String s)
+	{
+		this.name = s;
+	}
+	
 	public DeckofCards getDeck()
 	{
 		return this.deck;
