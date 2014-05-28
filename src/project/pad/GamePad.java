@@ -998,11 +998,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			}
 			
 		}
-		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
-		updateBoardCards();
-		updateHandCards();
-		updatePlayerStats();
+		
 	}
 	
 	
