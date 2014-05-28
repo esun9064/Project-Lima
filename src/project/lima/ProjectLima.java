@@ -31,6 +31,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import project.card.Card.ability;
+import static project.pad.GamePad.userPlayer;
 
 
 public class ProjectLima extends Frame implements ActionListener,KeyListener
@@ -89,6 +90,8 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		controlpad.creatGameButton.addActionListener(this);
 		controlpad.joinGameButton.addActionListener(this);
 		controlpad.cancelGameButton.addActionListener(this);
+		controlpad.readyButton.addActionListener(this);
+		controlpad.endTurnButton.addActionListener(this);
 		controlpad.exitGameButton.addActionListener(this);
 		
 		controlpad.creatGameButton.setEnabled(false);
@@ -320,6 +323,10 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 				controlpad.statusText.setText("Please create or join a game");
 			}
 			isClient=isServer=false;
+		}
+		else if (e.getSource() == controlpad.readyButton)
+		{
+				gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
 		}
 		
 	}

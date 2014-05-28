@@ -7,6 +7,7 @@
 package project.pad;
 
 import java.awt.*;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class ControlPad extends Panel
@@ -17,6 +18,8 @@ public class ControlPad extends Panel
  public Button creatGameButton=new Button("Create Game");
  public Button joinGameButton=new Button("Join Game");
  public Button cancelGameButton=new Button("Abandon Game");
+ public JButton readyButton = new JButton("Ready to Play");
+ public JButton endTurnButton = new JButton("End Turn");
  public Button exitGameButton=new Button("Quit");
 
  public JLabel statusText=new JLabel("Please connect to server first.");
@@ -32,6 +35,10 @@ public class ControlPad extends Panel
   add(creatGameButton);
   add(joinGameButton);
   add(cancelGameButton);
+  add(readyButton);
+  readyButton.setEnabled(false);
+  endTurnButton.setEnabled(false);
+  add(endTurnButton);
   add(exitGameButton);
   add(statusText, BorderLayout.WEST);
  }
