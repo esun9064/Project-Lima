@@ -184,6 +184,15 @@ public class Player {
 			this.hand.remove(i);
 		}
 	}
+	
+	public void clearBoard()
+	{
+		int b = board.size() - 1;
+		for (int i = b; i >= 0; i--)
+		{
+			this.board.remove(i);
+		}
+	}
 	//player
 	//hand
 	//board
