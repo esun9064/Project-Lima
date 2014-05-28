@@ -82,6 +82,16 @@ public class DeckofCards implements DeckofCardsInterface{
 		return deck;
 	}
 	
+        public int getNumDealt()
+        {
+            return numDealt;
+        }
+        
+        public void setNumDealt(int nd)
+        {
+            this.numDealt = nd;
+        }
+        
 	public boolean isEmpty()
 	{
 		if (this.cardsLeft() <= 0)
