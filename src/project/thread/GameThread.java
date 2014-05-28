@@ -79,7 +79,7 @@ public class GameThread extends Thread
 				{
 					Card temp;
 					String[] card = hand[i].split(",");
-					if (card.length > 0)
+					if (!card[0].equals(""))
 					{
 						if (card[0].equals("ability"))
 							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
@@ -95,7 +95,7 @@ public class GameThread extends Thread
 				{
 					Card temp;
 					String[] card = board[i].split(",");
-					if (card.length > 0)
+					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
 						GamePad.userPlayer.addCardtoBoard(temp);
@@ -117,7 +117,7 @@ public class GameThread extends Thread
 				{
 					Card temp;
 					String[] card = hand[i].split(",");
-					if (card.length > 0)
+					if (!card[0].equals(""))
 					{
 						if (card[0].equals("ability"))
 							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
@@ -133,7 +133,7 @@ public class GameThread extends Thread
 				{
 					Card temp;
 					String[] card = board[i].split(",");
-					if (card.length > 0)
+					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
 						GamePad.enemyPlayer.addCardtoBoard(temp);
