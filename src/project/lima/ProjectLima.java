@@ -327,6 +327,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		else if (e.getSource() == controlpad.readyButton)
 		{
 				gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
+				controlpad.readyButton.setEnabled(false);
 		}
 		
 	}
