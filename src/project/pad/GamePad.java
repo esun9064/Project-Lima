@@ -869,10 +869,12 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		RegCard card = cardPanel.getRegCard();
 		int attack = card.getAttack();
 		enemyPlayer.setCredits(-attack);
+		card.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
-		updatePlayerStats();
-		card.setHasAttacked(true);
+		updatePlayerStats();		
+		updateBoardCards();
+		updateHandCards();
 	}
 	
 	public void attkCard(CardPanel attkPanel, CardPanel defPanel)
