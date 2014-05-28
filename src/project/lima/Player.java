@@ -109,7 +109,7 @@ public class Player {
 	
 	public void setNewCredits(int credits)
 	{
-		if (currentCredits + credits > maxCredits)
+		if (credits > maxCredits)
 		{
 			this.currentCredits = maxCredits;
 		}
