@@ -570,7 +570,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			{
 				executeEvent((AbilityCard) temp);
 				gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-				//gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
+				gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
 				updatePlayerStats();
 				updateBoardCards();
 				updateHandCards();
@@ -582,7 +582,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				userPlayer.addCardtoBoard(temp);
 			}
 			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-			//gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());				
+			gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());				
 			updateBoardCards();
 			updateHandCards();
 			updatePlayerStats();

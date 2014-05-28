@@ -13,6 +13,7 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+import static project.pad.GamePad.userPlayer;
 
 
 public class ClientThread extends Thread
@@ -75,11 +76,13 @@ public class ClientThread extends Thread
     
     //gameclient.gamepad.isMouseEnabled=true;
     gameclient.controlpad.statusText.setText("Please play a card.");
+	gameclient.gamepad.gamethread.sendMessage("/" + gameclient.gamepad.peerName+ " /chess " + userPlayer.toString());		//send upon game start
    }
    else if(gameclient.isClient)
    {
     //gameclient.gamepad.chessColor=-1;
     gameclient.controlpad.statusText.setText("Joined, wait the opponent...");
+	gameclient.gamepad.gamethread.sendMessage("/" + gameclient.gamepad.peerName+ " /chess " + userPlayer.toString());	
    }
 
   }
