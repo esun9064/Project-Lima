@@ -177,7 +177,7 @@ public class Player {
 		for (int i = 0 ; i < board.size() -1; i++)
 			string += board.get(i).toString() + ";";
 		string += board.get(board.size() - 1) + "\n";
-		string += deck.toString();
+		string += deck.getNumDealt();
 		return string;
 	}
 }
