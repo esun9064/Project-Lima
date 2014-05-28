@@ -79,8 +79,9 @@ public class RegCard extends Card {
 			s += imagePath + ",";
 			s += attack + ",";
 			s += health + ",";
+			s += description + ",";
 			s += ability + ",";
-			s += maxattack + "," + maxhealth + "\n";
+			s += maxattack + "," + maxhealth;
 			return s;
 		}
             

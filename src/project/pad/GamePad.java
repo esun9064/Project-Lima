@@ -196,7 +196,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userHand.add(deckPanel);
 		
 		
-		gamethread.sendMessage("/chess " + userPlayer.toString());
+		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		updatePlayerStats();
 		
 		for (int i = 0; i < 10; i ++)
@@ -252,7 +252,6 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					gamethread.sendMessage("/"+peerName+" /chess "+"this a test message");
 					if (e.getSource() == getHandDescription)		//show card description
 					{
 						getCardDescription(handCards[cIden]);
@@ -572,8 +571,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			if (temp instanceof AbilityCard)
 			{
 				executeEvent((AbilityCard) temp);
-				gamethread.sendMessage("/chess " + userPlayer.toString());
-				gamethread.sendMessage("/chess " + enemyPlayer.toString());				
+				gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+				gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
 				updatePlayerStats();
 				updateBoardCards();
 				updateHandCards();
@@ -584,8 +583,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 					executeReg((RegCard) temp);
 				userPlayer.addCardtoBoard(temp);
 			}
-			gamethread.sendMessage("/chess " + userPlayer.toString());
-			gamethread.sendMessage("/chess " + enemyPlayer.toString());					
+			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+			gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());				
 			updateBoardCards();
 			updateHandCards();
 			updatePlayerStats();
@@ -872,8 +871,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		RegCard card = cardPanel.getRegCard();
 		int attack = card.getAttack();
 		enemyPlayer.setCredits(-attack);
-		gamethread.sendMessage("/chess " + userPlayer.toString());
-		gamethread.sendMessage("/chess " + enemyPlayer.toString());		
+		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updatePlayerStats();
 		card.setHasAttacked(true);
 	}
@@ -885,8 +884,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		attacker.setHealth(attacker.getHealth()-defender.getAttack());
 		defender.setHealth(defender.getHealth()-attacker.getAttack());
 		attacker.setHasAttacked(true);
-		gamethread.sendMessage("/chess " + userPlayer.toString());
-		gamethread.sendMessage("/chess " + enemyPlayer.toString());		
+		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());	
 		updateBoardCards();
 	}
 	
@@ -1077,8 +1076,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			
 		}
 		
-		gamethread.sendMessage("/chess " + userPlayer.toString());
-		gamethread.sendMessage("/chess " + enemyPlayer.toString());				
+		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());			
 		updatePlayerStats();
 		updateHandCards();
 		updateBoardCards();
@@ -1143,8 +1142,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		useAbilityOnEnemy.setEnabled(false);
 		useAbilityOnYou.setEnabled(false);
 		secondClick = false;
-		gamethread.sendMessage("/chess " + userPlayer.toString());
-		gamethread.sendMessage("/chess " + enemyPlayer.toString());				
+		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
 		updateBoardCards();
 		updateHandCards();
 		updatePlayerStats();

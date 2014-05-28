@@ -138,7 +138,7 @@ public class GameThread extends Thread
 		}
 		else
 		{
-			//System.out.println(recMessage);
+			System.out.println(recMessage);
 		}
 	}
 	
