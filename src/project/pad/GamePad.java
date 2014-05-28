@@ -24,16 +24,16 @@ import project.thread.*;
 
 public class GamePad extends Panel implements MouseListener,ActionListener
 {
-	public String yourName;
+	public static String yourName;
 	public Card[] gameCards = new Card[50];
 	public Card[] gameCards2 = new Card[50];
-	public Player userPlayer;			//test not working
-	public Player enemyPlayer;
+	public static Player userPlayer;			//test not working
+	public static Player enemyPlayer;
 	
 	public boolean secondClick;
 	public Card savedCard;
 	
-	public Color white = new Color(255,255,255);
+	public static Color white = new Color(255,255,255);
 	
 	//gui components
 	//panels containing the cards
@@ -604,7 +604,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 	}
 	//helper method for resizing images
-	public ImageIcon resizeImage(String filePath, int w, int h)
+	public static ImageIcon resizeImage(String filePath, int w, int h)
 	{
 		String data = filePath;
 		BufferedImage bsrc, bdest;
