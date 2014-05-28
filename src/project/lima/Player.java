@@ -32,7 +32,10 @@ public class Player {
 		currentCredits = maxCredits;
 		wcp = initwcp;
 	}
-	
+	/**
+     * initialize hand to hold first 10 cards from the player's deck
+     */
+    
 	public void initHand()
 	{
 		for (int i = 0; i < 10 ; i++)
@@ -41,7 +44,7 @@ public class Player {
 		}
 	}
 	
-	public String getName() 
+	public String getName()
 	{
 		return this.name;
 	}
@@ -55,18 +58,22 @@ public class Player {
 	{
 		return this.deck;
 	}
-        
-        public void setDeckND(int nd)
-        {
-            this.deck.setNumDealt(nd);
-        }
+    
+    /**
+     * set the player's deck variable numDealt to integer value nd
+     * @param nd
+     */
+    public void setDeckND(int nd)
+    {
+        this.deck.setNumDealt(nd);
+    }
 	
 	public ArrayList<Card> getHand()
 	{
-		return this.hand;		
+		return this.hand;
 	}
 	
-		
+    
 	public ArrayList<Card> getBoard()
 	{
 		return this.board;
@@ -81,12 +88,15 @@ public class Player {
 	{
 		return this.maxCredits;
 	}
-		
+    
 	public int getWcp()
 	{
 		return this.wcp;
 	}
-	
+	/**
+     * this method modifies by the players health by adding integer value credit to its current health
+     * @param credit the number to be added to the player's current credits
+     */
 	public void setCredits(int credit)
 	{
 		if(currentCredits + credit > maxCredits)
@@ -111,20 +121,25 @@ public class Player {
 	{
 		this.wcp = wcp;
 	}
-		
+	/**
+     * draw a card from the deck into the hand, as long as the hand does not exceed its card limit of 10 cards
+     */
 	public void draw()
 	{
 		if (hand.size() < 10)
 			hand.add(deck.dealCard());
 	}
-	
+	/**
+     * plays a card from the hand on to the board, as long as the board does not exceed its card limit of 7 cards
+     * modifies the player's Wildcat Points resource accordingly
+     * @param index the array index of the card in the player's hand
+     * @return the card that was played
+     * @throws RuntimeException is thrown if a card costs too much or if the board array is already full
+     */
 	public Card playCard(int index) throws RuntimeException
 	{
-		//int length = hand.size();
-		//for (int i = 0 ; i < length ; i++)
-		//{
-		//	if (hand.get(i).getName().equals(name))
-			
+		
+        
 		if (board.size() < 7)
 			if (hand.get(index).getCost() <= wcp)
 			{
@@ -135,29 +150,41 @@ public class Player {
 			}
 			else
 				throw new MuchCostException("Card cost too much!");
-		else 
-			throw new MuchCardsException("You can only play 7 cards on the board!");
-				
+            else
+                throw new MuchCardsException("You can only play 7 cards on the board!");
+        
 	}
-	
+	/**
+     * add card to hand from the board, used in abilities like STreturnhand
+     * @param index the array index of the card on the board that needs to be added to the hand
+     */
 	public void addCardtoHand(int index)
 	{
 		if (hand.size() < 10)
 			hand.add(board.get(index));
 		board.remove(index);
 	}
-	
+	/**
+     * adds a card to board, doesn't necessarily need to be in a player's hand
+     * @param card the card to add to the board
+     */
 	public void addCardtoBoard(Card card)
 	{
 		if (board.size() < 7)
 			board.add(card);
 	}
-
+    /**
+     * removes a card from the board based on array index
+     * @param index the array index of the card to be removed from the board
+     */
 	public void removeCardFromBoard(int index)
 	{
 		board.remove(index);
 	}
-	
+	/**
+     * removes a card from the board by searching for that Card's attributes through the board array
+     * @param card the card to be removed form the board
+     */
 	public void removeCardFromBoard(Card card)
 	{
 		int length = board.size();
@@ -169,13 +196,19 @@ public class Player {
 				return;
 			}
 		}
-	}	
+	}
+    /**
+     * adds any card to the player's hand
+     * @param card the card to be added to the hand
+     */
 	public void addCardToHand(Card card)
 	{
 		if (hand.size() < 10)
 			hand.add(card);
 	}
-	
+	/**
+     * clears the player's hand. mostly used in testing
+     */
 	public void clearHand()
 	{
 		int h = hand.size() -1;
