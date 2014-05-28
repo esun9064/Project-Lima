@@ -27,6 +27,15 @@ public class RegCard extends Card {
 		maxhealth = this.health;
 		maxattack = this.attack;
 	}
+	
+	public RegCard(String name, int cost, String image, int attack, int health, String d, ability a, int maxattack, int maxhealth)
+	{
+		super(name, cost, image, d, a);
+		this.attack = attack;
+		this.health = health;
+		this.maxhealth = maxhealth;
+		this.maxattack = maxattack;
+	}
         
         public int getAttack(){
             return attack;
