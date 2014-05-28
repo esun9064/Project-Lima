@@ -30,6 +30,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import project.card.Card.ability;
 import static project.pad.GamePad.userPlayer;
 
@@ -388,6 +390,13 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 	
 	public static void main(String args[])
 	{
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
+		catch (Exception ex)
+		{
+			System.out.println(ex);
+		}
 		ProjectLima chessClient=new ProjectLima();
 	}
 }
