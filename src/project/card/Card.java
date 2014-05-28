@@ -38,6 +38,7 @@ public class Card {
 	protected ImageIcon image;
     protected String description;   //description of ability
 	protected ability ability;    // implementation of ability 
+	protected String imagePath;
 
     protected boolean abilityUsed;
         
@@ -49,6 +50,7 @@ public class Card {
         this.description = d;
         this.ability = a;
 		this.abilityUsed = false;
+		this.imagePath = image;
 	}
 	
         // Getters and Setters

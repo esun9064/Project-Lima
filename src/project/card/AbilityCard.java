@@ -19,8 +19,10 @@ public class AbilityCard extends Card {
 		
 	}
 	
+	@Override
 	public String toString()
         {
-            return ("ability,"+name + "," + cost + "," + image + "," + description + "," + ability);
+			String s = ("ability,"+name + "," + cost + "," + imagePath + "," + description + "," + ability + "\n");
+			return s;
         }
 }

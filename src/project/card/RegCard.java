@@ -70,10 +70,19 @@ public class RegCard extends Card {
 		{
 			hasAttacked = t;
 		}
-	public String toString()
-        {
-            return ("reg," + name + "," + cost + "," + image + "," + attack + "," + health + "," + ability + "," + maxattack + "," + maxhealth);
-        }
+	
+		@Override
+		public String toString()
+		{
+			String s = "reg," + name + ",";
+			s += cost + ",";
+			s += imagePath + ",";
+			s += attack + ",";
+			s += health + ",";
+			s += ability + ",";
+			s += maxattack + "," + maxhealth + "\n";
+			return s;
+		}
             
 }
 

@@ -233,13 +233,24 @@ public class Player {
 	public String toString()
 	{
 		String string = this.getName() + ";" + this.getCredits() + ";" + this.getWcp() + "\n";
-		for (int i = 0 ; i < hand.size() -1; i++)
-			string += hand.get(i).toString() + ";";
-		string += hand.get(hand.size() - 1) + "\n";
-		for (int i = 0 ; i < board.size() -1; i++)
-			string += board.get(i).toString() + ";";
-		string += board.get(board.size() - 1) + "\n";
-		string += deck.getNumDealt();
+		if (hand.size() != 0)
+		{
+			for (int i = 0 ; i < hand.size() -1; i++)
+				string += hand.get(i).toString() + ";";
+			int len = hand.size() - 1;
+			string += hand.get(len).toString() + "\n";
+		}
+		else
+			string += "\n";
+		if (board.size() != 0)
+		{
+			for (int i = 0 ; i < board.size() -1; i++)
+				string += board.get(i).toString() + ";";
+			string += board.get(board.size() - 1).toString() + "\n";
+		}
+		else
+			string += "\n";
+		string += deck.getNumDealt();		
 		return string;
 	}
 }
