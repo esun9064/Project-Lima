@@ -18,4 +18,9 @@ public class AbilityCard extends Card {
 		super(name, cost, image, d, a);
 		
 	}
+	
+	public String toString()
+        {
+            return ("ability,"+name + "," + cost + "," + image + "," + description + "," + ability);
+        }
 }
