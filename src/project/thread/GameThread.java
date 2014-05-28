@@ -7,6 +7,9 @@
 package project.thread;
 import java.io.*;
 import java.util.*;
+import project.card.AbilityCard;
+import project.card.Card;
+import project.card.Card.ability;
 import project.lima.Player;
 import project.pad.*;
 
@@ -65,13 +68,18 @@ public class GameThread extends Thread
 	GamePad.userPlayer.setName(name);
 	//parse deck
 	String numDealt = data[3];
-	GamePad.userPlayer.setDeckND(numDealt);
+	GamePad.userPlayer.setDeckND(Integer.parseInt(numDealt));
 	GamePad.userPlayer.clearHand();
-	
-	for (int i = 0 ; i < deck.length; i ++)
+	//hand
+	String[] hand = data[1].split(";");
+	for (int i = 0 ; i < hand.length; i ++)
 	{
-		String[] card = deck[i].split(",");
-		
+		Card temp;
+		String[] card = hand[i].split(",");
+		if (card[0].equals("ability"))
+			temp = new AbilityCard(card[0], Integer.parseInt(card[1]), card[2], card[3], ability.valueOf(card[4]));
+		if (card[0].equals("reg"))
+			temp = new RegCard(card[0], Integer.parseInt(card[1], card[2], card[3], card[4], card[5], card[6], card[7], card[8]));
 	}
 	
 	

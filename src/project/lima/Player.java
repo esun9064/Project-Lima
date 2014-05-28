@@ -46,10 +46,20 @@ public class Player {
 		return this.name;
 	}
 	
+	public void setName(String s)
+	{
+		this.name = s;
+	}
+	
 	public DeckofCards getDeck()
 	{
 		return this.deck;
 	}
+        
+        public void setDeckND(int nd)
+        {
+            this.deck.setNumDealt(nd);
+        }
 	
 	public ArrayList<Card> getHand()
 	{
@@ -187,6 +197,7 @@ public class Player {
 		for (int i = 0 ; i < board.size() -1; i++)
 			string += board.get(i).toString() + ";";
 		string += board.get(board.size() - 1) + "\n";
+		string += deck.getNumDealt();
 		return string;
 	}
 }
