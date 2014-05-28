@@ -85,7 +85,8 @@ public class GameThread extends Thread
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
 					GamePad.userPlayer.addCardToHand(temp);
 				}
-				//hand
+				//board
+				GamePad.userPlayer.clearBoard();
 				String[] board = data[2].split(";");
 				for (int i = 0 ; i < board.length; i ++)
 				{
@@ -116,7 +117,8 @@ public class GameThread extends Thread
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
 					GamePad.enemyPlayer.addCardToHand(temp);
 				}
-				//hand
+				//board
+				GamePad.enemyPlayer.clearBoard();
 				String[] board = data[2].split(";");
 				for (int i = 0 ; i < board.length; i ++)
 				{
