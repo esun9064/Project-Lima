@@ -10,6 +10,7 @@ import java.util.*;
 import project.card.AbilityCard;
 import project.card.Card;
 import project.card.Card.ability;
+import project.card.RegCard;
 import project.lima.Player;
 import project.pad.*;
 
@@ -77,19 +78,21 @@ public class GameThread extends Thread
 		Card temp;
 		String[] card = hand[i].split(",");
 		if (card[0].equals("ability"))
-			temp = new AbilityCard(card[0], Integer.parseInt(card[1]), card[2], card[3], ability.valueOf(card[4]));
-		if (card[0].equals("reg"))
-			temp = new RegCard(card[0], Integer.parseInt(card[1], card[2], card[3], card[4], card[5], card[6], card[7], card[8]));
+			temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
+		else
+			temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+		GamePad.userPlayer.addCardToHand(temp);
+	}
+	//hand
+	String[] board = data[2].split(";");
+	for (int i = 0 ; i < board.length; i ++)
+	{
+		Card temp;
+		String[] card = board[i].split(",");
+		temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+		GamePad.userPlayer.addCardtoBoard(temp);
 	}
 	
-	
-	
-	
-	  
-
-	//For exampl, gamepad.repaint()
-      System.out.println("you receive:"+recMessage);
-      controlpad.statusText.setText("recMessage");
   }
   else if(recMessage.startsWith("/yourname "))
   {

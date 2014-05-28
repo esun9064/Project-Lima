@@ -180,6 +180,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userTable.setBackground(new Color(106,49,163));
 		enemyHand.setBackground(new Color(106,49,163));
 		
+		
 		//and other panels
 		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
 		deckPanel.setBackground(new Color(106,49,163));
