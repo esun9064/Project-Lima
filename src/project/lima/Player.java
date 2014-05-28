@@ -87,11 +87,21 @@ public class Player {
 			this.currentCredits += credit;
 	}
 	
+	public void setNewCredits(int credits)
+	{
+		if (currentCredits + credits > maxCredits)
+		{
+			this.currentCredits = maxCredits;
+		}
+		else
+			this.currentCredits = credits;
+	}
+	
 	public void setWcp(int wcp)
 	{
 		this.wcp = wcp;
 	}
-	
+		
 	public void draw()
 	{
 		if (hand.size() < 10)
@@ -177,7 +187,6 @@ public class Player {
 		for (int i = 0 ; i < board.size() -1; i++)
 			string += board.get(i).toString() + ";";
 		string += board.get(board.size() - 1) + "\n";
-		string += deck.toString();
 		return string;
 	}
 }

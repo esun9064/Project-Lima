@@ -7,6 +7,7 @@
 package project.thread;
 import java.io.*;
 import java.util.*;
+import project.lima.Player;
 import project.pad.*;
 
 public class GameThread extends Thread
@@ -14,6 +15,11 @@ public class GameThread extends Thread
  GamePad gamepad;
  ControlPad controlpad;
 
+ /**
+  * 
+  * @param cardpad
+  * @param controlpad 
+  */
  public GameThread(GamePad cardpad, ControlPad controlpad)
  {
   this.controlpad=controlpad;
@@ -35,10 +41,45 @@ public class GameThread extends Thread
 
  public void acceptMessage(String recMessage)
  {
-     //TODO you received message from the peer, so you should update the his/her cards on the board
   if(recMessage.startsWith("/chess "))
   {
-      //For exampl, gamepad.repaint()
+
+	//name; credits; wcp
+	//abilitycard name, cost, image, description, ability
+	//regcard, name, cost, image, attack, healt, ability, maxattack, maxability
+	  
+	  
+	//0 player attributes
+	//1 hand
+	//2 board
+	//3 deck
+	recMessage = recMessage.substring(7);
+	String[] data = recMessage.split("\n");
+	String[] player = data[0].split(";");
+	//parse player attributes
+	String name = player[0];
+	String credits = player[1];
+	String wcp = player[2];
+	GamePad.userPlayer.setNewCredits(Integer.parseInt(credits));
+	GamePad.userPlayer.setWcp(Integer.parseInt(wcp));
+	GamePad.userPlayer.setName(name);
+	//parse deck
+	String numDealt = data[3];
+	GamePad.userPlayer.setDeckND(numDealt);
+	GamePad.userPlayer.clearHand();
+	
+	for (int i = 0 ; i < deck.length; i ++)
+	{
+		String[] card = deck[i].split(",");
+		
+	}
+	
+	
+	
+	
+	  
+
+	//For exampl, gamepad.repaint()
       System.out.println("you receive:"+recMessage);
       controlpad.statusText.setText("recMessage");
   }

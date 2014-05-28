@@ -27,7 +27,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	
 	public static Card[] gameCards = new Card[50];
 	public static Card[] gameCards2 = new Card[50];
-	protected static Player userPlayer;			//test not working
+	public static Player userPlayer;			//test not working
 	protected static Player enemyPlayer;
 	
 	public static boolean secondClick;
@@ -511,8 +511,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		
 		userPlayer = new Player("Eric", new DeckofCards(30, gameCards));			//test not working
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
-		
-		
+
 		userPlayer.clearHand();
 		userPlayer.addCardToHand(gameCards[20]);
 		userPlayer.addCardToHand(gameCards[21]);
