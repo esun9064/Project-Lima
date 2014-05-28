@@ -50,6 +50,11 @@ public class Player {
 	{
 		return this.deck;
 	}
+        
+        public void setDeckND(int nd)
+        {
+            this.deck.setNumDealt(nd);
+        }
 	
 	public ArrayList<Card> getHand()
 	{
