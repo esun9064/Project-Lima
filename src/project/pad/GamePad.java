@@ -89,6 +89,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public DataInputStream inData;
 	public DataOutputStream outData;
 	
+	
 	public String selfName=null;
 	public String peerName=null;
 	public String host=null;
@@ -182,7 +183,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		//and other panels
 		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
 		deckPanel.setBackground(new Color(106,49,163));
-		deck = resizeImage("src/project/214IMAGES/Card Back.jpg", 75, 90);
+		deck = resizeImage("img/Card_Back.jpg", 75, 90);
 		deckLabel = new JLabel(deck);
 		deckPanel.add(deckLabel);
 		userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));

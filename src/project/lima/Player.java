@@ -31,6 +31,10 @@ public class Player {
 		this.deck = deck;
 		currentCredits = maxCredits;
 		wcp = initwcp;
+	}
+	
+	public void initHand()
+	{
 		for (int i = 0; i < 10 ; i++)
 		{
 			hand.add(this.deck.dealCard());
@@ -159,5 +163,21 @@ public class Player {
 		{
 			this.hand.remove(i);
 		}
+	}
+	//player
+	//hand
+	//board
+	//deck
+	public String toString()
+	{
+		String string = this.getName() + ";" + this.getCredits() + ";" + this.getWcp() + "\n";
+		for (int i = 0 ; i < hand.size() -1; i++)
+			string += hand.get(i).toString() + ";";
+		string += hand.get(hand.size() - 1) + "\n";
+		for (int i = 0 ; i < board.size() -1; i++)
+			string += board.get(i).toString() + ";";
+		string += board.get(board.size() - 1) + "\n";
+		string += deck.toString();
+		return string;
 	}
 }

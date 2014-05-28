@@ -108,7 +108,9 @@ public class Card {
             String x;
         x = ("name: " + name + "\n cost: " + cost + "\n image: " + image + "\n description: " + description + "\n ability: " + ability);
             
-            return x;
+		
+		
+		return x;
             
         }
 }

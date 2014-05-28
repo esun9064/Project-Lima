@@ -77,21 +77,6 @@ public class DeckofCards implements DeckofCardsInterface{
 			return (deck[numDealt++]);
 	}
 	
-	/**
-	 * Returns description of all cards in deck.
-	 * @return String description of all cards in deck.
-	 */
-	public String toString()
-	{
-		String deckstring = "";
-		int index = 0;
-		for ( int i = 0; i < (cardsLeft()); i++ ) {
-			
-			deckstring += (deck[index++] + "\n");
-		}
-		return ( deckstring );
-	}
-	
 	public Card[] getDeck()
 	{
 		return deck;
@@ -105,6 +90,14 @@ public class DeckofCards implements DeckofCardsInterface{
 		}
 		return false;
 	}
-			
+	
+	public String toString()
+	{
+		String string = "";
+		for (int i = 0 ; i < deck.length-1; i++)
+			string += deck[i].toString() + ";";
+		string += deck[deck.length -1].toString() + "\n";
+		return string;
+	}
 
 }
