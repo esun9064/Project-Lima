@@ -63,7 +63,7 @@ public class RegCard extends Card {
 		}
 	public String toString()
         {
-            return ("reg," + name + "," + cost + "," + image + "," + attack + "," + health + "," + ability);
+            return ("reg," + name + "," + cost + "," + image + "," + attack + "," + health + "," + ability + "," + maxattack + "," + maxhealth);
         }
             
 }
