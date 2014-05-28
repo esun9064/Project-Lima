@@ -61,15 +61,9 @@ public class RegCard extends Card {
 		{
 			hasAttacked = t;
 		}
-		
-        public String toString(){
-                String x;
-        x = ("name: " + getName() + "\n cost: " + getCost() + 
-                "\n image: " + getImage() + "\n attack: " + getAttack() + "\n health: " 
-                + getHealth() + "\n description: " + getDesc() + "\n ability: " + getAbility());
-            
-            return x;
-            
+	public String toString()
+        {
+            return ("reg," + name + "," + cost + "," + image + "," + attack + "," + health + "," + ability);
         }
             
 }
