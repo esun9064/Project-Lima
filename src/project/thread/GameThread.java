@@ -75,26 +75,28 @@ public class GameThread extends Thread
 				GamePad.userPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
-				for (int i = 0 ; i < hand.length; i ++)
-				{
-					Card temp;
-					String[] card = hand[i].split(",");
-					if (card[0].equals("ability"))
-						temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
-					else
-						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-					GamePad.userPlayer.addCardToHand(temp);
-				}
+				if (hand.length > 0)
+					for (int i = 0 ; i < hand.length; i ++)
+					{
+						Card temp;
+						String[] card = hand[i].split(",");
+						if (card[0].equals("ability"))
+							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
+						else
+							temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+						GamePad.userPlayer.addCardToHand(temp);
+					}
 				//board
 				GamePad.userPlayer.clearBoard();
 				String[] board = data[2].split(";");
-				for (int i = 0 ; i < board.length; i ++)
-				{
-					Card temp;
-					String[] card = board[i].split(",");
-					temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-					GamePad.userPlayer.addCardtoBoard(temp);
-				}
+				if (board.length > 0)
+					for (int i = 0 ; i < board.length; i ++)
+					{
+						Card temp;
+						String[] card = board[i].split(",");
+						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+						GamePad.userPlayer.addCardtoBoard(temp);
+					}
 			}
 			else
 			{
@@ -107,27 +109,28 @@ public class GameThread extends Thread
 				GamePad.enemyPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
-				for (int i = 0 ; i < hand.length; i ++)
-				{
-					Card temp;
-					String[] card = hand[i].split(",");
-					if (card[0].equals("ability"))
-						temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
-					else
-						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-					GamePad.enemyPlayer.addCardToHand(temp);
-				}
+				if (hand.length > 0)
+					for (int i = 0 ; i < hand.length; i ++)
+					{
+						Card temp;
+						String[] card = hand[i].split(",");
+						if (card[0].equals("ability"))
+							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
+						else
+							temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+						GamePad.enemyPlayer.addCardToHand(temp);
+					}
 				//board
 				GamePad.enemyPlayer.clearBoard();
 				String[] board = data[2].split(";");
-				for (int i = 0 ; i < board.length; i ++)
-				{
-					Card temp;
-					String[] card = board[i].split(",");
-					temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-					GamePad.enemyPlayer.addCardtoBoard(temp);
-				}
-				
+				if (board.length > 0)
+					for (int i = 0 ; i < board.length; i ++)
+					{
+						Card temp;
+						String[] card = board[i].split(",");
+						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
+						GamePad.enemyPlayer.addCardtoBoard(temp);
+					}
 			}
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
