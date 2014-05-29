@@ -24,6 +24,8 @@ import project.thread.*;
 
 public class GamePad extends Panel implements MouseListener,ActionListener
 {
+	public static String actualName;
+	public static String salt;
 	public static String yourName;
 	public Card[] gameCards = new Card[50];
 	public Card[] gameCards2 = new Card[50];
@@ -95,6 +97,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public String host=null;
 	public int port=4331;
 	public GameThread gamethread;
+
+	public boolean endTurn;
 	
 	public GamePad(ControlPad controlpad)
 	{
@@ -451,8 +455,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	 */
 	public void initCards()
 	{
-		yourName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
-		yourName += "::";
+		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
+		yourName = actualName + "::";
 		Random r = new Random();
 		yourName += r.nextInt();
 		yourName += r.nextInt();
@@ -520,15 +524,28 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	}
 	public void showPopup(MouseEvent e, String menu)
 	{
+		playCard.setEnabled(true);
+		attkPlayer.setEnabled(true);
+		attkCard.setEnabled(true);
+		useAbilityOnEnemy.setEnabled(true);
+		useAbilityOnYou.setEnabled(true);
 		if (e.isPopupTrigger())
 		{
 			switch(menu)
 			{
 				case "hand":
-					handMenu.show(e.getComponent(), e.getX(), e.getY());
-					break;
+				handMenu.show(e.getComponent(), e.getX(), e.getY());
+				if (endTurn == true)
+				{
+					playCard.setEnabled(false);
+				}
+				else
+					playCard.setEnabled(true);
+				break;
 				case "user":
-					userTableMenu.show(e.getComponent(), e.getX(), e.getY());
+				userTableMenu.show(e.getComponent(), e.getX(), e.getY());
+				if (endTurn = false)
+				{
 					if (secondClick == false)
 						useAbilityOnYou.setEnabled(false);
 					if (userCards[cIden].getRegCard().hasAttacked() == true)
@@ -541,24 +558,34 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 						attkPlayer.setEnabled(true);
 						attkCard.setEnabled(true);
 					}
-					break;
+				}
+				else
+				{
+					attkCard.setEnabled(false);
+					attkPlayer.setEnabled(false);
+					useAbilityOnYou.setEnabled(false);
+				}
+				break;
 				case "enemy":
-					enemyTableMenu.show(e.getComponent(), e.getX(), e.getY());
+				enemyTableMenu.show(e.getComponent(), e.getX(), e.getY());
+				if (endTurn == false)
 					if (secondClick == false)
 						useAbilityOnEnemy.setEnabled(false);
-					break;
+				else
+					useAbilityOnEnemy.setEnabled(false);
+				break;
 			}
 		}
 	}
-	
-			
-	
+
+
+
 	//show card's ability description
 	public void getCardDescription(CardPanel card)
 	{
 		JOptionPane.showMessageDialog(userHand, (!card.getDescription().equals("") ? card.getDescription() : "Card has no ability"), "Description for " + card.getCardName(), 1, null);
 	}
-	
+
 	//put card in hand onto board
 	public void playCard(CardPanel card)
 	{
@@ -588,8 +615,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			updatePlayerStats();
 			//chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color,
 			//but this requires using JTextPane instead of editor, if someone would like to learn that...
-			
-			
+
+
 		}
 		catch (MuchCostException e)
 		{
@@ -606,18 +633,18 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		String data = filePath;
 		BufferedImage bsrc, bdest;
 		ImageIcon theIcon;
-		
+
 		try
 		{
-			
+
 			bsrc = ImageIO.read(new File(data));
-			
+
 			bdest = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 			Graphics2D g = bdest.createGraphics();
 			AffineTransform at = AffineTransform.getScaleInstance((double) w / bsrc.getWidth(),
-					(double) h / bsrc.getHeight());
+				(double) h / bsrc.getHeight());
 			g.drawRenderedImage(bsrc, at);
-			
+
 			//add the scaled image
 			theIcon = new ImageIcon(bdest);
 			return theIcon;
@@ -627,12 +654,12 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			System.out.println("This image can not be resized. " + filePath + " Please check the path and type of file.");
 			return null;
 		}
-		
-		
-		
-		
+
+
+
+
 	}
-	
+
 	public void findMouseAction(MouseEvent e)
 	{
 		if (e.getComponent() == handCards[0])
@@ -644,49 +671,49 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		{
 			cIden = 1;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[2])
 		{
 			cIden = 2;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[3])
 		{
 			cIden = 3;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[4])
 		{
 			cIden = 4;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[5])
 		{
 			cIden = 5;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[6])
 		{
 			cIden = 6;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[7])
 		{
 			cIden = 7;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[8])
 		{
 			cIden = 8;
 			showPopup(e, "hand");
-			
+
 		}
 		if (e.getComponent() == handCards[9])
 		{
@@ -764,16 +791,16 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			showPopup(e, "enemy");
 		}
 	}
-	
+
 	public void updateHandCards()
 	{
 		int len = userPlayer.getHand().size();
 		for (int i = 0 ; i < len; i ++ )
 		{
 			handCards[i].removeCardFromPanel();
-			
+
 			handCards[i].getNewCard(userPlayer.getHand().get(i));
-			
+
 			handCards[i].revalidate();
 			handCards[i].repaint();
 		}
@@ -784,15 +811,15 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 		userHand.revalidate();
 		userHand.repaint();
-		
+
 	}
-	
+
 	public void updateBoardCards()
 	{
 		int uLen = userPlayer.getBoard().size();
 		int eLen = enemyPlayer.getBoard().size();
-		
-		
+
+
 		for (int i = uLen - 1; i >= 0 ; i--)
 		{
 			if (userPlayer.getBoard().get(i) instanceof RegCard)
@@ -811,7 +838,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 					enemyPlayer.removeCardFromBoard(i);
 			}
 		}
-		
+
 		uLen = userPlayer.getBoard().size();
 		eLen = enemyPlayer.getBoard().size();
 		for (int i = 0 ; i < uLen; i ++ )
@@ -828,7 +855,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			enemyCards[i].revalidate();
 			enemyCards[i].repaint();
 		}
-		
+
 		while (uLen < 7)
 		{
 			userCards[uLen].removeCardFromPanel();
@@ -844,7 +871,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userTable.revalidate();
 		userTable.repaint();
 	}
-	
+
 	public void updatePlayerStats()
 	{
 		userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
@@ -854,7 +881,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
 		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
 		enemyHandLen.setText("Cards in hand: " + enemyPlayer.getHand().size());
-		
+
 		userHealth.setForeground(white);
 		userWcp.setForeground(white);
 		userRemainingCards.setForeground(white);
@@ -863,7 +890,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyRemainingCards.setForeground(white);
 		enemyHandLen.setForeground(white);
 	}
-	
+
 	public void attkPlayer(CardPanel cardPanel)
 	{
 		RegCard card = cardPanel.getRegCard();
@@ -876,7 +903,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updateBoardCards();
 		updateHandCards();
 	}
-	
+
 	public void attkCard(CardPanel attkPanel, CardPanel defPanel)
 	{
 		RegCard attacker = attkPanel.getRegCard();
@@ -888,13 +915,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());	
 		updateBoardCards();
 	}
-	
+
 	public void executeReg(RegCard r)
 	{
 		ability abil = r.getAbility();
 		if ((abil == ability.STlowerattackby1) || (abil == ability.STdamage1) || (abil == ability.STdamage2)
-				|| (abil == ability.STdamage3) || (abil == ability.STheal1) || (abil == ability.STheal2)
-				|| (abil == ability.STheal3) || (abil == ability.STincattack1) || (abil == ability.STincattack3)
+			|| (abil == ability.STdamage3) || (abil == ability.STheal1) || (abil == ability.STheal2)
+			|| (abil == ability.STheal3) || (abil == ability.STincattack1) || (abil == ability.STincattack3)
 				|| (abil == ability.STreturnhand) || (abil == ability.STattackbuff1)) // Single Target abilities
 		{
 			switch(abil)
@@ -904,14 +931,14 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				case STdamage3:
 				case STreturnhand:
 				case STdamage2:
-					useAbilityOnEnemy.setEnabled(true);
-					break;
+				useAbilityOnEnemy.setEnabled(true);
+				break;
 				case STincattack3:
 				case STincattack1:
 				case STheal2:
 				case STheal3:
-					useAbilityOnYou.setEnabled(true);
-					break;
+				useAbilityOnYou.setEnabled(true);
+				break;
 			}
 			savedCard = r;
 			secondClick = true;
@@ -921,82 +948,82 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			switch (abil)
 			{
 				case destroyallfriendlies:   // William Jennings Bryant
-					int uLen = userPlayer.getBoard().size() - 1;
-					for (int i = uLen; i >= 0 ; i--)
-					{
-						if (userCards[i].getRegCard() != null )
-							if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
-							{
-								userCards[i].removeCardFromPanel();
-								userPlayer.removeCardFromBoard(i);
-							}
+				int uLen = userPlayer.getBoard().size() - 1;
+				for (int i = uLen; i >= 0 ; i--)
+				{
+					if (userCards[i].getRegCard() != null )
+						if (userCards[i].getRegCard().getAbility() != ability.destroyallfriendlies)
+						{
+							userCards[i].removeCardFromPanel();
+							userPlayer.removeCardFromBoard(i);
+						}
 					}
 					break;
 				case selfdamage3:    // Rob
-					userPlayer.setCredits(-3);
-					break;
+				userPlayer.setCredits(-3);
+				break;
 				case selfheal2: // Deering Library
-					userPlayer.setCredits(2);
-					break;
+				userPlayer.setCredits(2);
+				break;
 				case AOEdamage1:  // Campus Skunk
-					userPlayer.setCredits(-1);
-					enemyPlayer.setCredits(-1);
-					for (int i = 0; i < userCards.length; i++)
-					{
-						if (userCards[i].getRegCard() != null){
-							if (userCards[i].getRegCard().getAbility() != ability.AOEdamage1)
-								
-							{
-								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() - 1);
-							}
+				userPlayer.setCredits(-1);
+				enemyPlayer.setCredits(-1);
+				for (int i = 0; i < userCards.length; i++)
+				{
+					if (userCards[i].getRegCard() != null){
+						if (userCards[i].getRegCard().getAbility() != ability.AOEdamage1)
+
+						{
+							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() - 1);
 						}
 					}
-					for (int j = 0; j < enemyCards.length; j++)
-					{
-						if (enemyCards[j].getRegCard() != null){
-							enemyCards[j].getRegCard().setHealth(enemyCards[j].getRegCard().getHealth() - 1);
-						}
+				}
+				for (int j = 0; j < enemyCards.length; j++)
+				{
+					if (enemyCards[j].getRegCard() != null){
+						enemyCards[j].getRegCard().setHealth(enemyCards[j].getRegCard().getHealth() - 1);
 					}
-					break;
+				}
+				break;
 				case AOEfincdamage1:  // Willie the Wildcat
-					for (int i = 0; i < userCards.length; i++)
-					{
-						if (userCards[i].getRegCard() != null){
-							if (userCards[i].getRegCard().getAbility() != ability.AOEfincdamage1)
-							{
-								userCards[i].getRegCard().setAttack(userCards[i].getRegCard().getAttack() + 1);
-							}
+				for (int i = 0; i < userCards.length; i++)
+				{
+					if (userCards[i].getRegCard() != null){
+						if (userCards[i].getRegCard().getAbility() != ability.AOEfincdamage1)
+						{
+							userCards[i].getRegCard().setAttack(userCards[i].getRegCard().getAttack() + 1);
 						}
 					}
-					
-					break;
+				}
+
+				break;
 				case AOEfheal1: // Dolphin Show
-					for (int i = 0; i < userCards.length; i++)
-					{
-						if (userCards[i].getRegCard() != null){
-							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 1);
-						}
+				for (int i = 0; i < userCards.length; i++)
+				{
+					if (userCards[i].getRegCard() != null){
+						userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 1);
 					}
-					break;
+				}
+				break;
 				case selfdamage7: // Charles Heston
-					userPlayer.setCredits(-7);
-					break;
+				userPlayer.setCredits(-7);
+				break;
 				case AOEfinchealth3:  // Cindy Crawford
-					for (int i = 0; i < userCards.length; i++)
-					{
-						if (userCards[i].getRegCard() != null){
-							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
-						}
+				for (int i = 0; i < userCards.length; i++)
+				{
+					if (userCards[i].getRegCard() != null){
+						userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
 					}
-					break;
+				}
+				break;
 				case AOEfhealthbuff2: // Dormitory Ant
-					for (int i = 0; i < userCards.length; i++)
-					{
-						if (userCards[i].getRegCard() != null){
-							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
-						}
+				for (int i = 0; i < userCards.length; i++)
+				{
+					if (userCards[i].getRegCard() != null){
+						userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
 					}
-					
+				}
+
 			}
 			
 		}
@@ -1021,124 +1048,124 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			switch (abil)   // cards whose effect does not require a choice
 			{
 				case OPdamage5: // EEcs midterm
-					enemyPlayer.setCredits(-5);
-					break;
+				enemyPlayer.setCredits(-5);
+				break;
 				case OPdamage14: // DilloDay
-					enemyPlayer.setCredits(-14);
-					break;
+				enemyPlayer.setCredits(-14);
+				break;
 				case OPdamage8:  // Organic Chemistry
-					enemyPlayer.setCredits(-8);
-					break;
+				enemyPlayer.setCredits(-8);
+				break;
 				case AOEedamage1:  // Winter Blizzard
-					for (int i = 0; i < enemyCards.length; i++)
-						if (enemyCards[i].getRegCard() != null)
-						{
-							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 1);
-						}
+				for (int i = 0; i < enemyCards.length; i++)
+					if (enemyCards[i].getRegCard() != null)
+					{
+						enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 1);
+					}
 					break;
-				case AOEedamage3:
+					case AOEedamage3:
 					for (int i = 0; i < enemyCards.length; i++)
 						if (enemyCards[i].getRegCard() != null)
 						{
 							enemyCards[i].getRegCard().setHealth(enemyCards[i].getRegCard().getHealth() - 3);
 						}
-					break;
-				case AOEfheal3:
-					for (int i = 0; i < userCards.length; i++)
-						if (userCards[i].getRegCard() != null)
-						{
-							int newHealth = userCards[i].getRegCard().getHealth() + 3;
-							if (newHealth > userCards[i].getRegCard().getMaxHealth())
-							{
-								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getMaxHealth());
-							}
-							else
-							{
-								userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
-							}
-						}
-					break;
-				case firedrill:
-					int uLen = userPlayer.getBoard().size() - 1;
-					int eLen = enemyPlayer.getBoard().size() - 1;
-					for (int i = uLen ; i >= 0; i--)
-					{
-						userPlayer.addCardtoHand(i);
-						userCards[i].removeCardFromPanel();
-						
-					}
-					for (int i = eLen ; i >= 0; i--)
-					{
-						enemyPlayer.addCardtoHand(i);
-						enemyCards[i].removeCardFromPanel();
-					}
-					break;
-			}
-			
-		}
-		
-		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());			
-		updatePlayerStats();
-		updateHandCards();
-		updateBoardCards();
-	}
-	
-	//needs additional input
-	public void executeOnTarget(Card s, RegCard t){
-		ability abil = s.getAbility();
-		
-		
-		switch (abil)
-		{
-			case STlowerattackby1:  // University Squirrel and Kresge
-				t.setAttack(t.getAttack() - 1);
-				break;
-			case STdamage1:  // Lake Seagull and Evanston Raccoon
-				t.setHealth(t.getHealth() - 1);
-				break;
-			case STdamage2:  // House Centipede
-				t.setHealth(t.getHealth() - 2);
-				break;
-			case STincattack3: // Lakefill Pond Carp
-				t.setAttack(t.getAttack() + 3);
-				break;
-			case STincattack1: // Pat Fitzgerald
-				t.setAttack(t.getAttack() + 1);
-				break;
-			case STdamage3: // Seth Meyers
-				t.setHealth(t.getHealth() - 3);
-				break;
-			case STreturnhand:  // Elusive Rabbit and Deering Meadow
-				int eLen = enemyCards.length - 1;
-				for (int j = eLen; j >= 0; j--)
-				{
-					if (enemyCards[j].getRegCard() == t)
-					{
-						enemyPlayer.addCardtoHand(j);
 						break;
+						case AOEfheal3:
+						for (int i = 0; i < userCards.length; i++)
+							if (userCards[i].getRegCard() != null)
+							{
+								int newHealth = userCards[i].getRegCard().getHealth() + 3;
+								if (newHealth > userCards[i].getRegCard().getMaxHealth())
+								{
+									userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getMaxHealth());
+								}
+								else
+								{
+									userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 3);
+								}
+							}
+							break;
+							case firedrill:
+							int uLen = userPlayer.getBoard().size() - 1;
+							int eLen = enemyPlayer.getBoard().size() - 1;
+							for (int i = uLen ; i >= 0; i--)
+							{
+								userPlayer.addCardtoHand(i);
+								userCards[i].removeCardFromPanel();
+
+							}
+							for (int i = eLen ; i >= 0; i--)
+							{
+								enemyPlayer.addCardtoHand(i);
+								enemyCards[i].removeCardFromPanel();
+							}
+							break;
+						}
+
 					}
+
+					gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
+					gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());			
+					updatePlayerStats();
+					updateHandCards();
+					updateBoardCards();
 				}
-				break;
+
+	//needs additional input
+				public void executeOnTarget(Card s, RegCard t){
+					ability abil = s.getAbility();
+
+
+					switch (abil)
+					{
+			case STlowerattackby1:  // University Squirrel and Kresge
+			t.setAttack(t.getAttack() - 1);
+			break;
+			case STdamage1:  // Lake Seagull and Evanston Raccoon
+			t.setHealth(t.getHealth() - 1);
+			break;
+			case STdamage2:  // House Centipede
+			t.setHealth(t.getHealth() - 2);
+			break;
+			case STincattack3: // Lakefill Pond Carp
+			t.setAttack(t.getAttack() + 3);
+			break;
+			case STincattack1: // Pat Fitzgerald
+			t.setAttack(t.getAttack() + 1);
+			break;
+			case STdamage3: // Seth Meyers
+			t.setHealth(t.getHealth() - 3);
+			break;
+			case STreturnhand:  // Elusive Rabbit and Deering Meadow
+			int eLen = enemyCards.length - 1;
+			for (int j = eLen; j >= 0; j--)
+			{
+				if (enemyCards[j].getRegCard() == t)
+				{
+					enemyPlayer.addCardtoHand(j);
+					break;
+				}
+			}
+			break;
 			case STdamage6: //Chicago Light Pollution
-				t.setHealth(t.getHealth() - 6);
-				break;
+			t.setHealth(t.getHealth() - 6);
+			break;
 			case STlowerattackto1:  // the rock
-				t.setAttack(1);
-				break;
+			t.setAttack(1);
+			break;
 			case STheal1:
-				t.setHealth(t.getHealth() + 1);
-				break;
+			t.setHealth(t.getHealth() + 1);
+			break;
 			case STheal2:  // Allison Hall
-				t.setHealth(t.getHealth() + 2);
-				break;
+			t.setHealth(t.getHealth() + 2);
+			break;
 			case STheal3:  // Bobb McCulloch Hall
-				t.setHealth(t.getHealth() + 3);
-				break;
+			t.setHealth(t.getHealth() + 3);
+			break;
 			case STattackbuff1:
-				t.setAttack(t.getAttack() + 1);
-				break;
-				
+			t.setAttack(t.getAttack() + 1);
+			break;
+
 		}
 		useAbilityOnEnemy.setEnabled(false);
 		useAbilityOnYou.setEnabled(false);
@@ -1148,6 +1175,11 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updateBoardCards();
 		updateHandCards();
 		updatePlayerStats();
+	}
+
+	public void setEndOfTurn(boolean b) 
+	{
+		endTurn = b;
 	}
 }
 

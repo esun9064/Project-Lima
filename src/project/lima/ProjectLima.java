@@ -328,9 +328,19 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		}
 		else if (e.getSource() == controlpad.readyButton)
 		{
-				gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
-				controlpad.readyButton.setEnabled(false);
+			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
+			controlpad.readyButton.setEnabled(false);
 		}
+		else if (e.getSource() == controlpad.endTurnButton)
+		{
+			controlpad.endTurnButton.setEnabled(false);
+			try {
+				out.writeUTF("/endTurn" +"!#$%" + GamePad.yourName);
+			} catch (IOException ex) {
+				System.out.println("could not send endTurn message");
+			}
+		}
+
 		
 	}
 	
