@@ -76,22 +76,34 @@ public class DeckofCards implements DeckofCardsInterface{
 	{
 			return (deck[numDealt++]);
 	}
-	
+	/**
+         * deck observer
+         * @return an array of cards that constitutes the deck
+         */
 	public Card[] getDeck()
 	{
 		return deck;
 	}
-	
+	/**
+         * numDealt observer
+         * @return an integer that is the number of card's already dealt from the deck
+         */
         public int getNumDealt()
         {
             return numDealt;
         }
-        
+        /**
+         * transformer that sets numDealt to a specified value
+         * @param nd the number that numDealt will be set to
+         */
         public void setNumDealt(int nd)
         {
             this.numDealt = nd;
         }
-        
+        /**
+         * method to determine whether a DeckofCards is empty or not
+         * @return true if deck is empty
+         */
 	public boolean isEmpty()
 	{
 		if (this.cardsLeft() <= 0)
@@ -100,7 +112,10 @@ public class DeckofCards implements DeckofCardsInterface{
 		}
 		return false;
 	}
-	
+	/**
+         * utilizes the Card's method toString to print out the array of cards that constitutes the deck
+         * @return a nicely formatted String representing the DeckofCards in sequential order
+         */
 	public String toString()
 	{
 		String string = "";
