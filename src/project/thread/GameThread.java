@@ -72,6 +72,11 @@ public class GameThread extends Thread
 				//parse deck
 				String numDealt = data[3];
 				GamePad.userPlayer.setDeckND(Integer.parseInt(numDealt));
+				String isFirst = data[4];
+				if (isFirst.equals("true"))
+					GamePad.userPlayer.setIsFirst(true);
+				else
+					GamePad.userPlayer.setIsFirst(false);
 				GamePad.userPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
@@ -110,6 +115,11 @@ public class GameThread extends Thread
 				//parse deck
 				String numDealt = data[3];
 				GamePad.enemyPlayer.setDeckND(Integer.parseInt(numDealt));
+				String isFirst = data[4];
+				if (isFirst.equals("true"))
+					GamePad.userPlayer.setIsFirst(true);
+				else
+					GamePad.userPlayer.setIsFirst(false);				
 				GamePad.enemyPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
