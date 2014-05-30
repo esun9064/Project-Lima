@@ -1,5 +1,5 @@
 Lakefill Goose;1;img/Lakefill Goose.jpeg;2;2;;NONE
-Saferide Car;1;img/Saferide.jpg;1;3;;NONE
+Saferide Car;1;img/SafeRide.jpg;1;3;;NONE
 Anna Gunn;1;img/Anna Gunn.jpg;3;1;;NONE
 University Squirrel;1;img/University Squirrel.jpeg;1;2;Lower an opposing card's attack by 1;STlowerattackby1
 Lake Seagull;1;img/Lake Seagull.jpeg;1;1;Deal 1 damage to an opposing player's card;STdamage1

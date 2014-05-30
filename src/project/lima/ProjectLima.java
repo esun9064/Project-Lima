@@ -282,6 +282,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 						controlpad.creatGameButton.setEnabled(false);
 						controlpad.joinGameButton.setEnabled(false);
 						controlpad.cancelGameButton.setEnabled(true);
+						userPlayer.setIsFirst(true);
 						gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
 					}
 				}
@@ -330,6 +331,12 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		{
 			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
 			controlpad.readyButton.setEnabled(false);
+			if (userPlayer.isFirst)
+			{
+				controlpad.endTurnButton.setEnabled(true);
+			}
+			else
+				controlpad.endTurnButton.setEnabled(false);
 		}
 		else if (e.getSource() == controlpad.endTurnButton)
 		{

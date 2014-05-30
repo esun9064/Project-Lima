@@ -500,7 +500,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				i++;
 			}
 		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+			System.out.println("file not found");
 		}
 		
 		
