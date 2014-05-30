@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public class AbilityCard extends Card {
 	
         /**
-         * Initializes a standard Ability Card, initializes global variable abilityUsed to false
+         * Initializes a standard Ability Card
          * @param name the Ability Card's name
          * @param cost the Ability Card's cost, taken from the Player's wcp resource
          * @param image the String representing an Ability Card's image path
