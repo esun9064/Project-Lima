@@ -77,14 +77,12 @@ public class ClientThread extends Thread
     //gameclient.gamepad.isMouseEnabled=true;
     gameclient.controlpad.statusText.setText("Please play a card.");
 	gameclient.controlpad.readyButton.setEnabled(true);
-	gameclient.controlpad.endTurnButton.setEnabled(true);	
    }
    else if(gameclient.isClient)
    {
     //gameclient.gamepad.chessColor=-1;
     gameclient.controlpad.statusText.setText("Joined, wait the opponent...");
 	gameclient.controlpad.readyButton.setEnabled(true);
-	gameclient.controlpad.endTurnButton.setEnabled(true);	
    }
 
   }

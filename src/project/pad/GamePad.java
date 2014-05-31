@@ -24,6 +24,8 @@ import project.thread.*;
 
 public class GamePad extends Panel implements MouseListener,ActionListener
 {
+	public static String actualName;
+	public static String salt;
 	public static String yourName;
 	public Card[] gameCards = new Card[50];
 	public Card[] gameCards2 = new Card[50];
@@ -96,10 +98,12 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public int port=4331;
 	public GameThread gamethread;
 	
-	public GamePad(ControlPad controlpad)
+	public boolean endTurn = true;
+	
+	public GamePad(ControlPad controlpad, ChatPad chatpad)
 	{
 		initCards();
-		gamethread = new GameThread(this, controlpad);
+		gamethread = new GameThread(this, controlpad, chatpad);
 		//board holds the cards
 		
 		GridBagConstraints c = new GridBagConstraints();
@@ -252,70 +256,82 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
-					if (e.getSource() == getHandDescription)		//show card description
-					{
-						getCardDescription(handCards[cIden]);
+					Object a = e.getSource();
+					JMenuItem temp = null;
+					try {
+					temp = (JMenuItem) a;
 					}
-					if (e.getSource() == getUTableDescription)
+					catch (Exception ex)
+							{
+								
+							}
+					if (temp != null && temp.isEnabled())
 					{
-						getCardDescription(userCards[cIden]);
-					}
-					if (e.getSource() == getETableDescription)
-					{
-						getCardDescription(enemyCards[cIden]);
-					}
-					if (e.getSource() == playCard)
-					{
-						playCard(handCards[cIden]);
-						
-					}
-					if (e.getSource() == attkPlayer)
-					{
-						attkPlayer(userCards[cIden]);
-					}
-					if (e.getSource() == card0)
-					{
-						attkCard(userCards[cIden], enemyCards[0]);
-					}
-					if (e.getSource() == card1)
-					{
-						attkCard(userCards[cIden], enemyCards[1]);
-					}
-					if (e.getSource() == card2)
-					{
-						attkCard(userCards[cIden], enemyCards[2]);
-						
-					}
-					if (e.getSource() == card3)
-					{
-						attkCard(userCards[cIden], enemyCards[3]);
-						
-					}
-					if (e.getSource() == card4)
-					{
-						attkCard(userCards[cIden], enemyCards[4]);
-						
-					}
-					if (e.getSource() == card5)
-					{
-						attkCard(userCards[cIden], enemyCards[5]);
-						
-					}
-					if (e.getSource() == card6)
-					{
-						attkCard(userCards[cIden], enemyCards[6]);
-						
-					}
-					if (e.getSource() == useAbilityOnEnemy)
-					{
-						executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
-					}
-					if (e.getSource() == useAbilityOnYou)
-					{
-						executeOnTarget(savedCard, userCards[cIden].getRegCard());
-					}
-					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
-						findMouseAction(e);
+						if (e.getSource() == getHandDescription)		//show card description
+						{
+							getCardDescription(handCards[cIden]);
+						}
+						if (e.getSource() == getUTableDescription)
+						{
+							getCardDescription(userCards[cIden]);
+						}
+						if (e.getSource() == getETableDescription)
+						{
+							getCardDescription(enemyCards[cIden]);
+						}
+						if (e.getSource() == playCard)
+						{
+							playCard(handCards[cIden]);
+							
+						}
+						if (e.getSource() == attkPlayer)
+						{
+							attkPlayer(userCards[cIden]);
+						}
+						if (e.getSource() == card0)
+						{
+							attkCard(userCards[cIden], enemyCards[0]);
+						}
+						if (e.getSource() == card1)
+						{
+							attkCard(userCards[cIden], enemyCards[1]);
+						}
+						if (e.getSource() == card2)
+						{
+							attkCard(userCards[cIden], enemyCards[2]);
+							
+						}
+						if (e.getSource() == card3)
+						{
+							attkCard(userCards[cIden], enemyCards[3]);
+							
+						}
+						if (e.getSource() == card4)
+						{
+							attkCard(userCards[cIden], enemyCards[4]);
+							
+						}
+						if (e.getSource() == card5)
+						{
+							attkCard(userCards[cIden], enemyCards[5]);
+							
+						}
+						if (e.getSource() == card6)
+						{
+							attkCard(userCards[cIden], enemyCards[6]);
+							
+						}
+						if (e.getSource() == useAbilityOnEnemy)
+						{
+							executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
+						}
+						if (e.getSource() == useAbilityOnYou)
+						{
+							executeOnTarget(savedCard, userCards[cIden].getRegCard());
+						}
+						if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+							findMouseAction(e);
+						}
 					}
 				}
 				
@@ -451,14 +467,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	 */
 	public void initCards()
 	{
-		yourName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
-		yourName += "::";
+		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
+		yourName = actualName + "::";
 		Random r = new Random();
-		yourName += r.nextInt();
-		yourName += r.nextInt();
-		yourName += r.nextInt();
-		yourName += r.nextInt();
-		yourName += r.nextInt();
+		yourName += Math.abs(r.nextInt());
+		yourName += Math.abs(r.nextInt());
+		yourName += Math.abs(r.nextInt());
+		yourName += Math.abs(r.nextInt());
 		
 		//get regular card data
 		try {
@@ -496,13 +511,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				i++;
 			}
 		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+			System.out.println("file not found");
 		}
 		
 		
 		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));			//test not working
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
-
+		
 		userPlayer.clearHand();
 		userPlayer.addCardToHand(gameCards[20]);
 		userPlayer.addCardToHand(gameCards[21]);
@@ -520,38 +535,67 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	}
 	public void showPopup(MouseEvent e, String menu)
 	{
+		playCard.setEnabled(true);
+		attkPlayer.setEnabled(true);
+		attkCard.setEnabled(true);
+		//useAbilityOnEnemy.setEnabled(true);
+		//useAbilityOnYou.setEnabled(true);
 		if (e.isPopupTrigger())
 		{
 			switch(menu)
 			{
 				case "hand":
 					handMenu.show(e.getComponent(), e.getX(), e.getY());
+					if (endTurn == true)
+					{
+						playCard.setEnabled(false);
+					}
+					else
+						playCard.setEnabled(true);
 					break;
 				case "user":
 					userTableMenu.show(e.getComponent(), e.getX(), e.getY());
-					if (secondClick == false)
-						useAbilityOnYou.setEnabled(false);
-					if (userCards[cIden].getRegCard().hasAttacked() == true)
+					if (endTurn == false)
 					{
-						attkPlayer.setEnabled(false);
-						attkCard.setEnabled(false);
+						if (secondClick == false)
+							useAbilityOnYou.setEnabled(false);
+						if (userCards[cIden].getRegCard().hasAttacked() == true)
+						{
+							attkPlayer.setEnabled(false);
+							attkCard.setEnabled(false);
+						}
+						else
+						{
+							attkPlayer.setEnabled(true);
+							attkCard.setEnabled(true);
+						}
 					}
 					else
 					{
-						attkPlayer.setEnabled(true);
-						attkCard.setEnabled(true);
+						attkCard.setEnabled(false);
+						attkPlayer.setEnabled(false);
+						useAbilityOnYou.setEnabled(false);
 					}
 					break;
 				case "enemy":
 					enemyTableMenu.show(e.getComponent(), e.getX(), e.getY());
-					if (secondClick == false)
+					if (endTurn == false)
+					{
+						if (secondClick == false)
+							useAbilityOnEnemy.setEnabled(false);
+						else
+							useAbilityOnEnemy.setEnabled(true);
+					}
+					else
+					{
 						useAbilityOnEnemy.setEnabled(false);
+					}
 					break;
 			}
 		}
 	}
 	
-			
+	
 	
 	//show card's ability description
 	public void getCardDescription(CardPanel card)
@@ -570,7 +614,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			{
 				executeEvent((AbilityCard) temp);
 				gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-				gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
+				gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 				updatePlayerStats();
 				updateBoardCards();
 				updateHandCards();
@@ -582,7 +626,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				userPlayer.addCardtoBoard(temp);
 			}
 			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-			gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());				
+			gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 			updateBoardCards();
 			updateHandCards();
 			updatePlayerStats();
@@ -872,7 +916,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		card.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
-		updatePlayerStats();		
+		updatePlayerStats();
 		updateBoardCards();
 		updateHandCards();
 	}
@@ -885,7 +929,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		defender.setHealth(defender.getHealth()-attacker.getAttack());
 		attacker.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());	
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updateBoardCards();
 	}
 	
@@ -996,7 +1040,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
 						}
 					}
-					
+				
 			}
 			
 		}
@@ -1078,7 +1122,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 		
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());			
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updatePlayerStats();
 		updateHandCards();
 		updateBoardCards();
@@ -1144,10 +1188,15 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		useAbilityOnYou.setEnabled(false);
 		secondClick = false;
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
-		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());		
+		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updateBoardCards();
 		updateHandCards();
 		updatePlayerStats();
+	}
+	
+	public void setEndOfTurn(boolean b)
+	{
+		endTurn = b;
 	}
 }
 

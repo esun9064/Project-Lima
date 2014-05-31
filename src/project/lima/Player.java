@@ -5,8 +5,9 @@
 package project.lima;
 
 import java.util.ArrayList;
-import project.deck.DeckofCards;
 import project.card.Card;
+import project.card.RegCard;
+import project.deck.DeckofCards;
 import project.support.*;
 
 /**
@@ -252,5 +253,25 @@ public class Player {
 			string += "\n";
 		string += deck.getNumDealt();		
 		return string;
+	}
+	
+	public void setIsFirst(boolean b)
+	{
+		isFirst = b;
+	}
+
+	public boolean getIsFirst(boolean b)
+	{
+		return isFirst;
+	}
+	
+	public void resetHasAttacked()
+	{
+		int len = board.size();
+		for (int i = 0 ; i < len ; i ++)
+		{
+			RegCard card = (RegCard) board.get(i);
+			card.setHasAttacked(false);
+		}
 	}
 }

@@ -1,7 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package project.lima;
 
 import project.thread.*;
@@ -41,7 +41,7 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 	public UserPad userpad=new UserPad();
 	public ChatPad chatpad=new ChatPad();
 	public ControlPad controlpad=new ControlPad();
-	public GamePad gamepad=new GamePad(controlpad);
+	public GamePad gamepad=new GamePad(controlpad, chatpad);
 	public InputPad inputpad=new InputPad();
 	
 	
@@ -283,6 +283,8 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 						controlpad.joinGameButton.setEnabled(false);
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
+						controlpad.endTurnButton.setEnabled(true);
+						gamepad.setEndOfTurn(false);
 					}
 				}
 				else
@@ -328,8 +330,17 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		}
 		else if (e.getSource() == controlpad.readyButton)
 		{
-				gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
-				controlpad.readyButton.setEnabled(false);
+			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
+			controlpad.readyButton.setEnabled(false);
+		}
+		else if (e.getSource() == controlpad.endTurnButton)
+		{
+			controlpad.endTurnButton.setEnabled(false);
+			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /endTurn " + GamePad.yourName);
+			chatpad.chatLineArea.append("Game>it is now the opponent's turn\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+			gamepad.setEndOfTurn(true);
 		}
 		
 	}

@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package project.thread;
 import java.io.*;
@@ -18,16 +18,18 @@ public class GameThread extends Thread
 {
 	GamePad gamepad;
 	ControlPad controlpad;
+	ChatPad chatpad;
 	
 	/**
 	 *
 	 * @param cardpad
 	 * @param controlpad
 	 */
-	public GameThread(GamePad cardpad, ControlPad controlpad)
+	public GameThread(GamePad cardpad, ControlPad controlpad, ChatPad chatpad)
 	{
 		this.controlpad=controlpad;
 		this.gamepad = cardpad;
+		this.chatpad = chatpad;
 	}
 	
 	public void sendMessage(String sndMessage)
@@ -145,6 +147,20 @@ public class GameThread extends Thread
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
 			
+		}
+		else if(recMessage.startsWith("/endTurn "))
+		{
+			recMessage = recMessage.substring(9);
+			//create game message alerting users of endturn
+			String[] user = recMessage.split("::");
+			chatpad.chatLineArea.append("Game>" + user[0] + " is finished with their turn \n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+			chatpad.chatLineArea.append("Game>it is now your turn\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+			gamepad.setEndOfTurn(false);
+			controlpad.endTurnButton.setEnabled(true);
 		}
 		else if(recMessage.startsWith("/yourname "))
 		{
