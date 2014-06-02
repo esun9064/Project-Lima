@@ -23,7 +23,7 @@ public class Player {
 	private int currentCredits;
 	private final int maxCredits = 50;
 	private int wcp;
-	private final int initwcp = 500;
+	private final int initwcp = 5;
 	protected boolean isFirst = false;
 	
 	public Player(String name, DeckofCards deck)
