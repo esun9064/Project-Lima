@@ -80,7 +80,7 @@ public class GameThread extends Thread
 				for (int i = 0 ; i < hand.length; i ++)
 				{
 					Card temp;
-					String[] card = hand[i].split(",");
+					String[] card = hand[i].split(":");
 					if (!card[0].equals(""))
 					{
 						if (card[0].equals("ability"))
@@ -96,7 +96,7 @@ public class GameThread extends Thread
 				for (int i = 0 ; i < board.length; i ++)
 				{
 					Card temp;
-					String[] card = board[i].split(",");
+					String[] card = board[i].split(":");
 					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
@@ -118,7 +118,7 @@ public class GameThread extends Thread
 				for (int i = 0 ; i < hand.length; i ++)
 				{
 					Card temp;
-					String[] card = hand[i].split(",");
+					String[] card = hand[i].split(":");
 					if (!card[0].equals(""))
 					{
 						if (card[0].equals("ability"))
@@ -134,7 +134,7 @@ public class GameThread extends Thread
 				for (int i = 0 ; i < board.length; i ++)
 				{
 					Card temp;
-					String[] card = board[i].split(",");
+					String[] card = board[i].split(":");
 					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
@@ -146,7 +146,18 @@ public class GameThread extends Thread
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
-			
+			if (GamePad.userPlayer.getCredits() <= 0)
+			{
+				chatpad.chatLineArea.append("Game>Game Over, You have lost\n");
+				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
+				gamepad.setEndOfTurn(true);
+			}
+			else if (GamePad.enemyPlayer.getCredits() <= 0)
+			{
+				chatpad.chatLineArea.append("Game>Game Over, You have won!\n");
+				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
+				gamepad.setEndOfTurn(true);				
+			}
 		}
 		else if(recMessage.startsWith("/endTurn "))
 		{
@@ -161,6 +172,10 @@ public class GameThread extends Thread
 					chatpad.chatLineArea.getText().length());
 			gamepad.setEndOfTurn(false);
 			controlpad.endTurnButton.setEnabled(true);
+			gamepad.userPlayer.draw();
+			gamepad.updateBoardCards();
+			gamepad.updateHandCards();
+			gamepad.updatePlayerStats();
 		}
 		else if(recMessage.startsWith("/yourname "))
 		{

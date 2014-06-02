@@ -4,16 +4,12 @@
 */
 package project.lima;
 
-import project.thread.*;
-import project.pad.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Frame;
+import java.awt.Dimension;
 import java.awt.Panel;
 import java.awt.TextField;
 import java.awt.event.*;
-import project.card.*;
-import project.deck.*;
 import java.awt.image.BufferedImage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -27,17 +23,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import project.card.*;
 import project.card.Card.ability;
+import project.deck.*;
+import project.pad.*;
 import static project.pad.GamePad.userPlayer;
+import project.thread.*;
 
 
-public class ProjectLima extends Frame implements ActionListener,KeyListener
+public class ProjectLima extends JFrame implements ActionListener,KeyListener
 {
+	
 	public UserPad userpad=new UserPad();
 	public ChatPad chatpad=new ChatPad();
 	public ControlPad controlpad=new ControlPad();
@@ -103,7 +105,11 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 		southPanel.add(controlpad,BorderLayout.CENTER);
 		//southPanel.setBackground(Color.pink);
 		
-		
+		this.setPreferredSize(new Dimension(1366, 720));
+		this.setResizable(true);		
+		this.pack();
+		this.revalidate();
+		this.repaint();
 		addWindowListener(new WindowAdapter()
 		{
 			public void windowClosing(WindowEvent e)
@@ -243,6 +249,8 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 							controlpad.joinGameButton.setEnabled(false);
 							controlpad.cancelGameButton.setEnabled(true);
 							gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+							gamepad.initBoard();
+							out.writeUTF("has joined the game.");
 						}
 					}
 					else
@@ -284,6 +292,8 @@ public class ProjectLima extends Frame implements ActionListener,KeyListener
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
 						controlpad.endTurnButton.setEnabled(true);
+						gamepad.initBoard();
+						
 						gamepad.setEndOfTurn(false);
 					}
 				}

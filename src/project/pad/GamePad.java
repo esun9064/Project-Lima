@@ -14,7 +14,6 @@ import javax.swing.*;
 import project.card.*;
 import project.card.Card.ability;
 import project.deck.DeckofCards;
-import project.lima.Board;
 
 import project.lima.CardPanel;
 import project.lima.Player;
@@ -102,26 +101,19 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	
 	public GamePad(ControlPad controlpad, ChatPad chatpad)
 	{
-		initCards();
-		gamethread = new GameThread(this, controlpad, chatpad);
-		//board holds the cards
+		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
+		yourName = actualName + "::";
+		Random r = new Random();
+		yourName += Math.abs(r.nextInt(100));
+		yourName += Math.abs(r.nextInt(100));
+		yourName += Math.abs(r.nextInt(100));
 		
 		GridBagConstraints c = new GridBagConstraints();
 		setLayout(new GridBagLayout());
 		
-		for (int i = 0 ; i < 10; i++)
-		{
-			handCards[i] = new CardPanel();
-		}
-		for (int i = 0 ; i < 7; i++)
-		{
-			userCards[i] = new CardPanel();
-		}
-		for (int i = 0 ; i < 7; i++)
-		{
-			enemyCards[i] = new CardPanel();
-		}
-		
+		gamethread = new GameThread(this, controlpad, chatpad);
+		//board holds the cards
+				
 		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -147,19 +139,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		c.weighty = 0;
 		add(userHand, c);
 		
-		//set enemyHand layout
-		enemyHand.setLayout(new BoxLayout(enemyHand, BoxLayout.Y_AXIS));
-		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
-		enemyHealth.setText("Enemy Health: " + String.valueOf(enemyPlayer.getCredits()));
-		enemyHealth.setForeground(white);
-		enemyHand.add(enemyHealth);
-		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
-		enemyWcp.setForeground(white);
-		enemyHand.add(enemyWcp);
-		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
-		enemyRemainingCards.setForeground(white);
-		enemyHand.add(enemyRemainingCards);
-		enemyHand.add(enemyHandLen);
+		
 		
 		//set layout of panels that make up the board
 		FlowLayout cardsLayout = new FlowLayout();
@@ -184,6 +164,38 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userTable.setBackground(new Color(106,49,163));
 		enemyHand.setBackground(new Color(106,49,163));
 		
+	}
+	
+	public void initBoard()
+	{
+		initCards();
+
+		for (int i = 0 ; i < 10; i++)
+		{
+			handCards[i] = new CardPanel();
+		}
+		for (int i = 0 ; i < 7; i++)
+		{
+			userCards[i] = new CardPanel();
+		}
+		for (int i = 0 ; i < 7; i++)
+		{
+			enemyCards[i] = new CardPanel();
+		}
+		
+		//set enemyHand layout
+		enemyHand.setLayout(new BoxLayout(enemyHand, BoxLayout.Y_AXIS));
+		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
+		enemyHealth.setText("Enemy Health: " + String.valueOf(enemyPlayer.getCredits()));
+		enemyHealth.setForeground(white);
+		enemyHand.add(enemyHealth);
+		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
+		enemyWcp.setForeground(white);
+		enemyHand.add(enemyWcp);
+		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
+		enemyRemainingCards.setForeground(white);
+		enemyHand.add(enemyRemainingCards);
+		enemyHand.add(enemyHandLen);
 		
 		//and other panels
 		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
@@ -200,7 +212,6 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userHand.add(deckPanel);
 		
 		
-		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		updatePlayerStats();
 		
 		for (int i = 0; i < 10; i ++)
@@ -382,6 +393,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		this.revalidate();
 		this.repaint();
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == getHandDescription)
@@ -467,13 +479,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	 */
 	public void initCards()
 	{
-		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
-		yourName = actualName + "::";
-		Random r = new Random();
-		yourName += Math.abs(r.nextInt());
-		yourName += Math.abs(r.nextInt());
-		yourName += Math.abs(r.nextInt());
-		yourName += Math.abs(r.nextInt());
+		
+		
 		
 		//get regular card data
 		try {
@@ -515,31 +522,15 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 		
 		
-		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));			//test not working
+		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));			//initialize your hand
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
-		
-		userPlayer.clearHand();
-		userPlayer.addCardToHand(gameCards[20]);
-		userPlayer.addCardToHand(gameCards[21]);
-		userPlayer.addCardToHand(gameCards[19]);
-		userPlayer.addCardToHand(gameCards[6]);
-		userPlayer.addCardToHand(gameCards[40]);
-		userPlayer.addCardToHand(gameCards[29]);
-		userPlayer.addCardToHand(gameCards[30]);
-		userPlayer.addCardToHand(gameCards[31]);
-		userPlayer.addCardToHand(gameCards[33]);
-		userPlayer.addCardToHand(gameCards[36]);
-		
-		
-		
+		userPlayer.initHand();
 	}
 	public void showPopup(MouseEvent e, String menu)
 	{
 		playCard.setEnabled(true);
 		attkPlayer.setEnabled(true);
 		attkCard.setEnabled(true);
-		//useAbilityOnEnemy.setEnabled(true);
-		//useAbilityOnYou.setEnabled(true);
 		if (e.isPopupTrigger())
 		{
 			switch(menu)

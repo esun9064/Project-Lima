@@ -22,7 +22,7 @@ public class AbilityCard extends Card {
 	@Override
 	public String toString()
         {
-			String s = ("ability,"+name + "," + cost + "," + imagePath + "," + description + "," + ability);
+			String s = ("ability:"+name + ":" + cost + ":" + imagePath + ":" + description + ":" + ability);
 			return s;
         }
 }

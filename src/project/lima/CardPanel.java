@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import project.card.AbilityCard;
 import project.card.Card;
 import project.card.RegCard;
-import project.lima.BoardGui.*;
 import project.pad.GamePad;
 
 /**

@@ -74,14 +74,14 @@ public class RegCard extends Card {
 		@Override
 		public String toString()
 		{
-			String s = "reg," + name + ",";
-			s += cost + ",";
-			s += imagePath + ",";
-			s += attack + ",";
-			s += health + ",";
-			s += description + ",";
-			s += ability + ",";
-			s += maxattack + "," + maxhealth;
+			String s = "reg:" + name + ":";
+			s += cost + ":";
+			s += imagePath + ":";
+			s += attack + ":";
+			s += health + ":";
+			s += description + ":";
+			s += ability + ":";
+			s += maxattack + ":" + maxhealth;
 			return s;
 		}
             
