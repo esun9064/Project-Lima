@@ -24,7 +24,7 @@ public class Player {
 	private final int maxCredits = 50;
 	private int wcp;
 	private final int initwcp = 500;
-	protected boolean isFirst;
+	protected boolean isFirst = false;
 	
 	public Player(String name, DeckofCards deck)
 	{
@@ -233,7 +233,7 @@ public class Player {
 	//deck
 	public String toString()
 	{
-		String string = this.getName() + ";" + this.getCredits() + ";" + this.getWcp() + "\n";
+		String string = this.getName() + ";" + this.getCredits() + ";" + this.getWcp() + ";" + this.isFirst +  "\n";
 		if (hand.size() != 0)
 		{
 			for (int i = 0 ; i < hand.size() -1; i++)
@@ -259,7 +259,7 @@ public class Player {
 	{
 		isFirst = b;
 	}
-
+	
 	public boolean getIsFirst(boolean b)
 	{
 		return isFirst;
