@@ -10,9 +10,9 @@ import project.card.Card;
 public interface DeckofCardsInterface {
 	
 	/*
-	 * Shuffles the deck of cards and resets deal to 
-	 * beginning of deck.
-	 */
+	* Shuffles the deck of cards and resets deal to
+	* beginning of deck.
+	*/
 	void shuffle();
 	
 	/**
@@ -20,7 +20,7 @@ public interface DeckofCardsInterface {
 	 * @return Integer representing number of cards left in deck.
 	 */
 	int cardsLeft();
-
+	
 	/**
 	 * Returns next card in deck. Shuffles deck if no cards are left.
 	 * @return Card to be dealt next
@@ -33,5 +33,5 @@ public interface DeckofCardsInterface {
 	 */
 	String toString();
 	//returns a string representing the entire deck of cards
-
+	
 }

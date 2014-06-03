@@ -1,7 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package project.lima;
 
 
@@ -34,16 +34,16 @@ public class CardPanel extends JPanel{
 	public CardPanel()
 	{
 		this.setBackground(new Color(106,49,163));
-	
+		
 		/*
-		 * setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		 * this.card = null;
-		 * add(imgLbl);
-		 * add(attackLbl);
-		 * add(healthLbl);
-		 * add(abilityLbl);
-		 * add(costLbl);
-		 */
+		* setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		* this.card = null;
+		* add(imgLbl);
+		* add(attackLbl);
+		* add(healthLbl);
+		* add(abilityLbl);
+		* add(costLbl);
+		*/
 	}
 	
 	public CardPanel(Card card)
@@ -162,7 +162,7 @@ public class CardPanel extends JPanel{
 		return (RegCard) card;
 	}
 	
-
+	
 	public void setAttack()
 	{
 		RegCard reg = (RegCard) this.card;
@@ -185,7 +185,7 @@ public class CardPanel extends JPanel{
 		attackLbl.setForeground(GamePad.white);
 		healthLbl.setForeground(GamePad.white);
 		abilityLbl.setForeground(GamePad.white);
-		costLbl.setForeground(GamePad.white);		
+		costLbl.setForeground(GamePad.white);
 		attackLbl.setText("");
 		healthLbl.setText("");
 		imgLbl.setIcon(null);

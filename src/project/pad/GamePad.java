@@ -113,7 +113,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		
 		gamethread = new GameThread(this, controlpad, chatpad);
 		//board holds the cards
-				
+		
 		c.anchor = GridBagConstraints.NORTHWEST;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
@@ -169,7 +169,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public void initBoard()
 	{
 		initCards();
-
+		
 		for (int i = 0 ; i < 10; i++)
 		{
 			handCards[i] = new CardPanel();
@@ -270,12 +270,12 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 					Object a = e.getSource();
 					JMenuItem temp = null;
 					try {
-					temp = (JMenuItem) a;
+						temp = (JMenuItem) a;
 					}
 					catch (Exception ex)
-							{
-								
-							}
+					{
+						
+					}
 					if (temp != null && temp.isEnabled())
 					{
 						if (e.getSource() == getHandDescription)		//show card description
@@ -1190,4 +1190,3 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		endTurn = b;
 	}
 }
-

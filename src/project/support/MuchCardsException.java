@@ -1,7 +1,7 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package project.support;
 
 /**
@@ -13,7 +13,7 @@ public class MuchCardsException extends RuntimeException{
 	{
 		super();
 	}
-
+	
 	public MuchCardsException(String message)
 	{
 		super(message);

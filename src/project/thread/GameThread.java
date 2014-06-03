@@ -121,7 +121,7 @@ public class GameThread extends Thread
 				if (isFirst.equals("true"))
 					GamePad.userPlayer.setIsFirst(true);
 				else
-					GamePad.userPlayer.setIsFirst(false);				
+					GamePad.userPlayer.setIsFirst(false);
 				GamePad.enemyPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
@@ -166,7 +166,7 @@ public class GameThread extends Thread
 			{
 				chatpad.chatLineArea.append("Game>Game Over, You have won!\n");
 				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
-				gamepad.setEndOfTurn(true);				
+				gamepad.setEndOfTurn(true);
 			}
 		}
 		else if(recMessage.startsWith("/endTurn "))
@@ -220,4 +220,3 @@ public class GameThread extends Thread
 	}
 	
 }
-

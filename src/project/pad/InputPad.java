@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 package project.pad;
 
@@ -11,19 +11,18 @@ import javax.swing.JPanel;
 
 public class InputPad extends Panel
 {
- public TextField inputWords=new TextField("",20);
- public Choice userChoice=new Choice();
-
- public InputPad()
- {
-  setLayout(new FlowLayout(FlowLayout.LEFT));
-  for(int i=0;i<50;i++)
-  {
-   userChoice.addItem(i+"."+"No Users");
-  }
-  userChoice.setSize(60,24);
-  add(userChoice);
-  add(inputWords);
- }
+	public TextField inputWords=new TextField("",20);
+	public Choice userChoice=new Choice();
+	
+	public InputPad()
+	{
+		setLayout(new FlowLayout(FlowLayout.LEFT));
+		for(int i=0;i<50;i++)
+		{
+			userChoice.addItem(i+"."+"No Users");
+		}
+		userChoice.setSize(60,24);
+		add(userChoice);
+		add(inputWords);
+	}
 }
-

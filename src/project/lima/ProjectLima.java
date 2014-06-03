@@ -106,7 +106,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 		//southPanel.setBackground(Color.pink);
 		
 		this.setPreferredSize(new Dimension(1366, 720));
-		this.setResizable(true);		
+		this.setResizable(true);
 		this.pack();
 		this.revalidate();
 		this.repaint();
