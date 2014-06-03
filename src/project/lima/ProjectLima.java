@@ -194,6 +194,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 					controlpad.creatGameButton.setEnabled(true);
 					controlpad.joinGameButton.setEnabled(true);
 					controlpad.statusText.setText("Connected, please create or join a game");
+					out.writeUTF("/changename " + gamepad.actualName);
 				}
 				
 				
@@ -250,7 +251,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 							controlpad.cancelGameButton.setEnabled(true);
 							gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
 							gamepad.initBoard();
-							out.writeUTF("has joined the game.");
+							out.writeUTF("/" + gamepad.peerName + "  has joined the game.");
 						}
 					}
 					else

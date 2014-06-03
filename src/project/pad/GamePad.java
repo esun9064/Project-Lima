@@ -559,6 +559,90 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 						{
 							attkPlayer.setEnabled(true);
 							attkCard.setEnabled(true);
+							if (enemyCards[0].isEmpty())
+							{
+								card0.setText("No Card");
+								card0.setEnabled(false);
+							}
+							else
+							{
+								card0.setText(enemyCards[0].getCardName());
+								card0.setEnabled(true);	
+							}
+							if (enemyCards[1].isEmpty())
+							{
+								card1.setText("No Card");
+								card1.setEnabled(false);
+							}
+							else
+							{
+								card1.setText(enemyCards[1].getCardName());
+								card1.setEnabled(true);
+							}
+							if (enemyCards[2].isEmpty())
+							{
+								card2.setText("No Card");
+								card2.setEnabled(false);
+							}
+							else
+							{
+								card2.setText(enemyCards[2].getCardName());
+								card2.setEnabled(true);
+							}
+							if (enemyCards[3].isEmpty())
+							{
+								card3.setText("No Card");
+								card3.setEnabled(false);
+							}
+							else
+							{
+								card3.setText(enemyCards[3].getCardName());
+								card3.setEnabled(true);
+							}
+							if (enemyCards[4].isEmpty())
+							{
+								card4.setText("No Card");
+								card4.setEnabled(false);
+							}
+							else
+							{
+								card4.setText(enemyCards[4].getCardName());
+								card4.setEnabled(true);
+							}
+							if (enemyCards[5].isEmpty())
+							{
+								card5.setText("No Card");
+								card5.setEnabled(false);
+							}
+							else
+							{
+								card5.setText(enemyCards[5].getCardName());
+								card5.setEnabled(true);
+							}
+							if (enemyCards[6].isEmpty())
+							{
+								card6.setText("No Card");
+								card6.setEnabled(false);
+							}
+							else
+							{
+								card6.setText(enemyCards[6].getCardName());
+								card6.setEnabled(true);
+							}
+							card0.revalidate();
+							card0.repaint();
+							card1.revalidate();
+							card1.repaint();
+							card2.revalidate();
+							card2.repaint();
+							card3.revalidate();
+							card3.repaint();
+							card4.revalidate();
+							card4.repaint();
+							card5.revalidate();
+							card5.repaint();
+							card6.revalidate();
+							card6.repaint();
 						}
 					}
 					else
