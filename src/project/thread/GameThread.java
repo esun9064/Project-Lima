@@ -74,11 +74,6 @@ public class GameThread extends Thread
 				//parse deck
 				String numDealt = data[3];
 				GamePad.userPlayer.setDeckND(Integer.parseInt(numDealt));
-				String isFirst = data[4];
-				if (isFirst.equals("true"))
-					GamePad.userPlayer.setIsFirst(true);
-				else
-					GamePad.userPlayer.setIsFirst(false);
 				GamePad.userPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
@@ -117,11 +112,6 @@ public class GameThread extends Thread
 				//parse deck
 				String numDealt = data[3];
 				GamePad.enemyPlayer.setDeckND(Integer.parseInt(numDealt));
-				String isFirst = data[4];
-				if (isFirst.equals("true"))
-					GamePad.userPlayer.setIsFirst(true);
-				else
-					GamePad.userPlayer.setIsFirst(false);
 				GamePad.enemyPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
@@ -166,7 +156,7 @@ public class GameThread extends Thread
 			{
 				chatpad.chatLineArea.append("Game>Game Over, You have won!\n");
 				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
-				gamepad.setEndOfTurn(true);
+				gamepad.setEndOfTurn(true);				
 			}
 		}
 		else if(recMessage.startsWith("/endTurn "))
@@ -182,8 +172,7 @@ public class GameThread extends Thread
 					chatpad.chatLineArea.getText().length());
 			gamepad.setEndOfTurn(false);
 			controlpad.endTurnButton.setEnabled(true);
-			GamePad.userPlayer.draw();
-			GamePad.userPlayer.setWcp(5);
+			gamepad.userPlayer.draw();
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
@@ -220,3 +209,4 @@ public class GameThread extends Thread
 	}
 	
 }
+
