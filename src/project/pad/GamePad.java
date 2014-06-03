@@ -609,6 +609,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				updatePlayerStats();
 				updateBoardCards();
 				updateHandCards();
+				this.revalidate();
+				this.repaint();
 			}
 			else
 			{
@@ -621,6 +623,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			updateBoardCards();
 			updateHandCards();
 			updatePlayerStats();
+			this.revalidate();
+			this.repaint();
 			//chatWindow.append("GAME MESSAGE: " + userPlayer.getName() + " played: " + temp.getName() + "\n");	//would like to make game messages different color,
 			//but this requires using JTextPane instead of editor, if someone would like to learn that...
 			
@@ -910,6 +914,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updatePlayerStats();
 		updateBoardCards();
 		updateHandCards();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void attkCard(CardPanel attkPanel, CardPanel defPanel)
@@ -922,6 +928,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updateBoardCards();
+		updateHandCards();
+		updatePlayerStats();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void executeReg(RegCard r)
@@ -1117,6 +1127,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updatePlayerStats();
 		updateHandCards();
 		updateBoardCards();
+		this.revalidate();
+		this.repaint();		
 	}
 	
 	//needs additional input
@@ -1183,6 +1195,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updateBoardCards();
 		updateHandCards();
 		updatePlayerStats();
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void setEndOfTurn(boolean b)

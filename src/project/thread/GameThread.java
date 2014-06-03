@@ -146,6 +146,8 @@ public class GameThread extends Thread
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
+			gamepad.revalidate();
+			gamepad.repaint();
 			if (GamePad.userPlayer.getCredits() <= 0)
 			{
 				chatpad.chatLineArea.append("Game>Game Over, You have lost\n");
@@ -172,10 +174,13 @@ public class GameThread extends Thread
 					chatpad.chatLineArea.getText().length());
 			gamepad.setEndOfTurn(false);
 			controlpad.endTurnButton.setEnabled(true);
-			gamepad.userPlayer.draw();
+			GamePad.userPlayer.draw();
+			GamePad.userPlayer.setWcp(5);
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
+			gamepad.revalidate();
+			gamepad.repaint();
 		}
 		else if(recMessage.startsWith("/yourname "))
 		{
