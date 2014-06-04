@@ -273,6 +273,14 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 				
 				@Override
 				public void mousePressed(MouseEvent e) {
+					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+					{
+						findMouseAction(e);
+					}
+					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+					{
+						findMouseAction(e);
+					}
 					Object a = e.getSource();
 					JMenuItem temp = null;
 					try {

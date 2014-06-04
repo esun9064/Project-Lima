@@ -285,6 +285,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				{
 					if(gamepad.connectServer(gamepad.host,gamepad.port))
 					{
+						
 						isGameConnected=true;
 						isOnGame=true;
 						isServer=true;
@@ -293,6 +294,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
 						controlpad.endTurnButton.setEnabled(true);
+						gamepad.initCards();
 						gamepad.initBoard();
 						
 						gamepad.setEndOfTurn(false);
@@ -302,6 +304,8 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				{
 					isOnGame=true;
 					isServer=true;
+					gamepad.initCards();
+					gamepad.initBoard();					
 					controlpad.creatGameButton.setEnabled(false);
 					controlpad.joinGameButton.setEnabled(false);
 					controlpad.cancelGameButton.setEnabled(true);
@@ -328,62 +332,65 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
-                                for (int q = 0; q < gamepad.userCards.length; q++){
-                                    gamepad.userCards[q].removeCardFromPanel();
-                                }
-                                for (int q = 0; q < gamepad.enemyCards.length; q++){
-                                    gamepad.enemyCards[q].removeCardFromPanel();
-                                }
-                                for (int q = 0; q < gamepad.handCards.length; q++){
-                                    gamepad.handCards[q].removeCardFromPanel();
-                                }
-                                
-                                gamepad.enemyWcp.setText("");
-                                gamepad.userWcp.setText("");
-                                gamepad.deckLabel.setText("");
-                                GamePad.userPlayer.clearHand();
-                                GamePad.userPlayer.clearBoard();
-                                gamepad.enemyHandLen.setText("");
-                                gamepad.enemyRemainingCards.setText("");
-                                gamepad.enemyHealth.setText("");
-                                gamepad.userRemainingCards.setText("");
-                                gamepad.userHealth.setText("");
-                                gamepad.updateBoardCards();
-                                gamepad.updatePlayerStats();
-                                gamepad.updateHandCards();
-                                gamepad.revalidate();
-                                gamepad.repaint();
+				for (int q = 0; q < gamepad.userCards.length; q++){
+					gamepad.userCards[q].removeCardFromPanel();
+				}
+				for (int q = 0; q < gamepad.enemyCards.length; q++){
+					gamepad.enemyCards[q].removeCardFromPanel();
+				}
+				for (int q = 0; q < gamepad.handCards.length; q++){
+					gamepad.handCards[q].removeCardFromPanel();
+				}
+				
+				gamepad.enemyWcp.setText("");
+				gamepad.userWcp.setText("");
+				gamepad.deckLabel.setText("");
+				GamePad.userPlayer.clearHand();
+				GamePad.enemyPlayer.clearBoard();
+				GamePad.enemyPlayer.clearHand();
+				GamePad.userPlayer.clearBoard();
+				gamepad.enemyHandLen.setText("");
+				gamepad.enemyRemainingCards.setText("");
+				gamepad.enemyHealth.setText("");
+				gamepad.userRemainingCards.setText("");
+				gamepad.userHealth.setText("");
+				gamepad.deckPanel.removeAll();
+				gamepad.updateBoardCards();
+				gamepad.updateHandCards();
+				gamepad.revalidate();
+				gamepad.repaint();
 				controlpad.statusText.setText("Please create or join a game");
 			}
 			if(!isOnGame)
 			{
-                            for (int q = 0; q < gamepad.userCards.length; q++){
-                                    gamepad.userCards[q].removeCardFromPanel();
-                                }
-                                for (int q = 0; q < gamepad.enemyCards.length; q++){
-                                    gamepad.enemyCards[q].removeCardFromPanel();
-                                }
-                                for (int q = 0; q < gamepad.handCards.length; q++){
-                                    gamepad.handCards[q].removeCardFromPanel();
-                                }
+				for (int q = 0; q < gamepad.userCards.length; q++){
+					gamepad.userCards[q].removeCardFromPanel();
+				}
+				for (int q = 0; q < gamepad.enemyCards.length; q++){
+					gamepad.enemyCards[q].removeCardFromPanel();
+				}
+				for (int q = 0; q < gamepad.handCards.length; q++){
+					gamepad.handCards[q].removeCardFromPanel();
+				}
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
-                                GamePad.userPlayer.clearHand();
-                                GamePad.userPlayer.clearBoard();
-                                gamepad.enemyWcp.setText("");
-                                gamepad.userWcp.setText("");
-                                gamepad.deckLabel.setText("");
-                                gamepad.enemyHandLen.setText("");
-                                gamepad.enemyRemainingCards.setText("");
-                                gamepad.enemyHealth.setText("");
-                                gamepad.userRemainingCards.setText("");
-                                gamepad.userHealth.setText("");
-                                gamepad.updateBoardCards();
-                                gamepad.updatePlayerStats();
-                                gamepad.updateHandCards();
-                                gamepad.revalidate();
-                                gamepad.repaint();
+				GamePad.userPlayer.clearHand();
+				GamePad.userPlayer.clearBoard();
+				GamePad.enemyPlayer.clearBoard();
+				GamePad.enemyPlayer.clearHand();
+				gamepad.enemyWcp.setText("");
+				gamepad.userWcp.setText("");
+				gamepad.deckLabel.setText("");
+				gamepad.enemyHandLen.setText("");
+				gamepad.enemyRemainingCards.setText("");
+				gamepad.enemyHealth.setText("");
+				gamepad.userRemainingCards.setText("");
+				gamepad.userHealth.setText("");
+				gamepad.updateBoardCards();
+				gamepad.updateHandCards();
+				gamepad.revalidate();
+				gamepad.repaint();
 				
 				controlpad.statusText.setText("Please create or join a game");
 			}
