@@ -250,8 +250,9 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 							controlpad.joinGameButton.setEnabled(false);
 							controlpad.cancelGameButton.setEnabled(true);
 							gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+							gamepad.initCards();
 							gamepad.initBoard();
-							out.writeUTF("/" + gamepad.peerName + "  has joined the game.");
+							out.writeUTF("/" + gamepad.peerName.substring(9) + "  has joined the game.");
 						}
 					}
 					else
@@ -262,6 +263,9 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 						controlpad.joinGameButton.setEnabled(false);
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
+						gamepad.initCards();
+						gamepad.initBoard();
+						out.writeUTF("/" + gamepad.peerName.substring(9) + "  has joined the game.");
 					}
 					
 					
@@ -305,7 +309,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 					isOnGame=true;
 					isServer=true;
 					gamepad.initCards();
-					gamepad.initBoard();					
+					gamepad.initBoard();
 					controlpad.creatGameButton.setEnabled(false);
 					controlpad.joinGameButton.setEnabled(false);
 					controlpad.cancelGameButton.setEnabled(true);
@@ -345,6 +349,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.enemyWcp.setText("");
 				gamepad.userWcp.setText("");
 				gamepad.deckLabel.setText("");
+				gamepad.deckLabel.setIcon(null);
 				GamePad.userPlayer.clearHand();
 				GamePad.enemyPlayer.clearBoard();
 				GamePad.enemyPlayer.clearHand();
@@ -354,7 +359,6 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.enemyHealth.setText("");
 				gamepad.userRemainingCards.setText("");
 				gamepad.userHealth.setText("");
-				gamepad.deckPanel.removeAll();
 				gamepad.updateBoardCards();
 				gamepad.updateHandCards();
 				gamepad.revalidate();
@@ -382,6 +386,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.enemyWcp.setText("");
 				gamepad.userWcp.setText("");
 				gamepad.deckLabel.setText("");
+				gamepad.deckLabel.setIcon(null);				
 				gamepad.enemyHandLen.setText("");
 				gamepad.enemyRemainingCards.setText("");
 				gamepad.enemyHealth.setText("");

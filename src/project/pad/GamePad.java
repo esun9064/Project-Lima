@@ -163,6 +163,18 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userTable.setBackground(new Color(106,49,163));
 		enemyHand.setBackground(new Color(106,49,163));
 		
+		enemyHand.add(enemyHealth);
+		enemyHand.add(enemyWcp);
+		enemyHand.add(enemyRemainingCards);
+		enemyHand.add(enemyHandLen);		
+		
+		deckPanel.add(deckLabel);
+		deckPanel.add(userHealth);
+		deckPanel.add(userWcp);
+		deckPanel.add(userRemainingCards);
+		userHand.add(deckPanel);
+		deckPanel.setBackground(new Color(106,49,163));
+		
 	}
 	
 	public void initBoard()
@@ -187,28 +199,18 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
 		enemyHealth.setText("Enemy Health: " + String.valueOf(enemyPlayer.getCredits()));
 		enemyHealth.setForeground(white);
-		enemyHand.add(enemyHealth);
 		enemyWcp.setText("Wildcat Points: " + String.valueOf(enemyPlayer.getWcp()));
 		enemyWcp.setForeground(white);
-		enemyHand.add(enemyWcp);
 		enemyRemainingCards.setText("Cards Left: " + enemyPlayer.getDeck().cardsLeft());
 		enemyRemainingCards.setForeground(white);
-		enemyHand.add(enemyRemainingCards);
-		enemyHand.add(enemyHandLen);
 		
 		//and other panels
 		deckPanel.setLayout(new BoxLayout(deckPanel, BoxLayout.Y_AXIS));
-		deckPanel.setBackground(new Color(106,49,163));
 		deck = resizeImage("img/Card_Back.jpg", 75, 90);
-		deckLabel = new JLabel(deck);
-		deckPanel.add(deckLabel);
+		deckLabel.setIcon(deck);
 		userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
-		deckPanel.add(userHealth);
 		userWcp.setText("Wildcat Points: " + String.valueOf(userPlayer.getWcp()));
-		deckPanel.add(userWcp);
 		userRemainingCards.setText("Cards Left: " + userPlayer.getDeck().cardsLeft());
-		deckPanel.add(userRemainingCards);
-		userHand.add(deckPanel);
 		
 		
 		updatePlayerStats();
