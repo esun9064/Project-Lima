@@ -260,7 +260,14 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			{
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					
+					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+					{
+						findMouseAction(e);
+					}
+					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+					{
+						findMouseAction(e);
+					}
 					
 				}
 				
@@ -293,7 +300,6 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 						if (e.getSource() == playCard)
 						{
 							playCard(handCards[cIden]);
-							
 						}
 						if (e.getSource() == attkPlayer)
 						{
@@ -320,7 +326,6 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 						if (e.getSource() == card4)
 						{
 							attkCard(userCards[cIden], enemyCards[4]);
-							
 						}
 						if (e.getSource() == card5)
 						{
@@ -341,6 +346,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 							executeOnTarget(savedCard, userCards[cIden].getRegCard());
 						}
 						if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+							findMouseAction(e);
+						}
+						if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+						{
 							findMouseAction(e);
 						}
 					}
