@@ -182,6 +182,13 @@ public class GameThread extends Thread
 			gamepad.revalidate();
 			gamepad.repaint();
 		}
+		else if (recMessage.startsWith("/gameMsg "))
+		{
+			recMessage = recMessage.substring(9);
+			chatpad.chatLineArea.append("Game>" + recMessage + "\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}
 		else if(recMessage.startsWith("/yourname "))
 		{
 			gamepad.selfName=recMessage.substring(10);
