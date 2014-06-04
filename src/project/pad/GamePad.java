@@ -59,7 +59,6 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public CardPanel[] userCards = new CardPanel[7];
 	public CardPanel[] enemyCards = new CardPanel[7];
 	
-	
 	//popup menus
 	public JPopupMenu handMenu = new JPopupMenu();	//menu for hand
 	public JPopupMenu userTableMenu = new JPopupMenu();	//menu for hand
@@ -346,8 +345,134 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 							executeOnTarget(savedCard, userCards[cIden].getRegCard());
 						}
 						if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
-							findMouseAction(e);
-						}
+							if (e.getComponent() == handCards[0])
+							{
+								cIden = 0;
+								showPopup(e, "hand");
+							}
+							if (e.getComponent() == handCards[1])
+							{
+								cIden = 1;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[2])
+							{
+								cIden = 2;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[3])
+							{
+								cIden = 3;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[4])
+							{
+								cIden = 4;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[5])
+							{
+								cIden = 5;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[6])
+							{
+								cIden = 6;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[7])
+							{
+								cIden = 7;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[8])
+							{
+								cIden = 8;
+								showPopup(e, "hand");
+								
+							}
+							if (e.getComponent() == handCards[9])
+							{
+								cIden = 9;
+								showPopup(e, "hand");
+							}
+							if (e.getComponent() == userCards[0])
+							{
+								cIden = 0;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[1])
+							{
+								cIden = 1;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[2])
+							{
+								cIden = 2;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[3])
+							{
+								cIden = 3;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[4])
+							{
+								cIden = 4;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[5])
+							{
+								cIden = 5;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == userCards[6])
+							{
+								cIden = 6;
+								showPopup(e, "user");
+							}
+							if (e.getComponent() == enemyCards[0])
+							{
+								cIden = 0;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[1])
+							{
+								cIden = 1;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[2])
+							{
+								cIden = 2;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[3])
+							{
+								cIden = 3;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[4])
+							{
+								cIden = 4;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[5])
+							{
+								cIden = 5;
+								showPopup(e, "enemy");
+							}
+							if (e.getComponent() == enemyCards[6])
+							{
+								cIden = 6;
+								showPopup(e, "enemy");
+							}						}
 						if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
 						{
 							findMouseAction(e);
@@ -576,7 +701,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 							else
 							{
 								card0.setText(enemyCards[0].getCardName());
-								card0.setEnabled(true);	
+								card0.setEnabled(true);
 							}
 							if (enemyCards[1].isEmpty())
 							{
@@ -1221,7 +1346,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		updateHandCards();
 		updateBoardCards();
 		this.revalidate();
-		this.repaint();		
+		this.repaint();
 	}
 	
 	//needs additional input
