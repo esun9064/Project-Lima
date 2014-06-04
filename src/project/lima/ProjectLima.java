@@ -324,10 +324,35 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 			if(isOnGame)
 			{
 				gamepad.gamethread.sendMessage("/giveup "+gameClientName);
-				//cardpad.chessVictory(-1*gamepad.chessColor);
+				
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
+                                for (int q = 0; q < gamepad.userCards.length; q++){
+                                    gamepad.userCards[q].removeCardFromPanel();
+                                }
+                                for (int q = 0; q < gamepad.enemyCards.length; q++){
+                                    gamepad.enemyCards[q].removeCardFromPanel();
+                                }
+                                for (int q = 0; q < gamepad.handCards.length; q++){
+                                    gamepad.handCards[q].removeCardFromPanel();
+                                }
+                                
+                                gamepad.enemyWcp.setText("");
+                                gamepad.userWcp.setText("");
+                                gamepad.deckLabel.setText("");
+                                GamePad.userPlayer.clearHand();
+                                GamePad.userPlayer.clearBoard();
+                                gamepad.enemyHandLen.setText("");
+                                gamepad.enemyRemainingCards.setText("");
+                                gamepad.enemyHealth.setText("");
+                                gamepad.userRemainingCards.setText("");
+                                gamepad.userHealth.setText("");
+                                gamepad.updateBoardCards();
+                                gamepad.updatePlayerStats();
+                                gamepad.updateHandCards();
+                                gamepad.revalidate();
+                                gamepad.repaint();
 				controlpad.statusText.setText("Please create or join a game");
 			}
 			if(!isOnGame)
@@ -335,6 +360,22 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
+                                GamePad.userPlayer.clearHand();
+                                GamePad.userPlayer.clearBoard();
+                                gamepad.enemyWcp.setText("");
+                                gamepad.userWcp.setText("");
+                                gamepad.deckLabel.setText("");
+                                gamepad.enemyHandLen.setText("");
+                                gamepad.enemyRemainingCards.setText("");
+                                gamepad.enemyHealth.setText("");
+                                gamepad.userRemainingCards.setText("");
+                                gamepad.userHealth.setText("");
+                                gamepad.updateBoardCards();
+                                gamepad.updatePlayerStats();
+                                gamepad.updateHandCards();
+                                gamepad.revalidate();
+                                gamepad.repaint();
+				
 				controlpad.statusText.setText("Please create or join a game");
 			}
 			isClient=isServer=false;
