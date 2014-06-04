@@ -357,6 +357,15 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 			}
 			if(!isOnGame)
 			{
+                            for (int q = 0; q < gamepad.userCards.length; q++){
+                                    gamepad.userCards[q].removeCardFromPanel();
+                                }
+                                for (int q = 0; q < gamepad.enemyCards.length; q++){
+                                    gamepad.enemyCards[q].removeCardFromPanel();
+                                }
+                                for (int q = 0; q < gamepad.handCards.length; q++){
+                                    gamepad.handCards[q].removeCardFromPanel();
+                                }
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
