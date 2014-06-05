@@ -25,7 +25,11 @@ public class Player {
 	private int wcp;
 	private final int initwcp = 5;
 	protected boolean isFirst = false;
-	
+	/**
+         * Constructs a new Player given a name and a DeckofCards
+         * @param name  String containing the new player's name
+         * @param deck  DeckofCards to be assigned to this player
+         */
 	public Player(String name, DeckofCards deck)
 	{
 		this.name = name;
@@ -36,7 +40,6 @@ public class Player {
 	/**
 	 * initialize hand to hold first 10 cards from the player's deck
 	 */
-	
 	public void initHand()
 	{
 		for (int i = 0; i < 10 ; i++)
@@ -44,17 +47,26 @@ public class Player {
 			hand.add(this.deck.dealCard());
 		}
 	}
-	
+	/**
+         * Observer function to retrieve this Player's name
+         * @return  a String containing this Player's name
+         */
 	public String getName()
 	{
 		return this.name;
 	}
-	
+	/**
+         * Method to change the player's name.
+         * @param s a String containing the new name to be set
+         */
 	public void setName(String s)
 	{
 		this.name = s;
 	}
-	
+	/**
+         * Observer method to retrieve this player's deck
+         * @return the DeckofCards representing this Player's deck
+         */
 	public DeckofCards getDeck()
 	{
 		return this.deck;
@@ -68,28 +80,42 @@ public class Player {
 	{
 		this.deck.setNumDealt(nd);
 	}
-	
+	/**
+         * Observer method to retrieve this Player's hand.
+         * @return ArrayList containing the Cards in the Player's hand
+         */
 	public ArrayList<Card> getHand()
 	{
 		return this.hand;
 	}
-	
-	
+	/**
+         * Observer method to retrieve this Player's cards on the board
+         * @return ArrayList containing the Cards on the Player's side of the board.
+         */
 	public ArrayList<Card> getBoard()
 	{
 		return this.board;
 	}
-	
+	/**
+         * Observer method to determine the Player's current number of credits.
+         * @return int value representing the player's number of credits
+         */
 	public int getCredits()
 	{
 		return this.currentCredits;
 	}
-	
+	/**
+         * Observer method to retrieve this Player's maximum possible credits.
+         * @return int value representing this player's max credits.
+         */
 	public int getMaxCredits()
 	{
 		return this.maxCredits;
 	}
-	
+	/**
+         * Observer method for player Wcp
+         * @return int value representing current Wcp
+         */
 	public int getWcp()
 	{
 		return this.wcp;
@@ -107,7 +133,12 @@ public class Player {
 		else
 			this.currentCredits += credit;
 	}
-	
+	/**
+         * Method to modify player health by directly replacing the current credits
+         * with either a new int value or the player's maximum credits, whichever
+         * is smaller.
+         * @param credits int representing the desired new value for this Player's credits.
+         */
 	public void setNewCredits(int credits)
 	{
 		if (credits > maxCredits)
@@ -218,7 +249,9 @@ public class Player {
 			this.hand.remove(i);
 		}
 	}
-	
+	/**
+         * Clears the player's board by removing all cards.
+         */
 	public void clearBoard()
 	{
 		int b = board.size() - 1;
@@ -227,10 +260,12 @@ public class Player {
 			this.board.remove(i);
 		}
 	}
-	//player
-	//hand
-	//board
-	//deck
+        /**
+         * Method to convert the Player to a String in order to be sent over
+         * the server.
+         * @return a formatted String that can be parsed to reconstruct this
+         *         Player
+         */
 	public String toString()
 	{
 		String string = this.getName() + ";" + this.getCredits() + ";" + this.getWcp() + ";" + this.isFirst +  "\n";
@@ -254,17 +289,19 @@ public class Player {
 		string += deck.getNumDealt();
 		return string;
 	}
-	
+	/**
+         * Method to set whether this player has the first move.
+         * @param b A boolean corresponding to whether or not this player has
+         *          the first move
+         */
 	public void setIsFirst(boolean b)
 	{
 		isFirst = b;
 	}
-	
-	public boolean getIsFirst(boolean b)
-	{
-		return isFirst;
-	}
-	
+	/**
+         * Method to reset cards on the board at the end of a turn so that they
+         * can attack during the following turn.
+         */
 	public void resetHasAttacked()
 	{
 		int len = board.size();

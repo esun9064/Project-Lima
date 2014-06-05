@@ -30,7 +30,10 @@ public class CardPanel extends JPanel{
 	protected JLabel costLbl = new JLabel();
 	
 	
-	
+	/**
+         * Constructs a new, empty CardPanel for the GUI with a purple 
+         * background color.
+         */
 	public CardPanel()
 	{
 		this.setBackground(new Color(106,49,163));
@@ -46,6 +49,11 @@ public class CardPanel extends JPanel{
 		*/
 	}
 	
+        /**
+         * Constructs a new CardPanel to display a given Card on the GUI and
+         * initializes its attributes to correspond to the given Card.
+         * @param card  the Card to be displayed
+         */
 	public CardPanel(Card card)
 	{
 		this.setBackground(new Color(106,49,163));
@@ -92,16 +100,30 @@ public class CardPanel extends JPanel{
 		}
 	}
 	
+        /**
+         * Observer for getting the description of the Card represented by this
+         * CardPanel.
+         * @return  the represented card's description as a String
+         */
 	public String getDescription()
 	{
 		return this.card.getDesc();
 	}
 	
+        /**
+         * Observer for getting the name of the Card represented by this CardPanel.
+         * @return  the Card's name as a String
+         */
 	public String getCardName()
 	{
 		return this.card.getName();
 	}
 	
+        /**
+         * Method to set the given card as the Card represented by this CardPanel
+         * and to reset all attributes of the CardPanel accordingly.
+         * @param card  the new Card to be represented
+         */
 	public void getNewCard(Card card)
 	{
 		this.setBackground(new Color(106,49,163));
@@ -151,18 +173,28 @@ public class CardPanel extends JPanel{
 		abilityLbl.setForeground(GamePad.white);
 		costLbl.setForeground(GamePad.white);
 	}
-	
+	/**
+         * Observer method to retrieve the Card currently represented by this CardPanel.
+         * @return the Card being represented
+         */
 	public Card getCard()
 	{
 		return card;
 	}
-	
+	/**
+         * Observer method to retrieve the Card currently represented by this
+         * CardPanel after casting it to a RegCard.
+         * @return  the Card represented, cast to a RegCard
+         */
 	public RegCard getRegCard()
 	{
 		return (RegCard) card;
 	}
 	
-	
+	/**
+         * Method to reset this CardPanel's attackLbl attribute to match the attack
+         * of the Card it represents.
+         */
 	public void setAttack()
 	{
 		RegCard reg = (RegCard) this.card;
@@ -170,7 +202,10 @@ public class CardPanel extends JPanel{
 		revalidate();
 		repaint();
 	}
-	
+	/**
+         * Method to reset this CardPanel's healthLbl attribute to match the health
+         * of the Card it represents.
+         */
 	public void setHealth()
 	{
 		RegCard reg = (RegCard) this.card;
@@ -178,7 +213,9 @@ public class CardPanel extends JPanel{
 		revalidate();
 		repaint();
 	}
-	
+	/**
+         * Method to reset the CardPanel to be empty, with no displayed Card.
+         */
 	public void removeCardFromPanel()
 	{
 		this.setBackground(new Color(106,49,163));
@@ -196,7 +233,11 @@ public class CardPanel extends JPanel{
 		repaint();
 		
 	}
-	
+	/**
+         * Observer method to determine whether the CardPanel is empty.
+         * @return  false if the CardPanel has been assigned a card to represent,
+         *          true otherwise
+         */
 	public boolean isEmpty()
 	{
 		if (this.card == null)
