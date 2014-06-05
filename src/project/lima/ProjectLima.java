@@ -318,6 +318,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 					controlpad.joinGameButton.setEnabled(false);
 					controlpad.cancelGameButton.setEnabled(true);
 					controlpad.endTurnButton.setEnabled(true);
+					gamepad.setEndOfTurn(false);
 					gamepad.initCards();
 					gamepad.showBoard();
 					gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
@@ -379,6 +380,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.hideBoard();
 				gamepad.revalidate();
 				gamepad.repaint();
+				gamepad.setEndOfTurn(true);
 				controlpad.statusText.setText("Please create or join a game");
 			}
 			if(!isOnGame)
@@ -425,6 +427,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.gamethread.sendMessage("/giveup "+gameClientName);
 				
 				controlpad.statusText.setText("Please create or join a game");
+				gamepad.setEndOfTurn(true);				
 			}
 			isClient=isServer=false;
 		}
