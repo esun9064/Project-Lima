@@ -168,13 +168,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyHand.add(enemyRemainingCards);
 		enemyHand.add(enemyHandLen);		
 		
-		deckPanel.add(deckLabel);
-		deckPanel.add(userHealth);
-		deckPanel.add(userWcp);
-		deckPanel.add(userRemainingCards);
-		userHand.add(deckPanel);
-		deckPanel.setBackground(new Color(106,49,163));
-		
+
 	}
 	
 	public void initBoard()
@@ -194,6 +188,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			enemyCards[i] = new CardPanel();
 		}
 		
+		deckPanel.add(deckLabel);
+		deckPanel.add(userHealth);
+		deckPanel.add(userWcp);
+		deckPanel.add(userRemainingCards);
+		
+		userHand.add(deckPanel);
+
 		//set enemyHand layout
 		enemyHand.setLayout(new BoxLayout(enemyHand, BoxLayout.Y_AXIS));
 		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -838,7 +839,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			}
 			else
 			{
-				String desc = temp.getDesc().equals("") ? temp.getDesc() : "None";
+				String desc = !temp.getDesc().equals("") ? temp.getDesc() : "None";
 				if (temp.getAbility() != ability.NONE)
 				{
 					executeReg((RegCard) temp);
