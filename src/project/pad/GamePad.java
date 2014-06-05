@@ -97,7 +97,11 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	public GameThread gamethread;
 	
 	public boolean endTurn = true;
-	
+	/**
+         * constructs the board GUI
+         * @param controlpad the game mechanic interface
+         * @param chatpad the chat and user-list interface
+         */
 	public GamePad(ControlPad controlpad, ChatPad chatpad)
 	{
 		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
@@ -377,7 +381,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		
 		
 	}
-	
+	/**
+         * connects to the server
+         * @param ServerIP  IP address of server
+         * @param ServerPort  port number of server
+         * @return true if successful connect
+         * @throws Exception if connecting failed, throw IO exception
+         */
 	public boolean connectServer(String ServerIP,int ServerPort) throws Exception
 	{
 		try
@@ -396,6 +406,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	}
 	
 	@Override
+	//necessary for implementation purposes
+	//@param e the mouse event
 	public void mousePressed(MouseEvent e)
 	{
 		if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
@@ -686,7 +698,11 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
 		userPlayer.initHand();
 	}
-	
+	/**
+         * depending on the mouse event, display the corresponding pop-up menu
+         * @param e the mouse event that occurred
+         * @param menu tells the function which menu to display
+         */
 	public void showPopup(MouseEvent e, String menu)
 	{
 		playCard.setEnabled(true);
@@ -831,13 +847,20 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 	}
 	
-	//show card's ability description
+	/**
+         * Show card's ability description
+         * @param card the card whose ability's description is to be retrieved 
+         */
 	public void getCardDescription(CardPanel card)
 	{
 		JOptionPane.showMessageDialog(userHand, (!card.getDescription().equals("") ? card.getDescription() : "Card has no ability"), "Description for " + card.getCardName(), 1, null);
 	}
 	
-	//put card in hand onto board
+	/**
+         * Plays a card from the hand by determining whether it is an AbilityCard or a RegCard
+         * Puts a card onto the board (and executes ability if applicable) if RegCard, otherwise allows for use of ability
+         * @param card the card to be played
+         */
 	public void playCard(CardPanel card)
 	{
 		useAbilityOnEnemy.setEnabled(false);
@@ -887,7 +910,13 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			JOptionPane.showMessageDialog(userHand, "No space left on board, only 7 cards allowed at a time.", "Invalid Action", 1, null);
 		}
 	}
-	//helper method for resizing images
+	/**
+         * takes the provided ImageIcon and resizes to desired size
+         * @param filePath the file path of the image to be changed
+         * @param w width
+         * @param h height
+         * @return the new ImageIcon of desired width and height
+         */
 	public static ImageIcon resizeImage(String filePath, int w, int h)
 	{
 		String data = filePath;
@@ -919,7 +948,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		
 		
 	}
-	
+	/**
+         * identifying which card that was just clicked in, and shows appropriate popup menu
+         * @param e  the mouse event
+         */
 	public void findMouseAction(MouseEvent e)
 	{
 		if (e.getComponent() == handCards[0])
@@ -1051,7 +1083,9 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			showPopup(e, "enemy");
 		}
 	}
-	
+	/**
+         * updates the cards in the player's hand
+         */
 	public void updateHandCards()
 	{
 		int len = userPlayer.getHand().size();
@@ -1073,7 +1107,9 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userHand.repaint();
 		
 	}
-	
+	/**
+         * updates the cards on the board
+         */
 	public void updateBoardCards()
 	{
 		int uLen = userPlayer.getBoard().size();
@@ -1131,7 +1167,9 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		userTable.revalidate();
 		userTable.repaint();
 	}
-	
+	/**
+         * update the various statistics of the player, such as health and WCP
+         */
 	public void updatePlayerStats()
 	{
 		userHealth.setText("Health: " + String.valueOf(userPlayer.getCredits()));
@@ -1150,7 +1188,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyRemainingCards.setForeground(white);
 		enemyHandLen.setForeground(white);
 	}
-	
+	/**
+         * provides support for when a card attacks a player to subtract credits from them
+         * @param cardPanel determines which card attacks
+         */
 	public void attkPlayer(CardPanel cardPanel)
 	{
 		RegCard card = cardPanel.getRegCard();
@@ -1167,7 +1208,11 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+         * provides support for when a card attacks another card... implements card interaction
+         * @param attkPanel the attacking card 
+         * @param defPanel the defending card
+         */
 	public void attkCard(CardPanel attkPanel, CardPanel defPanel)
 	{
 		RegCard attacker = attkPanel.getRegCard();
@@ -1194,7 +1239,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+         * executes a RegCard, providing unique support for each RegCard's ability
+         * @param r the RegCard to be executed
+         */
 	public void executeReg(RegCard r)
 	{
 		ability abil = r.getAbility();
@@ -1309,7 +1357,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		
 	}
 	
-	
+	/**
+         * executes an AbilityCard, providing unique support for each AbilityCard's ability
+         * @param a the AbilityCard to be executed
+         */
 	public void executeEvent(AbilityCard a)
 	{
 		ability abil = a.getAbility();
@@ -1392,7 +1443,11 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		this.repaint();
 	}
 	
-	//needs additional input
+	/**
+         * provides support for various RegCards and AbilityCards whose abilities require selecting a specific target Card
+         * @param s the acting card to be executed
+         * @param t the target card
+         */
 	public void executeOnTarget(Card s, RegCard t){
 		ability abil = s.getAbility();
 		
@@ -1460,7 +1515,10 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		this.revalidate();
 		this.repaint();
 	}
-	
+	/**
+         * used for regulating turns
+         * @param b the boolean value to which endTurn will be set
+         */
 	public void setEndOfTurn(boolean b)
 	{
 		endTurn = b;
