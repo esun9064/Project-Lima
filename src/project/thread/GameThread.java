@@ -14,6 +14,10 @@ import project.card.RegCard;
 import project.lima.Player;
 import project.pad.*;
 
+/**
+ * Thread handles messages related to the game.
+ * @author Team Lima
+ */
 public class GameThread extends Thread
 {
 	GamePad gamepad;
@@ -21,9 +25,9 @@ public class GameThread extends Thread
 	ChatPad chatpad;
 	
 	/**
-	 *
-	 * @param cardpad
-	 * @param controlpad
+	 * Constructs new game thread.
+	 * @param cardpad board interface
+	 * @param controlpad bottom menu interface
 	 */
 	public GameThread(GamePad cardpad, ControlPad controlpad, ChatPad chatpad)
 	{
@@ -32,6 +36,10 @@ public class GameThread extends Thread
 		this.chatpad = chatpad;
 	}
 	
+	/**
+	 * Send message to server.
+	 * @param sndMessage message to be sent
+	 */
 	public void sendMessage(String sndMessage)
 	{
 		try
@@ -44,12 +52,16 @@ public class GameThread extends Thread
 		}
 	}
 	
-	
+	/**
+	 * Accept a message from the server.
+	 * @param recMessage message received
+	 */
 	public void acceptMessage(String recMessage)
 	{
+		//recieved serialized player objects
 		if(recMessage.startsWith("/chess "))
 		{
-			
+			//parse order
 			//name; credits; wcp
 			//abilitycard name, cost, image, description, ability
 			//regcard, name, cost, image, attack, healt, ability, maxattack, maxability
@@ -66,15 +78,15 @@ public class GameThread extends Thread
 			String name = player[0];
 			String credits = player[1];
 			String wcp = player[2];
-			if (name.equals(GamePad.yourName))
+			if (name.equals(gamepad.yourName))
 			{
-				GamePad.userPlayer.setNewCredits(Integer.parseInt(credits));
-				GamePad.userPlayer.setWcp(Integer.parseInt(wcp));
-				GamePad.userPlayer.setName(name);
+				gamepad.userPlayer.setNewCredits(Integer.parseInt(credits));
+				gamepad.userPlayer.setWcp(Integer.parseInt(wcp));
+				gamepad.userPlayer.setName(name);
 				//parse deck
 				String numDealt = data[3];
-				GamePad.userPlayer.setDeckND(Integer.parseInt(numDealt));
-				GamePad.userPlayer.clearHand();
+				gamepad.userPlayer.setDeckND(Integer.parseInt(numDealt));
+				gamepad.userPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
 				for (int i = 0 ; i < hand.length; i ++)
@@ -87,11 +99,11 @@ public class GameThread extends Thread
 							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
 						else
 							temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-						GamePad.userPlayer.addCardToHand(temp);
+						gamepad.userPlayer.addCardToHand(temp);
 					}
 				}
 				//board
-				GamePad.userPlayer.clearBoard();
+				gamepad.userPlayer.clearBoard();
 				String[] board = data[2].split(";");
 				for (int i = 0 ; i < board.length; i ++)
 				{
@@ -100,19 +112,19 @@ public class GameThread extends Thread
 					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-						GamePad.userPlayer.addCardtoBoard(temp);
+						gamepad.userPlayer.addCardtoBoard(temp);
 					}
 				}
 			}
 			else
 			{
-				GamePad.enemyPlayer.setNewCredits(Integer.parseInt(credits));
-				GamePad.enemyPlayer.setWcp(Integer.parseInt(wcp));
-				GamePad.enemyPlayer.setName(name);
+				gamepad.enemyPlayer.setNewCredits(Integer.parseInt(credits));
+				gamepad.enemyPlayer.setWcp(Integer.parseInt(wcp));
+				gamepad.enemyPlayer.setName(name);
 				//parse deck
 				String numDealt = data[3];
-				GamePad.enemyPlayer.setDeckND(Integer.parseInt(numDealt));
-				GamePad.enemyPlayer.clearHand();
+				gamepad.enemyPlayer.setDeckND(Integer.parseInt(numDealt));
+				gamepad.enemyPlayer.clearHand();
 				//hand
 				String[] hand = data[1].split(";");
 				for (int i = 0 ; i < hand.length; i ++)
@@ -125,11 +137,11 @@ public class GameThread extends Thread
 							temp = new AbilityCard(card[1], Integer.parseInt(card[2]), card[3], card[4], ability.valueOf(card[5]));
 						else
 							temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-						GamePad.enemyPlayer.addCardToHand(temp);
+						gamepad.enemyPlayer.addCardToHand(temp);
 					}
 				}
 				//board
-				GamePad.enemyPlayer.clearBoard();
+				gamepad.enemyPlayer.clearBoard();
 				String[] board = data[2].split(";");
 				for (int i = 0 ; i < board.length; i ++)
 				{
@@ -138,7 +150,7 @@ public class GameThread extends Thread
 					if (!card[0].equals(""))
 					{
 						temp = new RegCard(card[1], Integer.parseInt(card[2]), card[3], Integer.parseInt(card[4]), Integer.parseInt(card[5]), card[6], ability.valueOf(card[7]), Integer.parseInt(card[8]), Integer.parseInt(card[9]));
-						GamePad.enemyPlayer.addCardtoBoard(temp);
+						gamepad.enemyPlayer.addCardtoBoard(temp);
 					}
 				}
 				
@@ -148,19 +160,20 @@ public class GameThread extends Thread
 			gamepad.updatePlayerStats();
 			gamepad.revalidate();
 			gamepad.repaint();
-			if (GamePad.userPlayer.getCredits() <= 0)
+			if (gamepad.userPlayer.getCredits() <= 0)
 			{
 				chatpad.chatLineArea.append("Game>Game Over, You have lost\n");
 				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
 				gamepad.setEndOfTurn(true);
 			}
-			else if (GamePad.enemyPlayer.getCredits() <= 0)
+			else if (gamepad.enemyPlayer.getCredits() <= 0)
 			{
 				chatpad.chatLineArea.append("Game>Game Over, You have won!\n");
 				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
 				gamepad.setEndOfTurn(true);				
 			}
 		}
+		//receive message about end of turn
 		else if(recMessage.startsWith("/endTurn "))
 		{
 			recMessage = recMessage.substring(9);
@@ -174,14 +187,15 @@ public class GameThread extends Thread
 					chatpad.chatLineArea.getText().length());
 			gamepad.setEndOfTurn(false);
 			controlpad.endTurnButton.setEnabled(true);
-			GamePad.userPlayer.draw();
-			GamePad.userPlayer.setWcp(5);
+			gamepad.userPlayer.draw();
+			gamepad.userPlayer.setWcp(5);
 			gamepad.updateBoardCards();
 			gamepad.updateHandCards();
 			gamepad.updatePlayerStats();
 			gamepad.revalidate();
 			gamepad.repaint();
 		}
+		//notifications about what opponent is doing
 		else if (recMessage.startsWith("/gameMsg "))
 		{
 			recMessage = recMessage.substring(9);

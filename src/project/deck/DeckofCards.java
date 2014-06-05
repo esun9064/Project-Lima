@@ -4,7 +4,7 @@ package project.deck;
 import project.card.Card;
 
 /**
- * Represents a deck of cards, containing 52 standard cards.
+ * Represents a deck of cards.
  * @author Team Lima
  */
 public class DeckofCards implements DeckofCardsInterface{
@@ -77,7 +77,7 @@ public class DeckofCards implements DeckofCardsInterface{
 		return (deck[numDealt++]);
 	}
 	/**
-	 * deck observer
+	 * Deck observer
 	 * @return an array of cards that constitutes the deck
 	 */
 	public Card[] getDeck()
@@ -85,7 +85,7 @@ public class DeckofCards implements DeckofCardsInterface{
 		return deck;
 	}
 	/**
-	 * numDealt observer
+	 * Gets number of cards already dealt from the deck.
 	 * @return an integer that is the number of card's already dealt from the deck
 	 */
 	public int getNumDealt()
@@ -93,7 +93,7 @@ public class DeckofCards implements DeckofCardsInterface{
 		return numDealt;
 	}
 	/**
-	 * transformer that sets numDealt to a specified value
+	 * Transformer that sets numDealt to a specified value
 	 * @param nd the number that numDealt will be set to
 	 */
 	public void setNumDealt(int nd)
@@ -101,7 +101,7 @@ public class DeckofCards implements DeckofCardsInterface{
 		this.numDealt = nd;
 	}
 	/**
-	 * method to determine whether a DeckofCards is empty or not
+	 * Method to determine whether a DeckofCards is empty or not
 	 * @return true if deck is empty
 	 */
 	public boolean isEmpty()
@@ -113,7 +113,7 @@ public class DeckofCards implements DeckofCardsInterface{
 		return false;
 	}
 	/**
-	 * utilizes the Card's method toString to print out the array of cards that constitutes the deck
+	 * Utilizes the Card's method toString to print out the array of cards that constitutes the deck
 	 * @return a nicely formatted String representing the DeckofCards in sequential order
 	 */
 	public String toString()

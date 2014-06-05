@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package project.thread;
 
 import project.lima.*;
@@ -13,18 +7,28 @@ import java.awt.event.*;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-import static project.pad.GamePad.userPlayer;
 
-
+/**
+ * Handles incoming messages from other players.
+ * @author Team Lima
+ */
 public class ClientThread extends Thread
 {
 	ProjectLima gameclient;
 	
+	/**
+	 * Constructs new client thread.
+	 * @param chessclient The client
+	 */
 	public ClientThread(ProjectLima chessclient)
 	{
 		this.gameclient=chessclient;
 	}
 	
+	/**
+	 * Accept message from server.
+	 * @param recMessage the message from the server
+	 */
 	public void acceptMessage(String recMessage)
 	{
 		if(recMessage.startsWith("/userlist "))

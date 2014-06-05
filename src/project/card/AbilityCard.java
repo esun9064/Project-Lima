@@ -1,14 +1,8 @@
-/*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
-*/
 package project.card;
 
-import java.awt.image.BufferedImage;
-
 /**
- *
- * @author Eric
+ * Class represents an Ability card. These cards apply an immediate effect when played.
+ * @author Team Lima
  */
 public class AbilityCard extends Card {
 	
@@ -25,6 +19,7 @@ public class AbilityCard extends Card {
 		super(name, cost, image, d, a);
 		
 	}
+	
 	/**
 	 * Prints an Ability Card's attributes out in the following order:
 	 * name, cost, image, description, ability

@@ -1,9 +1,3 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package project.pad;
 
 import java.awt.*;
@@ -11,11 +5,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-
+/**
+ * Class represents the chat panel used in the client.
+ * @author Team Lima
+ */
 public class ChatPad extends Panel
 {
 	public TextArea chatLineArea=new TextArea("",18,30);
 	
+	/**
+	 * Constructs a new ChatPad, sets the layout and adds a TextArea with scroll bar.
+	 */
 	public ChatPad()
 	{
 		setLayout(new BorderLayout());

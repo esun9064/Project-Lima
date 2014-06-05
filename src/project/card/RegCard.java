@@ -1,10 +1,8 @@
 package project.card;
 
-import java.awt.image.BufferedImage;
-
 /**
- *
- * @author Eric
+ * Regular Card. Card that has attack and health attributes, and possible special ability.
+ * @author Team Lima
  */
 public class RegCard extends Card {
 	
@@ -13,6 +11,7 @@ public class RegCard extends Card {
 	protected int maxattack = attack;
 	protected int maxhealth = health;
 	protected boolean hasAttacked;
+	
 	/**
 	 * Default constructor for a RegCard
 	 * @param name the RegCard's name
@@ -32,6 +31,7 @@ public class RegCard extends Card {
 		maxhealth = this.health;
 		maxattack = this.attack;
 	}
+	
 	/**
 	 * Constructor used for serialization
 	 * @param name the RegCard's name
@@ -52,6 +52,7 @@ public class RegCard extends Card {
 		this.maxhealth = maxhealth;
 		this.maxattack = maxattack;
 	}
+	
 	/**
 	 * Observer method that gets a RegCard's attack
 	 * @return the attack value of this RegCard
@@ -59,6 +60,7 @@ public class RegCard extends Card {
 	public int getAttack(){
 		return attack;
 	}
+	
 	/**
 	 * Transformer method that sets a RegCard's attack to a specified integer value
 	 * @param at the integer value that a RegCard's attack will be set to
@@ -66,6 +68,7 @@ public class RegCard extends Card {
 	public void setAttack(int at){
 		this.attack = at;
 	}
+	
 	/**
 	 * Observer method that gets a RegCard's health
 	 * @return the health value of this RegCard
@@ -73,6 +76,7 @@ public class RegCard extends Card {
 	public int getHealth(){
 		return health;
 	}
+	
 	/**
 	 * Transformer method that sets a RegCard's health to a specified integer value
 	 * @param h the integer value that a RegCard's health will be set to
@@ -80,20 +84,23 @@ public class RegCard extends Card {
 	public void setHealth(int h){
 		this.health = h;
 	}
+	
 	/**
 	 * Observer method that gets a RegCard's maximum health
-	 * @return the maxhealth value of this RegCard
+	 * @return the max health value of this RegCard
 	 */
 	public int getMaxHealth(){
 		return maxhealth;
 	}
+	
 	/**
-	 * Transformer method that sets a RegCard's maximum attack to a specified integer value
-	 * @param h the integer value that a RegCard's maxattack will be set to
+	 * Get max attack of the card.
+	 * @return the max attack of the card
 	 */
 	public int getMaxAttack(){
 		return maxattack;
 	}
+	
 	/**
 	 * Observer method determining whether a Card has attacked yet
 	 * @return a boolean value that is true if a card has attacked
@@ -102,6 +109,7 @@ public class RegCard extends Card {
 	{
 		return hasAttacked;
 	}
+	
 	/**
 	 * Transformer method that sets hasAttacked to a specified boolean
 	 * @param t the boolean value to which hasAttacked shall be changed to
@@ -110,9 +118,10 @@ public class RegCard extends Card {
 	{
 		hasAttacked = t;
 	}
+	
 	/**
 	 * Prints a RegCard's attributes out in the following order:
-	 * name, cost, image, , attack, health, description, ability, maxattack, maxhealth
+	 * name, cost, image, , attack, health, description, ability, max attack, max health
 	 * @return a nicely formatted String representing a Card's attributes
 	 */
 	@Override

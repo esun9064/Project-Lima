@@ -1,15 +1,13 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package project.pad;
 
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+/**
+ * Interface containing the buttons used in the game.
+ * @author Team Lima
+ */
 public class ControlPad extends Panel
 {
 	public Label IPlabel = new Label("IP",Label.LEFT);
@@ -24,6 +22,9 @@ public class ControlPad extends Panel
 	
 	public JLabel statusText=new JLabel("Please connect to server first.");
 	
+	/**
+	 * Initialize the control pad.
+	 */
 	public ControlPad()
 	{
 		setLayout(new FlowLayout(FlowLayout.LEFT));

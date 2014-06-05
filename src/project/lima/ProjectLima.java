@@ -1,7 +1,3 @@
-/*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
-*/
 package project.lima;
 
 import java.awt.BorderLayout;
@@ -34,10 +30,12 @@ import project.card.*;
 import project.card.Card.ability;
 import project.deck.*;
 import project.pad.*;
-import static project.pad.GamePad.userPlayer;
 import project.thread.*;
 
-
+/**
+ * Main class, used in game. Provides overall frame of application.
+ * @author Team Lima
+ */
 public class ProjectLima extends JFrame implements ActionListener,KeyListener
 {
 	
@@ -72,6 +70,9 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 	public static JMenu file = new JMenu("File");
 	public static JMenuItem quit = new JMenuItem("Quit");
 	
+	/**
+	 * Construct new client, adds all interface components together into the frame.
+	 */
 	ProjectLima()
 	{
 		super("Java ...Game Client");
@@ -158,8 +159,13 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 		validate();
 	}
 	
-	
-	
+	/**
+	 * 
+	 * @param serverIP server's IP address
+	 * @param serverPort port number
+	 * @return true if connected, false if failed
+	 * @throws Exception
+	 */
 	public boolean connectServer(String serverIP,int serverPort) throws Exception
 	{
 		try
@@ -180,7 +186,11 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 		return false;
 	}
 	
-	
+	/**
+	 * Handles button click events.
+	 * @param e the ActionEvent
+	 */
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==controlpad.connectButton)
@@ -251,7 +261,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 							controlpad.joinGameButton.setEnabled(false);
 							controlpad.cancelGameButton.setEnabled(true);
 							gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
-							out.writeUTF("/" + GamePad.actualName + " joining game, please wait a moment");
+							out.writeUTF("/" + gamepad.actualName + " joining game, please wait a moment");
 							
 							gamepad.initCards();
 							gamepad.showBoard();
@@ -266,7 +276,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 						controlpad.joinGameButton.setEnabled(false);
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/joingame "+userpad.userList.getSelectedItem()+" "+gameClientName);
-						out.writeUTF("/" + GamePad.actualName + " joining game, please wait a moment");
+						out.writeUTF("/" + gamepad.actualName + " joining game, please wait a moment");
 						
 						gamepad.initCards();
 						gamepad.showBoard();
@@ -303,7 +313,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 						controlpad.cancelGameButton.setEnabled(true);
 						gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
 						controlpad.endTurnButton.setEnabled(true);
-						out.writeUTF("/" + GamePad.actualName + " creating game, please wait a moment.");
+						out.writeUTF("/" + gamepad.actualName + " creating game, please wait a moment.");
 						gamepad.initCards();
 						gamepad.showBoard();
 						gamepad.setEndOfTurn(false);
@@ -313,7 +323,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				{
 					isOnGame=true;
 					isServer=true;
-					out.writeUTF("/" + GamePad.actualName + " creating game, please wait a moment.");
+					out.writeUTF("/" + gamepad.actualName + " creating game, please wait a moment.");
 					controlpad.creatGameButton.setEnabled(false);
 					controlpad.joinGameButton.setEnabled(false);
 					controlpad.cancelGameButton.setEnabled(true);
@@ -356,10 +366,10 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				}
 				*/
 				controlpad.endTurnButton.setEnabled(false);
-				GamePad.userPlayer.clearHand();
-				GamePad.enemyPlayer.clearBoard();
-				GamePad.enemyPlayer.clearHand();
-				GamePad.userPlayer.clearBoard();
+				gamepad.userPlayer.clearHand();
+				gamepad.enemyPlayer.clearBoard();
+				gamepad.enemyPlayer.clearHand();
+				gamepad.userPlayer.clearBoard();
 				/*
 				gamepad.enemyWcp.setText("");
 				gamepad.userWcp.setText("");
@@ -400,10 +410,10 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
 				controlpad.endTurnButton.setEnabled(false);
-				GamePad.userPlayer.clearHand();
-				GamePad.userPlayer.clearBoard();
-				GamePad.enemyPlayer.clearBoard();
-				GamePad.enemyPlayer.clearHand();
+				gamepad.userPlayer.clearHand();
+				gamepad.userPlayer.clearBoard();
+				gamepad.enemyPlayer.clearBoard();
+				gamepad.enemyPlayer.clearHand();
 				/*
 				gamepad.enemyWcp.setText("");
 				gamepad.userWcp.setText("");
@@ -433,13 +443,13 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 		}
 		else if (e.getSource() == controlpad.readyButton)
 		{
-			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + userPlayer.toString());
+			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /chess " + gamepad.userPlayer.toString());
 			controlpad.readyButton.setEnabled(false);
 		}
 		else if (e.getSource() == controlpad.endTurnButton)
 		{
 			controlpad.endTurnButton.setEnabled(false);
-			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /endTurn " + GamePad.yourName);
+			gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /endTurn " + gamepad.yourName);
 			chatpad.chatLineArea.append("Game>it is now the opponent's turn\n");
 			chatpad.chatLineArea.setCaretPosition(
 					chatpad.chatLineArea.getText().length());
@@ -449,7 +459,10 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 	}
 	
 	
-	
+	/**
+	 * Sends message upon enter key pressed.
+	 * @param e the KeyEvent
+	 */
 	public void keyPressed(KeyEvent e)
 	{
 		TextField inputWords=(TextField)e.getSource();
@@ -493,9 +506,11 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 		
 	}
 	
+	@Override
 	public void keyTyped(KeyEvent e)
 	{
 	}
+	@Override
 	public void keyReleased(KeyEvent e)
 	{
 	}

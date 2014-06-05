@@ -1,19 +1,20 @@
-/*
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
 package project.pad;
 
 import java.awt.*;
 import javax.swing.JPanel;
 
+/**
+ * Interface for sending messages
+ * @author Team Lima
+ */
 public class InputPad extends Panel
 {
 	public TextField inputWords=new TextField("",20);
 	public Choice userChoice=new Choice();
 	
+	/**
+	 * Initialize new input pad.
+	 */
 	public InputPad()
 	{
 		setLayout(new FlowLayout(FlowLayout.LEFT));

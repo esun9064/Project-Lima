@@ -1,11 +1,7 @@
-/*
-* To change this template, choose Tools | Templates
-* and open the template in the editor.
-*/
 package project.support;
 
 /**
- *
+ * Exception for when too many cards are on the board.
  * @author Eric
  */
 public class MuchCardsException extends RuntimeException{
