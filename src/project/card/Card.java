@@ -39,14 +39,14 @@ public class Card {
 		
 	}
 	
-	String name;
-	protected int cost;
-	protected ImageIcon image;
+	String name;					//name of the card
+	protected int cost;				//cost to play the card
+	protected String imagePath;		//path where image is stored	
+	protected ImageIcon image;		//actual image
 	protected String description;   //description of ability
-	protected ability ability;    // implementation of ability using enumerated type ability
-	protected String imagePath;
-	
+	protected ability ability;		// implementation of ability using enumerated type ability
 	protected boolean abilityUsed;  // returns true if an ability has been used by a card
+	
 	/**
 	 * Initializes a standard Card, initializes global variable abilityUsed to false
 	 * @param name the Card's name
@@ -73,12 +73,13 @@ public class Card {
 	public String getName(){
 		return name;
 	}
+	
 	/**
 	 * Transformer that sets a Card's name to a specified String
-	 * @param n the String that a Card's name will be set to
+	 * @param name the String that a Card's name will be set to
 	 */
-	public void setName(String n){
-		this.name = n;
+	public void setName(String name){
+		this.name = name;
 	}
 	
 	/**
@@ -88,13 +89,15 @@ public class Card {
 	public int getCost(){
 		return cost;
 	}
+	
 	/**
 	 * Transformer that sets a Card's cost to a specified integer value
-	 * @param c the integer that a Card's cost will be set to
+	 * @param cost the integer that a Card's cost will be set to
 	 */
-	public void setCost(int c){
-		this.cost = c;
+	public void setCost(int cost){
+		this.cost = cost;
 	}
+	
 	/**
 	 * Observer for getting a Card's image
 	 * @return the ImageIcon that is storing the image of this Card
@@ -116,6 +119,7 @@ public class Card {
 	public String getDesc(){
 		return description;
 	}
+	
 	/**
 	 * Transformer that sets a Card's description to a specified String
 	 * @param d the String that a Card's description will be set to
@@ -123,6 +127,7 @@ public class Card {
 	public void setDesc(String d){
 		this.description = d;
 	}
+	
 	/**
 	 * Observer for getting a Card's ability
 	 * @return the ability of this Card
@@ -130,6 +135,7 @@ public class Card {
 	public ability getAbility(){
 		return ability;
 	}
+	
 	/**
 	 * Transformer that sets a Card's ability to a specified ability
 	 * @param a the ability that a Card's ability will be set to
@@ -137,6 +143,7 @@ public class Card {
 	public void setAbility(ability a){
 		this.ability = a;
 	}
+	
 	/**
 	 * Observer function that returns whether or not an ability has been used yet
 	 * @return true if abilityUsed is true
@@ -154,6 +161,7 @@ public class Card {
 	{
 		abilityUsed = t;
 	}
+	
 	/**
 	 * Prints a Card's attributes out in the following order:
 	 * name, cost, image, description, ability
@@ -163,10 +171,6 @@ public class Card {
 	public String toString(){
 		String x;
 		x = ("name: " + name + "\n cost: " + cost + "\n image: " + image + "\n description: " + description + "\n ability: " + ability);
-		
-		
-		
 		return x;
-		
 	}
 }

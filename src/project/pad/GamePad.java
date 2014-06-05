@@ -106,6 +106,8 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		yourName += Math.abs(r.nextInt(100));
 		yourName += Math.abs(r.nextInt(100));
 		yourName += Math.abs(r.nextInt(100));
+		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));			//create dummy values
+		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
 		
 		GridBagConstraints c = new GridBagConstraints();
 		setLayout(new GridBagLayout());
@@ -166,14 +168,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyHand.add(enemyHealth);
 		enemyHand.add(enemyWcp);
 		enemyHand.add(enemyRemainingCards);
-		enemyHand.add(enemyHandLen);		
-		
-
-	}
-	
-	public void initBoard()
-	{
-		initCards();
+		enemyHand.add(enemyHandLen);
 		
 		for (int i = 0 ; i < 10; i++)
 		{
@@ -188,13 +183,14 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			enemyCards[i] = new CardPanel();
 		}
 		
+		deckPanel.setBackground(new Color(106,49,163));
 		deckPanel.add(deckLabel);
 		deckPanel.add(userHealth);
 		deckPanel.add(userWcp);
 		deckPanel.add(userRemainingCards);
 		
 		userHand.add(deckPanel);
-
+		
 		//set enemyHand layout
 		enemyHand.setLayout(new BoxLayout(enemyHand, BoxLayout.Y_AXIS));
 		enemyHand.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -257,278 +253,31 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 			attkCard.add(card5);
 			attkCard.add(card6);
 			
-			//listener for card actions - attack, get description etc
-			MouseListener cardListener = new MouseListener()
-			{
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
-					{
-						findMouseAction(e);
-					}
-					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
-					{
-						findMouseAction(e);
-					}
-					
-				}
-				
-				
-				@Override
-				public void mousePressed(MouseEvent e) {
-					if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
-					{
-						findMouseAction(e);
-					}
-					if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
-					{
-						findMouseAction(e);
-					}
-					Object a = e.getSource();
-					JMenuItem temp = null;
-					try {
-						temp = (JMenuItem) a;
-					}
-					catch (Exception ex)
-					{
-						
-					}
-					if (temp != null && temp.isEnabled())
-					{
-						if (e.getSource() == getHandDescription)		//show card description
-						{
-							getCardDescription(handCards[cIden]);
-						}
-						if (e.getSource() == getUTableDescription)
-						{
-							getCardDescription(userCards[cIden]);
-						}
-						if (e.getSource() == getETableDescription)
-						{
-							getCardDescription(enemyCards[cIden]);
-						}
-						if (e.getSource() == playCard)
-						{
-							playCard(handCards[cIden]);
-						}
-						if (e.getSource() == attkPlayer)
-						{
-							attkPlayer(userCards[cIden]);
-						}
-						if (e.getSource() == card0)
-						{
-							attkCard(userCards[cIden], enemyCards[0]);
-						}
-						if (e.getSource() == card1)
-						{
-							attkCard(userCards[cIden], enemyCards[1]);
-						}
-						if (e.getSource() == card2)
-						{
-							attkCard(userCards[cIden], enemyCards[2]);
-							
-						}
-						if (e.getSource() == card3)
-						{
-							attkCard(userCards[cIden], enemyCards[3]);
-							
-						}
-						if (e.getSource() == card4)
-						{
-							attkCard(userCards[cIden], enemyCards[4]);
-						}
-						if (e.getSource() == card5)
-						{
-							attkCard(userCards[cIden], enemyCards[5]);
-							
-						}
-						if (e.getSource() == card6)
-						{
-							attkCard(userCards[cIden], enemyCards[6]);
-							
-						}
-						if (e.getSource() == useAbilityOnEnemy)
-						{
-							executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
-						}
-						if (e.getSource() == useAbilityOnYou)
-						{
-							executeOnTarget(savedCard, userCards[cIden].getRegCard());
-						}
-						if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
-							if (e.getComponent() == handCards[0])
-							{
-								cIden = 0;
-								showPopup(e, "hand");
-							}
-							if (e.getComponent() == handCards[1])
-							{
-								cIden = 1;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[2])
-							{
-								cIden = 2;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[3])
-							{
-								cIden = 3;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[4])
-							{
-								cIden = 4;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[5])
-							{
-								cIden = 5;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[6])
-							{
-								cIden = 6;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[7])
-							{
-								cIden = 7;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[8])
-							{
-								cIden = 8;
-								showPopup(e, "hand");
-								
-							}
-							if (e.getComponent() == handCards[9])
-							{
-								cIden = 9;
-								showPopup(e, "hand");
-							}
-							if (e.getComponent() == userCards[0])
-							{
-								cIden = 0;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[1])
-							{
-								cIden = 1;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[2])
-							{
-								cIden = 2;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[3])
-							{
-								cIden = 3;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[4])
-							{
-								cIden = 4;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[5])
-							{
-								cIden = 5;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == userCards[6])
-							{
-								cIden = 6;
-								showPopup(e, "user");
-							}
-							if (e.getComponent() == enemyCards[0])
-							{
-								cIden = 0;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[1])
-							{
-								cIden = 1;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[2])
-							{
-								cIden = 2;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[3])
-							{
-								cIden = 3;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[4])
-							{
-								cIden = 4;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[5])
-							{
-								cIden = 5;
-								showPopup(e, "enemy");
-							}
-							if (e.getComponent() == enemyCards[6])
-							{
-								cIden = 6;
-								showPopup(e, "enemy");
-							}						}
-						if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
-						{
-							findMouseAction(e);
-						}
-					}
-				}
-				
-				@Override
-				public void mouseReleased(MouseEvent e) {
-					findMouseAction(e);
-				}
-				
-				@Override
-				public void mouseEntered(MouseEvent e) {
-				}
-				
-				@Override
-				public void mouseExited(MouseEvent e) {
-				}
-				
-			};
+			
 			
 			for (int i = 0; i < 10; i ++)
-				handCards[i].addMouseListener(cardListener);
+				handCards[i].addMouseListener(this);
 			for (int i = 0; i < 7; i ++)
-				userCards[i].addMouseListener(cardListener);
+				userCards[i].addMouseListener(this);
 			for (int i = 0; i < 7; i ++)
-				enemyCards[i].addMouseListener(cardListener);
+				enemyCards[i].addMouseListener(this);
 			
-			getHandDescription.addMouseListener(cardListener);
-			getUTableDescription.addMouseListener(cardListener);
-			getETableDescription.addMouseListener(cardListener);
-			playCard.addMouseListener(cardListener);
+			getHandDescription.addMouseListener(this);
+			getUTableDescription.addMouseListener(this);
+			getETableDescription.addMouseListener(this);
+			playCard.addMouseListener(this);
 			
-			attkPlayer.addMouseListener(cardListener);
-			useAbilityOnEnemy.addMouseListener(cardListener);
-			useAbilityOnYou.addMouseListener(cardListener);
+			attkPlayer.addMouseListener(this);
+			useAbilityOnEnemy.addMouseListener(this);
+			useAbilityOnYou.addMouseListener(this);
 			
-			card0.addMouseListener(cardListener);
-			card1.addMouseListener(cardListener);
-			card2.addMouseListener(cardListener);
-			card3.addMouseListener(cardListener);
-			card4.addMouseListener(cardListener);
-			card5.addMouseListener(cardListener);
-			card6.addMouseListener(cardListener);
+			card0.addMouseListener(this);
+			card1.addMouseListener(this);
+			card2.addMouseListener(this);
+			card3.addMouseListener(this);
+			card4.addMouseListener(this);
+			card5.addMouseListener(this);
+			card6.addMouseListener(this);
 			
 		}
 		catch (Exception ex)
@@ -537,6 +286,53 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		}
 		this.revalidate();
 		this.repaint();
+		hideBoard();
+	}
+	
+	public void showBoard()
+	{
+		deckPanel.setVisible(true);
+		userHealth.setVisible(true);
+		userWcp.setVisible(true);
+		userRemainingCards.setVisible(true);
+		enemyHealth.setVisible(true);
+		enemyWcp.setVisible(true);
+		enemyRemainingCards.setVisible(true);
+		enemyHandLen.setVisible(true);
+		for (int i = 0 ; i < 10; i++)
+		{
+			handCards[i].setVisible(true);
+		}
+		for (int i = 0 ; i < 7; i ++)
+		{
+			userCards[i].setVisible(true);
+			enemyCards[i].setVisible(true);
+		}
+		updatePlayerStats();
+		updateBoardCards();
+		updateHandCards();
+	}
+	
+	public void hideBoard()
+	{
+		deckPanel.setVisible(false);
+		userHealth.setVisible(false);
+		userWcp.setVisible(false);
+		userRemainingCards.setVisible(false);
+		enemyHealth.setVisible(false);
+		enemyWcp.setVisible(false);
+		enemyRemainingCards.setVisible(false);
+		enemyHandLen.setVisible(false);
+		for (int i = 0 ; i < 10; i++)
+		{
+			handCards[i].setVisible(false);
+		}
+		for (int i = 0 ; i < 7; i ++)
+		{
+			userCards[i].setVisible(false);
+			enemyCards[i].setVisible(false);
+		}
+		
 	}
 	
 	@Override
@@ -602,18 +398,241 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		//for example, repaint the game pad
-		
-		System.out.println("aaaaaa");
+		if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+		{
+			findMouseAction(e);
+		}
+		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+		{
+			findMouseAction(e);
+		}
+		Object a = e.getSource();
+		JMenuItem temp = null;
+		try {
+			temp = (JMenuItem) a;
+		}
+		catch (Exception ex)
+		{
+			
+		}
+		if (temp != null && temp.isEnabled())
+		{
+			if (e.getSource() == getHandDescription)		//show card description
+			{
+				getCardDescription(handCards[cIden]);
+			}
+			if (e.getSource() == getUTableDescription)
+			{
+				getCardDescription(userCards[cIden]);
+			}
+			if (e.getSource() == getETableDescription)
+			{
+				getCardDescription(enemyCards[cIden]);
+			}
+			if (e.getSource() == playCard)
+			{
+				playCard(handCards[cIden]);
+			}
+			if (e.getSource() == attkPlayer)
+			{
+				attkPlayer(userCards[cIden]);
+			}
+			if (e.getSource() == card0)
+			{
+				attkCard(userCards[cIden], enemyCards[0]);
+			}
+			if (e.getSource() == card1)
+			{
+				attkCard(userCards[cIden], enemyCards[1]);
+			}
+			if (e.getSource() == card2)
+			{
+				attkCard(userCards[cIden], enemyCards[2]);
+				
+			}
+			if (e.getSource() == card3)
+			{
+				attkCard(userCards[cIden], enemyCards[3]);
+				
+			}
+			if (e.getSource() == card4)
+			{
+				attkCard(userCards[cIden], enemyCards[4]);
+			}
+			if (e.getSource() == card5)
+			{
+				attkCard(userCards[cIden], enemyCards[5]);
+				
+			}
+			if (e.getSource() == card6)
+			{
+				attkCard(userCards[cIden], enemyCards[6]);
+				
+			}
+			if (e.getSource() == useAbilityOnEnemy)
+			{
+				executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
+			}
+			if (e.getSource() == useAbilityOnYou)
+			{
+				executeOnTarget(savedCard, userCards[cIden].getRegCard());
+			}
+			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+				if (e.getComponent() == handCards[0])
+				{
+					cIden = 0;
+					showPopup(e, "hand");
+				}
+				if (e.getComponent() == handCards[1])
+				{
+					cIden = 1;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[2])
+				{
+					cIden = 2;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[3])
+				{
+					cIden = 3;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[4])
+				{
+					cIden = 4;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[5])
+				{
+					cIden = 5;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[6])
+				{
+					cIden = 6;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[7])
+				{
+					cIden = 7;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[8])
+				{
+					cIden = 8;
+					showPopup(e, "hand");
+					
+				}
+				if (e.getComponent() == handCards[9])
+				{
+					cIden = 9;
+					showPopup(e, "hand");
+				}
+				if (e.getComponent() == userCards[0])
+				{
+					cIden = 0;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[1])
+				{
+					cIden = 1;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[2])
+				{
+					cIden = 2;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[3])
+				{
+					cIden = 3;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[4])
+				{
+					cIden = 4;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[5])
+				{
+					cIden = 5;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == userCards[6])
+				{
+					cIden = 6;
+					showPopup(e, "user");
+				}
+				if (e.getComponent() == enemyCards[0])
+				{
+					cIden = 0;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[1])
+				{
+					cIden = 1;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[2])
+				{
+					cIden = 2;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[3])
+				{
+					cIden = 3;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[4])
+				{
+					cIden = 4;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[5])
+				{
+					cIden = 5;
+					showPopup(e, "enemy");
+				}
+				if (e.getComponent() == enemyCards[6])
+				{
+					cIden = 6;
+					showPopup(e, "enemy");
+				}						}
+			if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+			{
+				findMouseAction(e);
+			}
+		}
 	}
 	@Override
-	public void mouseReleased(MouseEvent e){}
+	public void mouseReleased(MouseEvent e)
+	{
+		findMouseAction(e);
+		
+	}
 	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
 	@Override
-	public void mouseClicked(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+		if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+		{
+			findMouseAction(e);
+		}
+		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+		{
+			findMouseAction(e);
+		}
+	}
 	
 	/**
 	 * Retrieves information about cards from text file, creates actual cards used in the game.
@@ -1139,7 +1158,7 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 		enemyPlayer.setCredits(-attack);
 		card.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "has attacked " + peerName.substring(9) + " with:" + card.getName() + "(" + card.getAttack()  + "/" + card.getHealth() + ")");
-		gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "is not at " + enemyPlayer.getCredits() + " health");		
+		gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "is not at " + enemyPlayer.getCredits() + " health");
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updatePlayerStats();
@@ -1153,19 +1172,19 @@ public class GamePad extends Panel implements MouseListener,ActionListener
 	{
 		RegCard attacker = attkPanel.getRegCard();
 		RegCard defender = defPanel.getRegCard();
-		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "has attacked " + defender.getName() + "(" + defender.getAttack() + "/" + defender.getHealth() + ")" + " with:" + attacker.getName() + "(" + attacker.getAttack()  + "/" + attacker.getHealth() + ")");				
+		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "has attacked " + defender.getName() + "(" + defender.getAttack() + "/" + defender.getHealth() + ")" + " with:" + attacker.getName() + "(" + attacker.getAttack()  + "/" + attacker.getHealth() + ")");
 		attacker.setHealth(attacker.getHealth()-defender.getAttack());
 		defender.setHealth(defender.getHealth()-attacker.getAttack());
 		attacker.setHasAttacked(true);
 		if (attacker.getHealth() > 0)
-			gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());	
+			gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());
 		else
-			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());		
-
+			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());
+		
 		if (defender.getHealth() > 0)
-			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now " + defender.getAttack() + "/" + defender.getHealth());		
+			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now " + defender.getAttack() + "/" + defender.getHealth());
 		else
-			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now dead");		
+			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now dead");
 		
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
