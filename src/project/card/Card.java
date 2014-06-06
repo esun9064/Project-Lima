@@ -105,6 +105,7 @@ public class Card {
 	public ImageIcon getImage(){
 		return image;
 	}
+	
 	/**
 	 * Transformer that sets a Card's image to a specified ImageIcon
 	 * @param i the ImageIcon that a Card's image will be set to

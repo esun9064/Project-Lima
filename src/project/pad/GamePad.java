@@ -99,6 +99,8 @@ public class GamePad extends Panel implements MouseListener
 	public int port=4331;
 	public GameThread gamethread;
 	
+	public ChatPad chatpad;
+	public boolean endGame;
 	public boolean endTurn = true;
 	
 	/**
@@ -117,8 +119,9 @@ public class GamePad extends Panel implements MouseListener
 		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));					//create dummy values
 		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));			
 		
+		this.chatpad = chatpad;
 		gamethread = new GameThread(this, controlpad, chatpad);
-		
+
 		//set gamepad to use gridbag layout
 		GridBagConstraints c = new GridBagConstraints();
 		setLayout(new GridBagLayout());
@@ -640,6 +643,7 @@ public class GamePad extends Panel implements MouseListener
 	 */
 	public void initCards()
 	{
+		endGame = false;
 		//get regular card and ability card data
 		try {
 			Scanner scanner = new Scanner(new File("doc/Master RegCard List.txt"));
@@ -702,7 +706,7 @@ public class GamePad extends Panel implements MouseListener
 				case "hand":
 					handMenu.show(e.getComponent(), e.getX(), e.getY());
 					//disable if not player's turn
-					if (endTurn == true)
+					if (endTurn == true || endGame == true)
 					{
 						playCard.setEnabled(false);
 					}
@@ -711,7 +715,7 @@ public class GamePad extends Panel implements MouseListener
 					break;
 				case "user":
 					userTableMenu.show(e.getComponent(), e.getX(), e.getY());
-					if (endTurn == false)				//is the players turn
+					if (endTurn == false && endGame == false)				//is the players turn
 					{
 						if (secondClick == false)		//check for on target ability
 							useAbilityOnYou.setEnabled(false);
@@ -819,7 +823,7 @@ public class GamePad extends Panel implements MouseListener
 					break;
 				case "enemy":
 					enemyTableMenu.show(e.getComponent(), e.getX(), e.getY());
-					if (endTurn == false)			//your turn
+					if (endTurn == false && endGame == false)			//your turn
 					{
 						if (secondClick == false)
 							useAbilityOnEnemy.setEnabled(false);
@@ -1178,8 +1182,30 @@ public class GamePad extends Panel implements MouseListener
 		enemyWcp.setForeground(white);
 		enemyRemainingCards.setForeground(white);
 		enemyHandLen.setForeground(white);
+		
+		if (userPlayer.getCredits() <= 0)
+		{
+			if (endGame == false)
+				userLost();
+		}
+		else if (enemyPlayer.getCredits() <= 0)
+		{
+			if (endGame == false)
+				userWon();
+		}
 	}
 	
+	public void userLost()
+	{
+		endGame = true;
+		gamethread.sendMessage("/" + peerName+ " /youwin ");				 
+	}
+	
+	public void userWon()
+	{
+		endGame = true;
+		gamethread.sendMessage("/" + peerName+ " /youlost ");				
+	}
 	/**
 	 * Provides support for when a card attacks a player to subtract credits from them
 	 * @param cardPanel determines which card attacks
@@ -1191,7 +1217,7 @@ public class GamePad extends Panel implements MouseListener
 		enemyPlayer.setCredits(-attack);
 		card.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "has attacked " + peerName.substring(9) + " with:" + card.getName() + "(" + card.getAttack()  + "/" + card.getHealth() + ")");
-		gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "is not at " + enemyPlayer.getCredits() + " health");
+		gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "is now at " + enemyPlayer.getCredits() + " health");
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//send serialzed data of userPlayer and enemyPlayer
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updatePlayerStats();

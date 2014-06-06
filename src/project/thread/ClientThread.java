@@ -92,10 +92,18 @@ public class ClientThread extends Thread
 		}
 		else if(recMessage.equals("/youwin"))
 		{
-			gameclient.isOnGame=false;
-			//gameclient.gamepad.chessVictory(gameclient.gamepad.chessColor);
-			gameclient.controlpad.statusText.setText("The opponent quited");
-			//gameclient.gamepad.isMouseEnabled=false;
+			if (gameclient.isOnGame == true)
+			{
+				gameclient.isOnGame=false;
+				//gameclient.gamepad.chessVictory(gameclient.gamepad.chessColor);
+				if (gameclient.gamepad.endGame == false)
+				{
+					gameclient.chatpad.chatLineArea.append("Game>Opponent quit, you have won the game!\n");
+					gameclient.chatpad.chatLineArea.setCaretPosition(
+							gameclient.chatpad.chatLineArea.getText().length());
+				}
+			}
+			
 		}
 		else if(recMessage.equals("/OK"))
 		{

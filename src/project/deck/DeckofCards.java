@@ -1,6 +1,10 @@
 
 package project.deck;
 
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Random;
+import java.util.Set;
 import project.card.Card;
 
 /**
@@ -27,11 +31,23 @@ public class DeckofCards implements DeckofCardsInterface{
 		//create ordered deck of cards
 		deck = new Card[numCards];
 		int len = baseDeck.length;
-		int j;
-		for (int i = 0; i < numCards; i++)
+		
+		Random rng = new Random();
+		
+		Set<Integer> generated = new LinkedHashSet<Integer>();
+		while (generated.size() < numCards)
 		{
-			j = (int) (len * Math.random());
+			Integer next = rng.nextInt(len);
+			generated.add(next);
+		}
+		int j;
+		Iterator iterator = generated.iterator();
+		int i = 0;
+		while(iterator.hasNext())
+		{
+			j = (Integer) iterator.next();
 			deck[i] = baseDeck[j];
+			i++;
 		}
 	}
 	

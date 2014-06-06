@@ -316,6 +316,9 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 						out.writeUTF("/" + gamepad.actualName + " creating game, please wait a moment.");
 						gamepad.initCards();
 						gamepad.showBoard();
+						chatpad.chatLineArea.append("Game>Game created\n");
+						chatpad.chatLineArea.setCaretPosition(
+								chatpad.chatLineArea.getText().length());			//gameclient.gamepad.isMouseEnabled=false;
 						gamepad.setEndOfTurn(false);
 					}
 				}
@@ -331,6 +334,10 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 					gamepad.setEndOfTurn(false);
 					gamepad.initCards();
 					gamepad.showBoard();
+					chatpad.chatLineArea.append("Game>Game created\n");
+					chatpad.chatLineArea.setCaretPosition(
+							chatpad.chatLineArea.getText().length());			//gameclient.gamepad.isMouseEnabled=false;
+
 					gamepad.gamethread.sendMessage("/creatgame "+"[inchess]"+gameClientName);
 				}
 			}
@@ -350,6 +357,9 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 			if(isOnGame)
 			{
 				gamepad.gamethread.sendMessage("/giveup "+gameClientName);
+				if (gamepad.endGame == false)
+					gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /opponentquit " + gamepad.yourName);
+				
 				
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
@@ -392,6 +402,18 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.repaint();
 				gamepad.setEndOfTurn(true);
 				controlpad.statusText.setText("Please create or join a game");
+				if (gamepad.endGame == false)
+				{
+					chatpad.chatLineArea.append("Game>You Lost! You have surrended the game!\n");
+					chatpad.chatLineArea.setCaretPosition(
+						chatpad.chatLineArea.getText().length());			//gameclient.gamepad.isMouseEnabled=false;				
+				}
+				else
+				{
+						chatpad.chatLineArea.append("Game>Quitting old game\n");
+						chatpad.chatLineArea.setCaretPosition(
+								chatpad.chatLineArea.getText().length());			//gameclient.gamepad.isMouseEnabled=false;				
+				}
 			}
 			if(!isOnGame)
 			{
@@ -435,9 +457,11 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.revalidate();
 				gamepad.repaint();
 				gamepad.gamethread.sendMessage("/giveup "+gameClientName);
-				
+				chatpad.chatLineArea.append("Quitting old game\n");
+				chatpad.chatLineArea.setCaretPosition(
+						chatpad.chatLineArea.getText().length());			//gameclient.gamepad.isMouseEnabled=false;
 				controlpad.statusText.setText("Please create or join a game");
-				gamepad.setEndOfTurn(true);				
+				gamepad.setEndOfTurn(true);
 			}
 			isClient=isServer=false;
 		}
@@ -454,6 +478,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 			chatpad.chatLineArea.setCaretPosition(
 					chatpad.chatLineArea.getText().length());
 			gamepad.setEndOfTurn(true);
+			gamepad.userPlayer.resetHasAttacked();
 		}
 		
 	}

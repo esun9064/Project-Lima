@@ -160,18 +160,6 @@ public class GameThread extends Thread
 			gamepad.updatePlayerStats();
 			gamepad.revalidate();
 			gamepad.repaint();
-			if (gamepad.userPlayer.getCredits() <= 0)
-			{
-				chatpad.chatLineArea.append("Game>Game Over, You have lost\n");
-				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
-				gamepad.setEndOfTurn(true);
-			}
-			else if (gamepad.enemyPlayer.getCredits() <= 0)
-			{
-				chatpad.chatLineArea.append("Game>Game Over, You have won!\n");
-				chatpad.chatLineArea.setCaretPosition(chatpad.chatLineArea.getText().length());
-				gamepad.setEndOfTurn(true);				
-			}
 		}
 		//receive message about end of turn
 		else if(recMessage.startsWith("/endTurn "))
@@ -207,6 +195,34 @@ public class GameThread extends Thread
 		{
 			gamepad.selfName=recMessage.substring(10);
 		}
+		else if (recMessage.startsWith("/giveup "))
+		{
+			chatpad.chatLineArea.append("Game>" + gamepad.peerName.substring(9) + " has quit, You have won the game!\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}
+		/**
+		else if (recMessage.startsWith("/opponentquit "))
+		{
+			chatpad.chatLineArea.append("Game>" + gamepad.peerName.substring(9) + " has quit, You have won the game!\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}	
+		*/
+		else if (recMessage.startsWith("/youwin "))
+		{
+			gamepad.endGame = true;
+			chatpad.chatLineArea.append("Game>" + gamepad.peerName.substring(9) + " has been defeated! You win!\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}			
+		else if (recMessage.startsWith("/youlost "))
+		{
+			gamepad.endGame = true;
+			chatpad.chatLineArea.append("Game>" + gamepad.actualName + " has been defeated! You Lost!\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}			
 		else if(recMessage.equals("/error"))
 		{
 			controlpad.statusText.setText("Error: User not exist! Please restart the client.");

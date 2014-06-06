@@ -25,6 +25,7 @@ public class Player {
 	private int wcp;
 	private final int initwcp = 5;									//cost pts per turn
 	protected boolean isFirst = false;								//check if player gets to go first
+	
 	/**
 	 * Constructs a new Player given a name and a DeckofCards
 	 * @param name  String containing the new player's name

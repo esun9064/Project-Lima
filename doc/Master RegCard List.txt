@@ -19,7 +19,7 @@ Lunt Hall;3;img/Lunt Hall.jpeg;2;4;;NONE
 Harris Hall;3;img/Harris Hall.jpeg;1;5;;NONE
 Norris Center;3;img/Norris Center.jpeg;4;2;;NONE
 Evanston Raccoon;3;img/Evanston Raccoon.jpeg;3;2;Deal 1 damage to an enemy card;STdamage1
-Campus Skunk;3;img/Campus Skunk.jpeg;3;4;Deal 1 damage to all cards;AOEdamage1
+Campus Skunk;3;img/Campus Skunk.jpeg;3;4;Deal 1 damage to all cards and enemy player;AOEdamage1
 House Centipede;3;img/House Centipede.jpeg;4;1;Deal 2 damage to an opposing card;STdamage2
 Allison Hall;3;img/Allison Hall.jpeg;2;3;Heal a friendly card by 2 health;STheal2
 Pick-Staiger;3;img/Pick Staiger.jpg;3;3;;NONE
