@@ -103,6 +103,9 @@ public class GamePad extends Panel implements MouseListener
 	public boolean endGame;
 	public boolean endTurn = true;
 	
+	public boolean martinPlayed;
+	public int martinCnt;
+	
 	/**
 	 * constructs the board GUI
 	 * @param controlpad the game mechanic interface
@@ -643,6 +646,8 @@ public class GamePad extends Panel implements MouseListener
 	 */
 	public void initCards()
 	{
+		martinPlayed = false;
+		martinCnt = 0;
 		endGame = false;
 		//get regular card and ability card data
 		try {
@@ -1372,11 +1377,11 @@ public class GamePad extends Panel implements MouseListener
 							userCards[i].getRegCard().setHealth(userCards[i].getRegCard().getHealth() + 2);
 						}
 					}
-				
+				case george:
+					martinPlayed = true;
+					break;
 			}
-			
 		}
-		
 	}
 	
 	/**
@@ -1545,5 +1550,28 @@ public class GamePad extends Panel implements MouseListener
 	public void setEndOfTurn(boolean b)
 	{
 		endTurn = b;
+		if (martinCnt > 2)
+		{
+			for (int i = 0 ; i < userPlayer.getBoard().size(); i++)
+			{
+				if (userPlayer.getBoard().get(i).getName().equals("George R.R. Martin"))
+				{
+					userPlayer.removeCardFromBoard(i);
+					RegCard dragon = new RegCard("Dragon", 0, "img/George R.R. Martin.jpg", 10,10, "", ability.NONE);
+					userPlayer.addCardtoBoard(dragon);
+					updatePlayerStats();
+					updateBoardCards();
+					updateHandCards();
+					gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board
+					gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s Martin has morphed into a dragon!");	
+				}
+			}
+			martinPlayed = false;
+			martinCnt = 0;
+		}
+		if (martinPlayed == true)
+		{
+			martinCnt++;
+		}
 	}
 }
