@@ -27,7 +27,7 @@ import project.thread.*;
  */
 public class GamePad extends Panel implements MouseListener
 {
-	public String actualName;							//name displayed to other users					
+	public String actualName;							//name displayed to other users
 	public String yourName;								//name used in player class
 	public Card[] gameCards = new Card[50];				//first deck of cards, for user player
 	public Card[] gameCards2 = new Card[50];			//second deck for enemy player
@@ -56,9 +56,9 @@ public class GamePad extends Panel implements MouseListener
 	public JLabel enemyRemainingCards = new JLabel();	//reamining cards in deck for enemy
 	public JLabel enemyWcp = new JLabel();				//wildcat points (cost)
 	public JLabel enemyHandLen = new JLabel();			//enemy hand length
-		
+	
 	//panels of cards in player hand, player board, enemy board, placed in the corresponding parent panel
-	public CardPanel[] handCards = new CardPanel[10];	
+	public CardPanel[] handCards = new CardPanel[10];
 	public CardPanel[] userCards = new CardPanel[7];
 	public CardPanel[] enemyCards = new CardPanel[7];
 	
@@ -93,7 +93,7 @@ public class GamePad extends Panel implements MouseListener
 	public DataOutputStream outData;
 	
 	
-	public String selfName=null;							
+	public String selfName=null;
 	public String peerName=null;								//name of enemy player
 	public String host=null;
 	public int port=4331;
@@ -113,18 +113,18 @@ public class GamePad extends Panel implements MouseListener
 	 */
 	public GamePad(ControlPad controlpad, ChatPad chatpad)
 	{
-		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);	
+		actualName = JOptionPane.showInputDialog(userTable, "Name:", "Enter a name:", 1);
 		yourName = actualName + "::";
 		Random r = new Random();
 		yourName += Math.abs(r.nextInt(100));
 		yourName += Math.abs(r.nextInt(100));
 		yourName += Math.abs(r.nextInt(100));												//actual name used by player class
 		userPlayer = new Player(yourName, new DeckofCards(30, gameCards));					//create dummy values
-		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));			
+		enemyPlayer = new Player("Eric", new DeckofCards(30, gameCards2));
 		
 		this.chatpad = chatpad;
 		gamethread = new GameThread(this, controlpad, chatpad);
-
+		
 		//set gamepad to use gridbag layout
 		GridBagConstraints c = new GridBagConstraints();
 		setLayout(new GridBagLayout());
@@ -294,7 +294,7 @@ public class GamePad extends Panel implements MouseListener
 		card5.addMouseListener(this);
 		card6.addMouseListener(this);
 		
-	
+		
 		this.revalidate();
 		this.repaint();
 		hideBoard();			//hide the board
@@ -355,12 +355,12 @@ public class GamePad extends Panel implements MouseListener
 	}
 	
 	/**
-         * connects to the server
-         * @param ServerIP  IP address of server
-         * @param ServerPort  port number of server
-         * @return true if successful connect
-         * @throws Exception if connecting failed, throw IO exception
-         */
+	 * connects to the server
+	 * @param ServerIP  IP address of server
+	 * @param ServerPort  port number of server
+	 * @return true if successful connect
+	 * @throws Exception if connecting failed, throw IO exception
+	 */
 	public boolean connectServer(String ServerIP,int ServerPort) throws Exception
 	{
 		try
@@ -386,217 +386,221 @@ public class GamePad extends Panel implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+		String os = System.getProperty("os.name");
+		if (!os.contains("Mac"))
 		{
-			findMouseAction(e);
-		}
-		if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
-		{
-			findMouseAction(e);
-		}
-		Object a = e.getSource();
-		JMenuItem temp = null;
-		try {
-			temp = (JMenuItem) a;
-		}
-		catch (Exception ex)
-		{
-			
-		}
-		if (temp != null && temp.isEnabled())
-		{
-			if (e.getSource() == getHandDescription)		//show card description
+			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
 			{
-				getCardDescription(handCards[cIden]);
+				findMouseAction(e);
 			}
-			if (e.getSource() == getUTableDescription)
-			{
-				getCardDescription(userCards[cIden]);
-			}
-			if (e.getSource() == getETableDescription)
-			{
-				getCardDescription(enemyCards[cIden]);
-			}
-			if (e.getSource() == playCard)
-			{
-				playCard(handCards[cIden]);
-			}
-			if (e.getSource() == attkPlayer)
-			{
-				attkPlayer(userCards[cIden]);
-			}
-			if (e.getSource() == card0)
-			{
-				attkCard(userCards[cIden], enemyCards[0]);
-			}
-			if (e.getSource() == card1)
-			{
-				attkCard(userCards[cIden], enemyCards[1]);
-			}
-			if (e.getSource() == card2)
-			{
-				attkCard(userCards[cIden], enemyCards[2]);
-				
-			}
-			if (e.getSource() == card3)
-			{
-				attkCard(userCards[cIden], enemyCards[3]);
-				
-			}
-			if (e.getSource() == card4)
-			{
-				attkCard(userCards[cIden], enemyCards[4]);
-			}
-			if (e.getSource() == card5)
-			{
-				attkCard(userCards[cIden], enemyCards[5]);
-				
-			}
-			if (e.getSource() == card6)
-			{
-				attkCard(userCards[cIden], enemyCards[6]);
-				
-			}
-			if (e.getSource() == useAbilityOnEnemy)
-			{
-				executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
-			}
-			if (e.getSource() == useAbilityOnYou)
-			{
-				executeOnTarget(savedCard, userCards[cIden].getRegCard());
-			}
-			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
-				if (e.getComponent() == handCards[0])
-				{
-					cIden = 0;
-					showPopup(e, "hand");
-				}
-				if (e.getComponent() == handCards[1])
-				{
-					cIden = 1;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[2])
-				{
-					cIden = 2;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[3])
-				{
-					cIden = 3;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[4])
-				{
-					cIden = 4;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[5])
-				{
-					cIden = 5;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[6])
-				{
-					cIden = 6;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[7])
-				{
-					cIden = 7;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[8])
-				{
-					cIden = 8;
-					showPopup(e, "hand");
-					
-				}
-				if (e.getComponent() == handCards[9])
-				{
-					cIden = 9;
-					showPopup(e, "hand");
-				}
-				if (e.getComponent() == userCards[0])
-				{
-					cIden = 0;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[1])
-				{
-					cIden = 1;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[2])
-				{
-					cIden = 2;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[3])
-				{
-					cIden = 3;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[4])
-				{
-					cIden = 4;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[5])
-				{
-					cIden = 5;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == userCards[6])
-				{
-					cIden = 6;
-					showPopup(e, "user");
-				}
-				if (e.getComponent() == enemyCards[0])
-				{
-					cIden = 0;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[1])
-				{
-					cIden = 1;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[2])
-				{
-					cIden = 2;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[3])
-				{
-					cIden = 3;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[4])
-				{
-					cIden = 4;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[5])
-				{
-					cIden = 5;
-					showPopup(e, "enemy");
-				}
-				if (e.getComponent() == enemyCards[6])
-				{
-					cIden = 6;
-					showPopup(e, "enemy");
-				}						}
 			if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
 			{
 				findMouseAction(e);
+			}
+			Object a = e.getSource();
+			JMenuItem temp = null;
+			try {
+				temp = (JMenuItem) a;
+			}
+			catch (Exception ex)
+			{
+				
+			}
+			if (temp != null && temp.isEnabled())
+			{
+				if (e.getSource() == getHandDescription)		//show card description
+				{
+					getCardDescription(handCards[cIden]);
+				}
+				if (e.getSource() == getUTableDescription)
+				{
+					getCardDescription(userCards[cIden]);
+				}
+				if (e.getSource() == getETableDescription)
+				{
+					getCardDescription(enemyCards[cIden]);
+				}
+				if (e.getSource() == playCard)
+				{
+					playCard(handCards[cIden]);
+				}
+				if (e.getSource() == attkPlayer)
+				{
+					attkPlayer(userCards[cIden]);
+				}
+				if (e.getSource() == card0)
+				{
+					attkCard(userCards[cIden], enemyCards[0]);
+				}
+				if (e.getSource() == card1)
+				{
+					attkCard(userCards[cIden], enemyCards[1]);
+				}
+				if (e.getSource() == card2)
+				{
+					attkCard(userCards[cIden], enemyCards[2]);
+					
+				}
+				if (e.getSource() == card3)
+				{
+					attkCard(userCards[cIden], enemyCards[3]);
+					
+				}
+				if (e.getSource() == card4)
+				{
+					attkCard(userCards[cIden], enemyCards[4]);
+				}
+				if (e.getSource() == card5)
+				{
+					attkCard(userCards[cIden], enemyCards[5]);
+					
+				}
+				if (e.getSource() == card6)
+				{
+					attkCard(userCards[cIden], enemyCards[6]);
+					
+				}
+				if (e.getSource() == useAbilityOnEnemy)
+				{
+					executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
+				}
+				if (e.getSource() == useAbilityOnYou)
+				{
+					executeOnTarget(savedCard, userCards[cIden].getRegCard());
+				}
+				if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+					if (e.getComponent() == handCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == handCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[7])
+					{
+						cIden = 7;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[8])
+					{
+						cIden = 8;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[9])
+					{
+						cIden = 9;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == userCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == enemyCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "enemy");
+					}						}
+				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+				{
+					findMouseAction(e);
+				}
 			}
 		}
 	}
@@ -632,7 +636,223 @@ public class GamePad extends Panel implements MouseListener
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-	
+		String os = System.getProperty("os.name");
+		if (!os.contains("Mac"))
+		{
+			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
+			{
+				findMouseAction(e);
+			}
+			if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+			{
+				findMouseAction(e);
+			}
+			Object a = e.getSource();
+			JMenuItem temp = null;
+			try {
+				temp = (JMenuItem) a;
+			}
+			catch (Exception ex)
+			{
+				
+			}
+			if (temp != null && temp.isEnabled())
+			{
+				if (e.getSource() == getHandDescription)		//show card description
+				{
+					getCardDescription(handCards[cIden]);
+				}
+				if (e.getSource() == getUTableDescription)
+				{
+					getCardDescription(userCards[cIden]);
+				}
+				if (e.getSource() == getETableDescription)
+				{
+					getCardDescription(enemyCards[cIden]);
+				}
+				if (e.getSource() == playCard)
+				{
+					playCard(handCards[cIden]);
+				}
+				if (e.getSource() == attkPlayer)
+				{
+					attkPlayer(userCards[cIden]);
+				}
+				if (e.getSource() == card0)
+				{
+					attkCard(userCards[cIden], enemyCards[0]);
+				}
+				if (e.getSource() == card1)
+				{
+					attkCard(userCards[cIden], enemyCards[1]);
+				}
+				if (e.getSource() == card2)
+				{
+					attkCard(userCards[cIden], enemyCards[2]);
+					
+				}
+				if (e.getSource() == card3)
+				{
+					attkCard(userCards[cIden], enemyCards[3]);
+					
+				}
+				if (e.getSource() == card4)
+				{
+					attkCard(userCards[cIden], enemyCards[4]);
+				}
+				if (e.getSource() == card5)
+				{
+					attkCard(userCards[cIden], enemyCards[5]);
+					
+				}
+				if (e.getSource() == card6)
+				{
+					attkCard(userCards[cIden], enemyCards[6]);
+					
+				}
+				if (e.getSource() == useAbilityOnEnemy)
+				{
+					executeOnTarget(savedCard, enemyCards[cIden].getRegCard());
+				}
+				if (e.getSource() == useAbilityOnYou)
+				{
+					executeOnTarget(savedCard, userCards[cIden].getRegCard());
+				}
+				if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown()){
+					if (e.getComponent() == handCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == handCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[7])
+					{
+						cIden = 7;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[8])
+					{
+						cIden = 8;
+						showPopup(e, "hand");
+						
+					}
+					if (e.getComponent() == handCards[9])
+					{
+						cIden = 9;
+						showPopup(e, "hand");
+					}
+					if (e.getComponent() == userCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == userCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "user");
+					}
+					if (e.getComponent() == enemyCards[0])
+					{
+						cIden = 0;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[1])
+					{
+						cIden = 1;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[2])
+					{
+						cIden = 2;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[3])
+					{
+						cIden = 3;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[4])
+					{
+						cIden = 4;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[5])
+					{
+						cIden = 5;
+						showPopup(e, "enemy");
+					}
+					if (e.getComponent() == enemyCards[6])
+					{
+						cIden = 6;
+						showPopup(e, "enemy");
+					}						}
+				if (e.getButton() == MouseEvent.BUTTON1 && e.getClickCount() == 1)
+				{
+					findMouseAction(e);
+				}
+			}
+		}
 	}
 	
 	/**
@@ -872,7 +1092,7 @@ public class GamePad extends Panel implements MouseListener
 			}
 			else														//check if reg card has ability, add card to board
 			{
-				String desc = !temp.getDesc().equals("") ? temp.getDesc() : "None";				
+				String desc = !temp.getDesc().equals("") ? temp.getDesc() : "None";
 				if (temp.getAbility() != ability.NONE)
 				{
 					executeReg((RegCard) temp);
@@ -880,13 +1100,13 @@ public class GamePad extends Panel implements MouseListener
 				gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + " has played:" + temp.getName() + "(" + desc + ")");
 				userPlayer.addCardtoBoard(temp);
 			}
-			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board 
+			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board
 			gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 			updateBoardCards();																		//update your board
 			updateHandCards();
 			updatePlayerStats();
 			this.revalidate();
-			this.repaint();			
+			this.repaint();
 		}
 		catch (MuchCostException e)
 		{
@@ -1197,14 +1417,14 @@ public class GamePad extends Panel implements MouseListener
 	public void userLost()
 	{
 		endGame = true;
-		gamethread.sendMessage("/" + peerName+ " /youwin ");	
+		gamethread.sendMessage("/" + peerName+ " /youwin ");
 		
 	}
 	
 	public void userWon()
 	{
 		endGame = true;
-		gamethread.sendMessage("/" + peerName+ " /youlost ");				
+		gamethread.sendMessage("/" + peerName+ " /youlost ");
 	}
 	/**
 	 * Provides support for when a card attacks a player to subtract credits from them
@@ -1558,7 +1778,7 @@ public class GamePad extends Panel implements MouseListener
 					updateBoardCards();
 					updateHandCards();
 					gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board
-					gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s Martin has morphed into a dragon!");	
+					gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s Martin has morphed into a dragon!");
 				}
 			}
 			martinPlayed = false;
