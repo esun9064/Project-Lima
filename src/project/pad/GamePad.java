@@ -1084,6 +1084,12 @@ public class GamePad extends Panel implements MouseListener
 				gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + " has played:" + temp.getName() + "(" + temp.getDesc() + ")");
 				gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 				gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
+				
+				chatpad.chatLineArea.append("Game>"+ actualName + " has played:" + temp.getName() + "(" + temp.getDesc() + ")\n");
+				chatpad.chatLineArea.setCaretPosition(
+						chatpad.chatLineArea.getText().length());
+				
+				
 				updatePlayerStats();
 				updateBoardCards();
 				updateHandCards();
@@ -1098,6 +1104,10 @@ public class GamePad extends Panel implements MouseListener
 					executeReg((RegCard) temp);
 				}
 				gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + " has played:" + temp.getName() + "(" + desc + ")");
+				chatpad.chatLineArea.append("Game>"+ actualName + " has played:" + temp.getName() + "(" + desc + ")\n");
+				chatpad.chatLineArea.setCaretPosition(
+						chatpad.chatLineArea.getText().length());
+				
 				userPlayer.addCardtoBoard(temp);
 			}
 			gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board
@@ -1437,7 +1447,16 @@ public class GamePad extends Panel implements MouseListener
 		enemyPlayer.setCredits(-attack);
 		card.setHasAttacked(true);
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + " has attacked " + peerName.substring(9) + " with:" + card.getName() + "(" + card.getAttack()  + "/" + card.getHealth() + ")");
+		chatpad.chatLineArea.append("Game>"+ actualName + " has attacked " + peerName.substring(9) + " with:" + card.getName() + "(" + card.getAttack()  + "/" + card.getHealth() + ")\n");		
+		chatpad.chatLineArea.setCaretPosition(
+				chatpad.chatLineArea.getText().length());
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + " is now at " + enemyPlayer.getCredits() + " health");
+		chatpad.chatLineArea.append("Game>"+ peerName.substring(9) + " is now at " + enemyPlayer.getCredits() + " health\n");
+		chatpad.chatLineArea.setCaretPosition(
+				chatpad.chatLineArea.getText().length());
+				
+		
+		
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//send serialzed data of userPlayer and enemyPlayer
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updatePlayerStats();
@@ -1457,20 +1476,43 @@ public class GamePad extends Panel implements MouseListener
 		RegCard attacker = attkPanel.getRegCard();
 		RegCard defender = defPanel.getRegCard();
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "has attacked " + defender.getName() + "(" + defender.getAttack() + "/" + defender.getHealth() + ")" + " with:" + attacker.getName() + "(" + attacker.getAttack()  + "/" + attacker.getHealth() + ")");
+		chatpad.chatLineArea.append("Game>"+ actualName + "has attacked " + defender.getName() + "(" + defender.getAttack() + "/" + defender.getHealth() + ")" + " with:" + attacker.getName() + "(" + attacker.getAttack()  + "/" + attacker.getHealth() + ")\n");
+		chatpad.chatLineArea.setCaretPosition(
+				chatpad.chatLineArea.getText().length());
+		
 		attacker.setHealth(attacker.getHealth()-defender.getAttack());
 		defender.setHealth(defender.getHealth()-attacker.getAttack());
 		attacker.setHasAttacked(true);
 		//determine which message to send
 		if (attacker.getHealth() > 0)
+		{
 			gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());
+			chatpad.chatLineArea.append("Game>"+ actualName + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth() + "\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());
+		}
+		
 		else
+		{
 			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth());
-		
+			chatpad.chatLineArea.append("Game>"+ peerName.substring(9) + "'s" + attacker.getName() + " is now " + attacker.getAttack() + "/" + attacker.getHealth() + "\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());		
+		}
 		if (defender.getHealth() > 0)
+		{	
 			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now " + defender.getAttack() + "/" + defender.getHealth());
+			chatpad.chatLineArea.append("Game>"+ peerName.substring(9) + "'s" + defender.getName() + " is now " + defender.getAttack() + "/" + defender.getHealth()+"\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());				
+		}
 		else
+		{
 			gamethread.sendMessage("/" + peerName+ " /gameMsg " + peerName.substring(9) + "'s" + defender.getName() + " is now dead");
-		
+			chatpad.chatLineArea.append("Game>"+ peerName.substring(9) + "'s" + defender.getName() + " is now dead\n");
+			chatpad.chatLineArea.setCaretPosition(
+					chatpad.chatLineArea.getText().length());	
+		}
 		//send serialzed version of player objects
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
@@ -1749,6 +1791,10 @@ public class GamePad extends Panel implements MouseListener
 		useAbilityOnYou.setEnabled(false);
 		secondClick = false;
 		gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + " has used " + s.getName() + "(" + s.getDesc()  + ")" +  "on " + t.getName());
+		chatpad.chatLineArea.append("Game>"+ actualName + " has used " + s.getName() + "(" + s.getDesc()  + ")" +  "on " + t.getName()+ "\n");
+		chatpad.chatLineArea.setCaretPosition(
+				chatpad.chatLineArea.getText().length());
+				
 		gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());
 		gamethread.sendMessage("/" + peerName+ " /chess " + enemyPlayer.toString());
 		updateBoardCards();
@@ -1779,6 +1825,10 @@ public class GamePad extends Panel implements MouseListener
 					updateHandCards();
 					gamethread.sendMessage("/" + peerName+ " /chess " + userPlayer.toString());				//update oponent board
 					gamethread.sendMessage("/" + peerName+ " /gameMsg " + actualName + "'s Martin has morphed into a dragon!");
+					chatpad.chatLineArea.append("Game>"+ actualName + "'s Martin has morphed into a dragon!\n");
+					chatpad.chatLineArea.setCaretPosition(
+							chatpad.chatLineArea.getText().length());
+									
 				}
 			}
 			martinPlayed = false;
