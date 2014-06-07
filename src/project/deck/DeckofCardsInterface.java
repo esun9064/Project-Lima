@@ -9,10 +9,10 @@ import project.card.Card;
  */
 public interface DeckofCardsInterface {
 	
-	/*
-	* Shuffles the deck of cards and resets deal to
-	* beginning of deck.
-	*/
+	/**
+	 * Shuffles the deck of cards and resets deal to
+	 * beginning of deck.
+	 */
 	void shuffle();
 	
 	/**

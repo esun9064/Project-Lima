@@ -1,3 +1,10 @@
+To reset to old commit, use:
+
+>Git reset --hard <sha key of target commit>
+
+
+
+
 commit 5437f0fe36ac626133c90bf206c4d25fd4c50b8f
 Author: esun9064 <ericsun2016@u.northwestern.edu>
 Date:   Tue Jun 3 22:10:11 2014 -0500

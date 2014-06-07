@@ -160,7 +160,7 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 	}
 	
 	/**
-	 * 
+	 * Connect to the Server
 	 * @param serverIP server's IP address
 	 * @param serverPort port number
 	 * @return true if connected, false if failed
@@ -359,42 +359,14 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.gamethread.sendMessage("/giveup "+gameClientName);
 				if (gamepad.endGame == false)
 					gamepad.gamethread.sendMessage("/" + gamepad.peerName+ " /opponentquit " + gamepad.yourName);
-				
-				
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
-				/*
-				for (int q = 0; q < gamepad.userCards.length; q++){
-				gamepad.userCards[q].removeCardFromPanel();
-				}
-				for (int q = 0; q < gamepad.enemyCards.length; q++){
-				gamepad.enemyCards[q].removeCardFromPanel();
-				}
-				for (int q = 0; q < gamepad.handCards.length; q++){
-				gamepad.handCards[q].removeCardFromPanel();
-				}
-				*/
 				controlpad.endTurnButton.setEnabled(false);
 				gamepad.userPlayer.clearHand();
 				gamepad.enemyPlayer.clearBoard();
 				gamepad.enemyPlayer.clearHand();
 				gamepad.userPlayer.clearBoard();
-				/*
-				gamepad.enemyWcp.setText("");
-				gamepad.userWcp.setText("");
-				gamepad.deckLabel.setText("");
-				gamepad.deckLabel = new JLabel();
-				gamepad.deckPanel.removeAll();
-				gamepad.enemyHandLen.setText("");
-				gamepad.enemyRemainingCards.setText("");
-				gamepad.enemyHealth.setText("");
-				gamepad.userRemainingCards.setText("");
-				gamepad.userHealth.setText("");
-				gamepad.userHand.removeAll();
-				gamepad.userTable.removeAll();
-				gamepad.enemyTable.removeAll();
-				*/
 				gamepad.updateBoardCards();
 				gamepad.updateHandCards();
 				gamepad.hideBoard();
@@ -417,17 +389,6 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 			}
 			if(!isOnGame)
 			{
-				/*
-				for (int q = 0; q < gamepad.userCards.length; q++){
-				gamepad.userCards[q].removeCardFromPanel();
-				}
-				for (int q = 0; q < gamepad.enemyCards.length; q++){
-				gamepad.enemyCards[q].removeCardFromPanel();
-				}
-				for (int q = 0; q < gamepad.handCards.length; q++){
-				gamepad.handCards[q].removeCardFromPanel();
-				}
-				*/
 				controlpad.creatGameButton.setEnabled(true);
 				controlpad.joinGameButton.setEnabled(true);
 				controlpad.cancelGameButton.setEnabled(false);
@@ -436,21 +397,6 @@ public class ProjectLima extends JFrame implements ActionListener,KeyListener
 				gamepad.userPlayer.clearBoard();
 				gamepad.enemyPlayer.clearBoard();
 				gamepad.enemyPlayer.clearHand();
-				/*
-				gamepad.enemyWcp.setText("");
-				gamepad.userWcp.setText("");
-				gamepad.deckLabel.setText("");
-				gamepad.deckLabel = new JLabel();
-				gamepad.deckPanel.removeAll();
-				gamepad.userHand.removeAll();
-				gamepad.userTable.removeAll();
-				gamepad.enemyTable.removeAll();
-				gamepad.enemyHandLen.setText("");
-				gamepad.enemyRemainingCards.setText("");
-				gamepad.enemyHealth.setText("");
-				gamepad.userRemainingCards.setText("");
-				gamepad.userHealth.setText("");
-				*/
 				gamepad.hideBoard();
 				gamepad.updateBoardCards();
 				gamepad.updateHandCards();

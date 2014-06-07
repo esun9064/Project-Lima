@@ -200,6 +200,7 @@ public class GameThread extends Thread
 			chatpad.chatLineArea.append("Game>" + gamepad.peerName.substring(9) + " has quit, You have won the game!\n");
 			chatpad.chatLineArea.setCaretPosition(
 					chatpad.chatLineArea.getText().length());
+			controlpad.endTurnButton.setEnabled(false);
 		}
 		/**
 		else if (recMessage.startsWith("/opponentquit "))
@@ -215,6 +216,7 @@ public class GameThread extends Thread
 			chatpad.chatLineArea.append("Game>" + gamepad.peerName.substring(9) + " has been defeated! You win!\n");
 			chatpad.chatLineArea.setCaretPosition(
 					chatpad.chatLineArea.getText().length());
+			controlpad.endTurnButton.setEnabled(false);
 		}			
 		else if (recMessage.startsWith("/youlost "))
 		{
@@ -222,6 +224,7 @@ public class GameThread extends Thread
 			chatpad.chatLineArea.append("Game>" + gamepad.actualName + " has been defeated! You Lost!\n");
 			chatpad.chatLineArea.setCaretPosition(
 					chatpad.chatLineArea.getText().length());
+			controlpad.endTurnButton.setEnabled(false);
 		}			
 		else if(recMessage.equals("/error"))
 		{
