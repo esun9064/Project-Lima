@@ -387,7 +387,7 @@ public class GamePad extends Panel implements MouseListener
 	public void mousePressed(MouseEvent e)
 	{
 		String os = System.getProperty("os.name");
-		if (!os.contains("Mac"))
+		if (os.contains("Mac"))
 		{
 			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
 			{
@@ -612,7 +612,9 @@ public class GamePad extends Panel implements MouseListener
 	@Override
 	public void mouseReleased(MouseEvent e)
 	{
-		findMouseAction(e);
+		String os = System.getProperty("os.name");
+		if (!os.contains("Mac"))
+			findMouseAction(e);
 	}
 	
 	/**
