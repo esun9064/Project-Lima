@@ -3,3 +3,5 @@ nbproject/private/private.properties
 nbproject/private/private.xml
 *.properties
 *.xml
+/LimaServer/LimaServer/build/
+/LimaServer/LimaServer/dist/
