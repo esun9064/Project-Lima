@@ -380,6 +380,7 @@ public class GamePad extends Panel implements MouseListener
 	
 	/**
 	 * Performs action upon mouse pressed.
+	 * Used for windows
 	 * @param e The mouse event
 	 */
 	@Override
@@ -606,9 +607,7 @@ public class GamePad extends Panel implements MouseListener
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e)
-	{
-		findMouseAction(e);
-		
+	{		
 	}
 	
 	/**
@@ -627,6 +626,7 @@ public class GamePad extends Panel implements MouseListener
 	
 	/**
 	 * Perform action upon mouse clicked.
+	 * Used for Mac
 	 * @param e The mouse event
 	 */
 	@Override
