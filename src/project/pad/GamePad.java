@@ -386,8 +386,6 @@ public class GamePad extends Panel implements MouseListener
 	@Override
 	public void mousePressed(MouseEvent e)
 	{
-		String os = System.getProperty("os.name");
-		if (os.contains("Mac"))
 		{
 			if (SwingUtilities.isLeftMouseButton(e) || e.isControlDown())
 			{
