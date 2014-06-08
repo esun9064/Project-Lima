@@ -1,9 +1,238 @@
-To reset to old commit, use:
-
->Git reset --hard <sha key of target commit>
-
+To revert changes:
+>git reset --hard <sha key of commit>
 
 
+commit d5e29f00b914d6f7ccdf0d9e623c8f80b9e79c8b
+Merge: 2af4b8b fb7433b
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 18:13:23 2014 -0500
+
+    Merge branch 'master' of https://github.com/esun9064/Project-Lima
+
+commit 2af4b8bb7478e32ed4fcb2012a678be728ca2611
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 18:13:07 2014 -0500
+
+    add
+
+commit fb7433b21cfe69ea6cda90e68fa097f8660f4a97
+Author: cobrien7 <cobrien7@users.noreply.github.com>
+Date:   Sat Jun 7 18:00:30 2014 -0500
+
+    Delete Instructions - Please Read.docx
+    
+    Has been replaced with pdf
+
+commit 7b1fa04cca55ac7d15f4b8ad80a7afb0a0d05697
+Merge: 33dd4f3 cb3ea18
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 17:59:54 2014 -0500
+
+    Merge branch 'master' of https://github.com/esun9064/Project-Lima
+
+commit cb3ea1886c1dd9a7df6dd2bcf952886583123858
+Author: Connor O'Brien <connoro7168@gmail.com>
+Date:   Sat Jun 7 18:00:17 2014 -0500
+
+    Change instructions to pdf
+
+commit 33dd4f3e3852933270e75157109cef76a838730b
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 17:59:34 2014 -0500
+
+    add user action msgs
+
+commit 5d7513dc0097211047b24dbe4a2210e3a41cfb1d
+Author: Connor O'Brien <connoro7168@gmail.com>
+Date:   Sat Jun 7 17:38:40 2014 -0500
+
+    edit instructions
+
+commit 1cae3531ad8f472b5312e68f4238ab429e0db440
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 17:12:12 2014 -0500
+
+    maccccc
+
+commit 3688d67f2d7bc91ebe6528bac33d7b6124ad1a43
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 17:07:40 2014 -0500
+
+    mac...
+
+commit 2e6f35c1703833f7721f85ec584eecbd98990671
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 17:04:44 2014 -0500
+
+    mac,,,
+
+commit 4354cc87a2feb1f56572fb219d32e867f2b4f0d3
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 16:47:35 2014 -0500
+
+    mac omg
+
+commit 02c99a8583c336a3117b21810febc9e7149d42b3
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 16:43:08 2014 -0500
+
+    udpate jar
+
+commit 29bca4209ceb2be1cd744ddf8b42d33236187c48
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 16:42:35 2014 -0500
+
+    get rid of mouseReleased
+
+commit 751fc2194919e9dd69b29bef4ba339c7d5133880
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 16:40:32 2014 -0500
+
+    Upload the report
+
+commit 09ce0329b61b3744dd9d8babef173eec102e4e0c
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 15:54:08 2014 -0500
+
+    fix mac right click
+
+commit ff24e1178e660142b1894754b27d56418d893181
+Merge: a4c2b16 5cc6fc7
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 15:52:38 2014 -0500
+
+    Merge branch 'master' of https://github.com/esun9064/Project-Lima
+
+commit a4c2b162e06e9959d02a2ddd0e4f31d2311343a9
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Sat Jun 7 15:52:28 2014 -0500
+
+    add dragon
+
+commit 5cc6fc7b7d7dab33aadc7a4d75f85f3b2e77106f
+Author: sunxw <interpreterjacksun@gmail.com>
+Date:   Sat Jun 7 14:45:28 2014 -0500
+
+    Upload Server
+    
+    javadoc is under "dist" directory
+
+commit 3ac36dc3b52e4a91cdc18d47dd395a379cc5c6c5
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Fri Jun 6 13:09:07 2014 -0500
+
+    add martin
+
+commit 5a10c110a3946cefa4c6dde9e13fbc9fc9bcfb71
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Fri Jun 6 10:13:45 2014 -0500
+
+    update jar
+
+commit b91780d367410c540aba8b54a7eb9ab322a3c337
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 23:41:03 2014 -0500
+
+    add win/lose game message
+
+commit 24589e4536a1de82c5567a0e87f311e9eab7c454
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 23:40:41 2014 -0500
+
+    and win/lose game message
+
+commit 506023965093a7f081389715c8e9ab7a53d4be55
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 19:19:56 2014 -0500
+
+    add javadoc, update .gitignore
+
+commit 59f1333b3b89a12e6ca675f9bd556c6ffeeda228
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 17:57:24 2014 -0500
+
+    javadoc
+
+commit dc2722a1843ef220c5e705fdb814cc21e39aafd4
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 01:29:22 2014 -0500
+
+    minor tweak
+
+commit bba72a4cc3dbce9b0bbba29b2988cc3f9bf7f244
+Merge: 37c6422 af759f2
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 00:29:48 2014 -0500
+
+    fix conflict
+
+commit 37c64223f72213151aae08351bf7f8413cbd7820
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Thu Jun 5 00:08:40 2014 -0500
+
+    fix bug where cards are played twice
+
+commit af759f2724ea902704742dfe93bd6fea4465a2f5
+Author: Strick4888 <benjaminstrick2016@u.northwestern.edu>
+Date:   Wed Jun 4 23:07:31 2014 -0400
+
+    comments
+
+commit 20b24126a9dc287430a41813e8d4654a0069fbeb
+Author: Connor O'Brien <connoro7168@gmail.com>
+Date:   Wed Jun 4 21:25:52 2014 -0500
+
+    Added comments
+
+commit aeac912f12cd1c73f0d852e4950c5f3646f1e221
+Merge: 944a290 38da72b
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Wed Jun 4 19:39:14 2014 -0500
+
+    fix conflcit
+
+commit 944a29057f095edcbc169158d5052ebece5d30e7
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Wed Jun 4 19:32:55 2014 -0500
+
+    compile new jar
+
+commit fcc98426239b8bf7195112959c6027cf8cc1d6e6
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Wed Jun 4 19:31:34 2014 -0500
+
+    fix abandon game /crete game error
+
+commit 38da72b10b1b20ecf63807cf369ff78461ef540c
+Merge: a4a4d4a bded958
+Author: sunxw <interpreterjacksun@gmail.com>
+Date:   Wed Jun 4 19:04:02 2014 -0500
+
+    Merge branch 'master' of https://github.com/esun9064/Project-Lima
+    
+    Conflicts:
+    	dist/Project_Lima.jar
+
+commit a4a4d4af142e11b9864d5d82942981ca0214cc28
+Author: sunxw <interpreterjacksun@gmail.com>
+Date:   Wed Jun 4 19:03:40 2014 -0500
+
+    Merge branch 'master' of https://github.com/esun9064/Project-Lima
+    
+    Conflicts:
+    	dist/Project_Lima.jar
+
+commit 8f84e1cfe5256f017921692bf819b1da9065daec
+Author: sunxw <interpreterjacksun@gmail.com>
+Date:   Wed Jun 4 19:02:18 2014 -0500
+
+    commit jar file
+
+commit bded95817846fcb9fe8a3a7f7ced0bf19ea61f26
+Author: esun9064 <ericsun2016@u.northwestern.edu>
+Date:   Wed Jun 4 15:57:05 2014 -0500
+
+    add messges
 
 commit 5437f0fe36ac626133c90bf206c4d25fd4c50b8f
 Author: esun9064 <ericsun2016@u.northwestern.edu>
